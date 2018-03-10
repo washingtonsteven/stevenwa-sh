@@ -5,7 +5,6 @@ class BlogList extends React.Component {
   render() {
     return (
       <div className={this.props.className}>
-        <h2>BlogList</h2>
         {this.props.posts &&
           this.props.posts.map(p => (
             <BoxWithHeader

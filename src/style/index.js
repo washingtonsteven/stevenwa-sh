@@ -1,5 +1,5 @@
-export const LIGHT_SHADES = `#f5f7f9`; // black haze - white
-export const BG_COLOR = LIGHT_SHADES;
+export const LIGHT_SHADE = `#f5f7f9`; // black haze - white
+export const BG_COLOR = LIGHT_SHADE;
 export const TEXT_COLOR = `#333`;
 export const LIGHT_ACCENT = `#cb7765`; // contessa - heather red
 export const BLOG_COLOR = LIGHT_ACCENT;

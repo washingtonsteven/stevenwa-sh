@@ -1,17 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import get from "lodash/get";
 import { rhythm } from "../utils/typography";
 import {
   BLOG_COLOR,
   TEXT_COLOR,
-  LIGHT_SHADES,
+  LIGHT_SHADE,
   BG_COLOR,
   DARK_ACCENT
 } from "../style";
 
 const StyledHeader = styled.h3`
-  background-color:${BLOG_COLOR}
-  color:${LIGHT_SHADES};
+  background-color:${props => props.backgroundColor || BLOG_COLOR}
+  color:${props => props.color || LIGHT_SHADE};
   box-shadow:0 1px 5px rgba(0,0,0,0.4);
   position:relative;
   z-index:1;
@@ -21,8 +22,9 @@ const StyledHeader = styled.h3`
 `;
 
 const StyledContent = styled.div`
-  background-color: ${LIGHT_SHADES};
+  background-color: ${props => props.backgroundColor || LIGHT_SHADE};
   padding: ${rhythm(1 / 2)} ${rhythm(1)};
+  color: ${props => props.color || "inherit"};
 `;
 
 const StyledBox = styled.article`
@@ -31,13 +33,24 @@ const StyledBox = styled.article`
   margin-bottom: ${rhythm(1)};
   cursor: pointer;
   &:hover ${StyledHeader} {
-    background-color: ${DARK_ACCENT};
+    background-color: ${props =>
+      get(props, "headerHoverStyle.backgroundColor") || ""};
+    color: ${props => get(props, "headerHoverStyle.color") || ""};
   }
 `;
 
-export default ({ header, children, className }) => (
-  <StyledBox className={className}>
-    {header && <StyledHeader>{header}</StyledHeader>}
-    <StyledContent>{children}</StyledContent>
+export default ({ header = {}, body = {}, children, className }) => (
+  <StyledBox className={className} headerHoverStyle={header.hover}>
+    {header && (
+      <StyledHeader
+        backgroundColor={header.backgroundColor}
+        color={header.color}
+      >
+        {header.text || header}
+      </StyledHeader>
+    )}
+    <StyledContent color={body.color} backgroundColor={body.backgroundColor}>
+      {children}
+    </StyledContent>
   </StyledBox>
 );
