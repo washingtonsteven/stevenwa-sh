@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "gatsby-link";
 import BoxWithHeader from "./BoxWithHeader";
 import { DARK_SHADE, LIGHT_ACCENT, LIGHT_SHADE, MAIN_COLOR } from "../style";
 
@@ -7,19 +8,8 @@ class Sidebar extends React.Component {
     return (
       <BoxWithHeader
         className={this.props.className}
-        header={{
-          text: "Sidebar",
-          backgroundColor: MAIN_COLOR,
-          color: DARK_SHADE,
-          hover: {
-            backgroundColor: LIGHT_ACCENT,
-            color: LIGHT_SHADE
-          }
-        }}
-        body={{
-          color: LIGHT_SHADE,
-          backgroundColor: LIGHT_ACCENT
-        }}
+        header={<Link to="/">Home</Link>}
+        hoverColor={DARK_SHADE}
       >
         Sidebar Content
       </BoxWithHeader>

@@ -5,18 +5,21 @@ const typography = new Typography({
   baseLineHeight: 1.4,
   googleFonts: [
     {
-      name: "PT Sans",
+      name: "Open Sans",
       styles: ["regular", "bold"]
     },
     {
       name: "Lato",
-      styles: ["regular"]
+      styles: ["regular", "bold", "900"]
     }
   ],
-  headerFontFamily: ["PT Sans", "sans-serif"],
-  headerWeight: "normal",
-  bodyFontFamily: ["Lato", "sans-serif"],
-  includeNormalize: true
+  headerFontFamily: ["Lato", "sans-serif"],
+  headerWeight: "900",
+  bodyFontFamily: ["Open Sans", "sans-serif"],
+  includeNormalize: true,
+  overrideStyles: ({ rhythm }, options, styles) => ({
+    "h1,h2,h3,h4,h5,h6": { letterSpacing: "1px" }
+  })
 });
 
 export default typography;

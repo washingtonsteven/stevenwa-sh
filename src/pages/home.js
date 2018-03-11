@@ -67,6 +67,9 @@ export const query = graphql`
             path
             title
             date(formatString: "DD MMMM, YYYY")
+            featured_image {
+              publicURL
+            }
           }
         }
       }

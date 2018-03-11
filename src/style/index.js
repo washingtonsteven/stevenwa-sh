@@ -8,6 +8,11 @@ export const PROJECT_COLOR = MAIN_COLOR;
 export const DARK_ACCENT = `#a9493e`; // apple blossom - dark red
 export const DARK_SHADE = `#3c323b`; // thunder - dark brown
 
+export const BOX_SHADOW = `0 4px 6px rgba(0,0,0,0.2)`;
+
+export const transition = prop => `${prop} 0.2s linear`;
+export const TRANSITION_ALL = transition("all");
+
 export const TEXT_FONT = `Lato, sans-serif`;
 export const HEADER_FONT = `'PT Sans', sans-serif`;
 export const STYLE_FONT = ``;

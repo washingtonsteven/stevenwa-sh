@@ -7,50 +7,59 @@ import {
   TEXT_COLOR,
   LIGHT_SHADE,
   BG_COLOR,
-  DARK_ACCENT
+  DARK_ACCENT,
+  BOX_SHADOW,
+  transition,
+  LIGHT_ACCENT
 } from "../style";
 
 const StyledHeader = styled.h3`
-  background-color:${props => props.backgroundColor || BLOG_COLOR}
-  color:${props => props.color || LIGHT_SHADE};
-  box-shadow:0 1px 5px rgba(0,0,0,0.4);
   position:relative;
   z-index:1;
   padding:${rhythm(1 / 2)} ${rhythm(1)}
   margin-bottom:0;
-  transition:background 0.2s linear;
 `;
 
 const StyledContent = styled.div`
-  background-color: ${props => props.backgroundColor || LIGHT_SHADE};
   padding: ${rhythm(1 / 2)} ${rhythm(1)};
   color: ${props => props.color || "inherit"};
 `;
 
 const StyledBox = styled.article`
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: ${BOX_SHADOW};
   overflow: hidden;
   margin-bottom: ${rhythm(1)};
-  cursor: pointer;
-  &:hover ${StyledHeader} {
-    background-color: ${props =>
-      get(props, "headerHoverStyle.backgroundColor") || ""};
-    color: ${props => get(props, "headerHoverStyle.color") || ""};
+  border-${props => props.direction || "top"}: solid 6px ${props =>
+  props.color || LIGHT_ACCENT};
+  transition:${transition("border-color")}
+  &:hover {
+    border-color: ${props => props.hoverColor || LIGHT_ACCENT}
   }
 `;
 
-export default ({ header = {}, body = {}, children, className }) => (
-  <StyledBox className={className} headerHoverStyle={header.hover}>
-    {header && (
-      <StyledHeader
-        backgroundColor={header.backgroundColor}
-        color={header.color}
-      >
-        {header.text || header}
-      </StyledHeader>
-    )}
-    <StyledContent color={body.color} backgroundColor={body.backgroundColor}>
-      {children}
-    </StyledContent>
+const styleImage = Image => styled(Image)`
+  padding: ${rhythm(1 / 2)};
+  display: block;
+  max-width: 100%;
+`;
+
+export default ({
+  header,
+  image,
+  children,
+  direction,
+  color,
+  hoverColor,
+  className
+}) => (
+  <StyledBox
+    className={className}
+    direction={direction}
+    color={color}
+    hoverColor={hoverColor}
+  >
+    {image && React.createElement(styleImage(image))}
+    {header && <StyledHeader>{header}</StyledHeader>}
+    <StyledContent>{children}</StyledContent>
   </StyledBox>
 );

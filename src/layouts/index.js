@@ -8,7 +8,9 @@ import {
   TEXT_COLOR,
   TEXT_FONT,
   BG_COLOR,
-  DARK_SHADE
+  DARK_SHADE,
+  BOX_SHADOW,
+  transition
 } from "../style";
 
 import Logo from "./logo.svg";
@@ -31,12 +33,16 @@ const StyledLogo = styled(Logo)`
   vertical-align: top;
   & rect {
     fill: ${props => props.color || DARK_SHADE};
+    transition: ${transition("fill")};
+  }
+  &:hover rect {
+    fill: ${TEXT_COLOR};
   }
 `;
 
 const StyledNav = styled.nav`
   width: 100%;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: ${BOX_SHADOW};
   margin-bottom: ${rhythm(1)};
 `;
 
