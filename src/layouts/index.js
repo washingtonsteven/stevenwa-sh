@@ -10,7 +10,9 @@ import {
   BG_COLOR,
   DARK_SHADE,
   BOX_SHADOW,
-  transition
+  box_shadow,
+  transition,
+  LIGHT_SHADE
 } from "../style";
 
 import Logo from "./logo.svg";
@@ -20,6 +22,7 @@ const StyledTemplate = styled.div`
   font-family: ${TEXT_FONT};
   line-height: 1.4;
   color: ${TEXT_COLOR};
+  background-color: ${LIGHT_SHADE};
 `;
 
 const StyledMain = styled.main`
@@ -33,10 +36,10 @@ const StyledLogo = styled(Logo)`
   vertical-align: top;
   & rect {
     fill: ${props => props.color || DARK_SHADE};
-    transition: ${transition("fill")};
+    transition: ${transition("opacity")};
   }
-  &:hover rect {
-    fill: ${TEXT_COLOR};
+  &:hover rect.gradient {
+    opacity: 1;
   }
 `;
 
@@ -44,6 +47,13 @@ const StyledNav = styled.nav`
   width: 100%;
   box-shadow: ${BOX_SHADOW};
   margin-bottom: ${rhythm(1)};
+  background-color: white;
+`;
+
+const StyledFooter = styled.footer`
+  min-height: 250px;
+  background-color: white;
+  box-shadow: ${box_shadow({ y: -4 })};
 `;
 
 class Template extends React.Component {
@@ -61,6 +71,9 @@ class Template extends React.Component {
         <StyledMain>
           {children({ ...this.props, updateLogoColor: this.updateLogoColor })}
         </StyledMain>
+        <StyledFooter>
+          Copyright (c) {new Date().getFullYear()} Steven Washington
+        </StyledFooter>
       </StyledTemplate>
     );
   }

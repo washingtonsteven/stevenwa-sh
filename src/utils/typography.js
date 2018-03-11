@@ -1,4 +1,5 @@
 import Typography from "typography";
+import { TEXT_COLOR } from "../style";
 
 const typography = new Typography({
   baseFontSize: "18px",
@@ -18,7 +19,9 @@ const typography = new Typography({
   bodyFontFamily: ["Open Sans", "sans-serif"],
   includeNormalize: true,
   overrideStyles: ({ rhythm }, options, styles) => ({
-    "h1,h2,h3,h4,h5,h6": { letterSpacing: "1px" }
+    "h1,h2,h3,h4,h5,h6": { letterSpacing: "1px" },
+    a: { textDecoration: "none", color: TEXT_COLOR },
+    "a:hover": { textDecoration: "underline" }
   })
 });
 

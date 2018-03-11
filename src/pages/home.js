@@ -26,6 +26,8 @@ const StyledHome = styled.div`
 const StyledSidebar = styled(Sidebar)`
   grid-area: sidebar;
   align-self: start;
+  position: sticky;
+  top: ${rhythm(1)};
 `;
 
 const StyledBlogList = styled(BlogList)`
@@ -38,13 +40,11 @@ class Home extends React.Component {
   }
   render() {
     const posts = get(this, "props.data.allMarkdownRemark.edges");
+
     return (
       <StyledHome>
-        <StyledSidebar />
+        <StyledSidebar className="staticSidebar" />
         <StyledBlogList posts={posts} />
-        <pre style={{ whiteSpace: "pre-wrap", gridColumn: "span 2" }}>
-          {JSON.stringify(this.props, null, 1)}
-        </pre>
       </StyledHome>
     );
   }

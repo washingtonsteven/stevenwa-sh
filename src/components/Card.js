@@ -10,7 +10,9 @@ import {
   DARK_ACCENT,
   BOX_SHADOW,
   transition,
-  LIGHT_ACCENT
+  LIGHT_ACCENT,
+  BORDER_GRADIENT,
+  border_gradient
 } from "../style";
 
 const StyledHeader = styled.h3`
@@ -27,18 +29,19 @@ const StyledContent = styled.div`
 
 const StyledBox = styled.article`
   box-shadow: ${BOX_SHADOW};
+  background-color: white;
   overflow: hidden;
   margin-bottom: ${rhythm(1)};
-  border-${props => props.direction || "top"}: solid 6px ${props =>
+  border-${props => props.direction || "top"}: solid 8px ${props =>
   props.color || LIGHT_ACCENT};
-  transition:${transition("border-color")}
+  transition:${transition("border")}
+  ${props => (props.disableBorder ? "border:none" : "")}
   &:hover {
-    border-color: ${props => props.hoverColor || LIGHT_ACCENT}
+    border-color: ${props => props.hoverColor || DARK_ACCENT};
   }
 `;
 
 const styleImage = Image => styled(Image)`
-  padding: ${rhythm(1 / 2)};
   display: block;
   max-width: 100%;
 `;
@@ -50,6 +53,7 @@ export default ({
   direction,
   color,
   hoverColor,
+  disableBorder,
   className
 }) => (
   <StyledBox
@@ -57,6 +61,7 @@ export default ({
     direction={direction}
     color={color}
     hoverColor={hoverColor}
+    disableBorder={disableBorder}
   >
     {image && React.createElement(styleImage(image))}
     {header && <StyledHeader>{header}</StyledHeader>}
