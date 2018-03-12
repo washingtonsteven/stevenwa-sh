@@ -45,6 +45,7 @@ class Home extends React.Component {
       <StyledHome>
         <StyledSidebar className="staticSidebar" />
         <StyledBlogList posts={posts} />
+        <pre>{JSON.stringify(this.props.data, null, 1)}</pre>
       </StyledHome>
     );
   }
@@ -63,6 +64,7 @@ export const query = graphql`
       edges {
         node {
           excerpt
+          fileAbsolutePath
           frontmatter {
             path
             title
