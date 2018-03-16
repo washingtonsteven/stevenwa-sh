@@ -12,7 +12,11 @@ import {
   BOX_SHADOW,
   box_shadow,
   transition,
-  LIGHT_SHADE
+  LIGHT_SHADE,
+  MAIN_COLOR,
+  DARK_ACCENT,
+  BORDER_GRADIENT,
+  LIGHT_ACCENT
 } from "../style";
 
 import Logo from "./logo.svg";
@@ -23,6 +27,25 @@ const StyledTemplate = styled.div`
   line-height: 1.4;
   color: ${TEXT_COLOR};
   background-color: ${LIGHT_SHADE};
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: skew(45deg) translateX(-100%);
+    transform-origin: top left;
+    background: ${props => props.color || MAIN_COLOR};
+    z-index: 0;
+  }
+
+  & > * {
+    z-index: 1;
+    position: relative;
+  }
 `;
 
 const StyledMain = styled.main`
@@ -35,7 +58,7 @@ const StyledLogo = styled(Logo)`
   max-width: 150px;
   vertical-align: top;
   & rect {
-    fill: ${props => props.color || DARK_SHADE};
+    fill: ${props => props.color || MAIN_COLOR};
     transition: ${transition("opacity")};
   }
   &:hover rect.gradient {
@@ -57,19 +80,25 @@ const StyledFooter = styled.footer`
 `;
 
 class Template extends React.Component {
-  state = { color: DARK_SHADE };
-  updateLogoColor = color => this.setState({ ...this.state, color });
+  state = { color: LIGHT_ACCENT, backgroundColor: DARK_ACCENT };
+  updatePageColor = color => this.setState(state => ({ ...state, color }));
+  updateBackgroundColor = backgroundColor =>
+    this.setState(state => ({ ...state, backgroundColor }));
   render() {
     const { location, children } = this.props;
     return (
-      <StyledTemplate>
+      <StyledTemplate color={this.state.backgroundColor || this.state.color}>
         <StyledNav>
           <Link to="/">
             <StyledLogo color={this.state.color} />
           </Link>
         </StyledNav>
         <StyledMain>
-          {children({ ...this.props, updateLogoColor: this.updateLogoColor })}
+          {children({
+            ...this.props,
+            updatePageColor: this.updatePageColor,
+            updateBackgroundColor: this.updateBackgroundColor
+          })}
         </StyledMain>
         <StyledFooter>
           Copyright (c) {new Date().getFullYear()} Steven Washington

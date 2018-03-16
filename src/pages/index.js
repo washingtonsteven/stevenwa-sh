@@ -1,49 +1,62 @@
 import React from "react";
-import Link from "gatsby-link";
+import styled from "styled-components";
+import BlogList from "../components/BlogList";
+import Sidebar from "../components/Sidebar";
+import { rhythm } from "../utils/typography";
+
 import get from "lodash/get";
-import Helmet from "react-helmet";
-import PropTypes from "prop-types";
+import { LIGHT_ACCENT, DARK_SHADE } from "../style";
 
-import Bio from "../components/Bio";
+const StyledHome = styled.div`
+  display: grid;
+  padding: 0 ${rhythm(1)};
+  grid-template-columns: 33% 1fr;
+  grid-template-areas: "sidebar main";
+  grid-column-gap: ${rhythm(1)};
 
-class BlogIndex extends React.Component {
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    grid-column-gap: 0;
+    grid-template-areas:
+      "sidebar"
+      "main";
+  }
+`;
+
+const StyledSidebar = styled(Sidebar)`
+  grid-area: sidebar;
+  align-self: start;
+  position: sticky;
+  top: ${rhythm(1)};
+`;
+
+const StyledBlogList = styled(BlogList)`
+  grid-area: main;
+`;
+
+class Home extends React.Component {
+  componentDidMount() {
+    this.props.updatePageColor && this.props.updatePageColor(LIGHT_ACCENT);
+    this.props.updateBackgroundColor &&
+      this.props.updateBackgroundColor(DARK_SHADE);
+  }
   render() {
-    const siteTitle = get(this, "props.data.site.siteMetadata.title");
     const posts = get(this, "props.data.allMarkdownRemark.edges");
 
     return (
-      <div>
-        <Helmet title={get(this, "props.data.site.siteMetadata.title")} />
-        <Bio />
-        {posts.map(post => {
-          if (post.node.path !== "/404/") {
-            const title = get(post, "node.frontmatter.title") || post.node.path;
-            return (
-              <div key={post.node.frontmatter.path}>
-                <h3>
-                  <Link to={post.node.frontmatter.path}>
-                    {post.node.frontmatter.title}
-                  </Link>
-                </h3>
-                <small>{post.node.frontmatter.date}</small>
-                <p dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />
-              </div>
-            );
-          }
-        })}
-      </div>
+      <StyledHome>
+        <StyledSidebar className="staticSidebar" />
+        <StyledBlogList posts={posts} />
+        <pre>{JSON.stringify(this.props.data, null, 1)}</pre>
+      </StyledHome>
     );
   }
 }
 
-BlogIndex.propTypes = {
-  route: PropTypes.object
-};
+export default Home;
 
-export default BlogIndex;
-
-export const pageQuery = graphql`
-  query IndexQuery {
+export const query = graphql`
+  query HomeQuery {
     site {
       siteMetadata {
         title
@@ -53,12 +66,14 @@ export const pageQuery = graphql`
       edges {
         node {
           excerpt
+          fileAbsolutePath
           frontmatter {
             path
-            date(formatString: "DD MMMM, YYYY")
-          }
-          frontmatter {
             title
+            date(formatString: "DD MMMM, YYYY")
+            featured_image {
+              publicURL
+            }
           }
         }
       }

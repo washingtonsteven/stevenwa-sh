@@ -12,7 +12,8 @@ import {
   transition,
   LIGHT_ACCENT,
   BORDER_GRADIENT,
-  border_gradient
+  border_gradient,
+  DARK_SHADE
 } from "../style";
 
 const StyledHeader = styled.h3`
@@ -37,7 +38,8 @@ const StyledBox = styled.article`
   transition:${transition("border")}
   ${props => (props.disableBorder ? "border:none" : "")}
   &:hover {
-    border-color: ${props => props.hoverColor || DARK_ACCENT};
+    border-color: ${props => props.hoverColor || DARK_SHADE};
+    border-image: ${border_gradient("right")} 1;
   }
 `;
 
