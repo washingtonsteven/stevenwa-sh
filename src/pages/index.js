@@ -10,7 +10,7 @@ import { LIGHT_ACCENT, DARK_SHADE } from "../style";
 const StyledHome = styled.div`
   display: grid;
   padding: 0 ${rhythm(1)};
-  grid-template-columns: 33% 1fr;
+  grid-template-columns: 40% 1fr;
   grid-template-areas: "sidebar main";
   grid-column-gap: ${rhythm(1)};
 
@@ -35,11 +35,6 @@ const StyledBlogList = styled(BlogList)`
 `;
 
 class Home extends React.Component {
-  componentDidMount() {
-    this.props.updatePageColor && this.props.updatePageColor(LIGHT_ACCENT);
-    this.props.updateBackgroundColor &&
-      this.props.updateBackgroundColor(DARK_SHADE);
-  }
   render() {
     const posts = get(this, "props.data.allMarkdownRemark.edges");
 
@@ -47,7 +42,6 @@ class Home extends React.Component {
       <StyledHome>
         <StyledSidebar className="staticSidebar" />
         <StyledBlogList posts={posts} />
-        <pre>{JSON.stringify(this.props.data, null, 1)}</pre>
       </StyledHome>
     );
   }

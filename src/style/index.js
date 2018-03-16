@@ -23,4 +23,4 @@ export const TEXT_FONT = `Lato, sans-serif`;
 export const HEADER_FONT = `'PT Sans', sans-serif`;
 export const STYLE_FONT = ``;
 
-export const MAX_WIDTH = `860px`;
+export const MAX_WIDTH = `1024px`;

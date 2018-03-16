@@ -2,7 +2,9 @@ import React from "react";
 import Card from "../components/Card";
 import BlogPlaceholder from "./blog_placeholder.svg";
 import get from "lodash/get";
+import Link from "gatsby-link";
 import { MAIN_COLOR, LIGHT_ACCENT } from "../style";
+import { postTypeFromPath } from "../utils/utils";
 
 const image = path =>
   path
@@ -24,7 +26,15 @@ class BlogList extends React.Component {
         {this.props.posts &&
           this.props.posts.map(p => (
             <Card
-              header={p.node.frontmatter.title}
+              header={
+                <Link
+                  to={`/${postTypeFromPath(p.node.fileAbsolutePath || "")}${
+                    p.node.frontmatter.path
+                  }`}
+                >
+                  {p.node.frontmatter.title}
+                </Link>
+              }
               key={btoa(p.node.frontmatter.path)}
               image={
                 image(get(p.node, "frontmatter.featured_image.publicURL")) ||

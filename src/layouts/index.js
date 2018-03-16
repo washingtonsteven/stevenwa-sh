@@ -74,13 +74,21 @@ const StyledNav = styled.nav`
 `;
 
 const StyledFooter = styled.footer`
-  min-height: 250px;
   background-color: white;
-  box-shadow: ${box_shadow({ y: -4 })};
+  box-shadow: ${box_shadow()};
+  display: inline-block;
+  text-align: center;
+  margin: 0 auto 60px;
+  padding: 30px 50px;
+  border-radius: 0.3rem;
+  position: absolute;
+  left: 50%;
+  top: auto;
+  transform: translateX(-50%);
 `;
 
 class Template extends React.Component {
-  state = { color: LIGHT_ACCENT, backgroundColor: DARK_ACCENT };
+  state = { color: LIGHT_ACCENT, backgroundColor: DARK_SHADE };
   updatePageColor = color => this.setState(state => ({ ...state, color }));
   updateBackgroundColor = backgroundColor =>
     this.setState(state => ({ ...state, backgroundColor }));
