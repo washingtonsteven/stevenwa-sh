@@ -1,3 +1,5 @@
+import { DARK_ACCENT, LIGHT_ACCENT } from "../style";
+
 export const singular = str => {
   if (!str) return str;
   if (str.charAt(str.length - 1) !== "s") return str;
@@ -9,4 +11,9 @@ export const singular = str => {
 export const postTypeFromPath = (path, opts) => {
   const matches = path.match(/src\/pages\/([^\/]+)/);
   return singular(matches && matches[1]);
+};
+
+export const postTypeColors = {
+  project: DARK_ACCENT,
+  post: LIGHT_ACCENT
 };

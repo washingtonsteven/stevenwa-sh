@@ -28,6 +28,10 @@ const StyledSidebar = styled(Sidebar)`
   align-self: start;
   position: sticky;
   top: ${rhythm(1)};
+
+  @media (max-width: 600px) {
+    position: static;
+  }
 `;
 
 const StyledBlogList = styled(BlogList)`

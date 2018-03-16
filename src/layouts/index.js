@@ -31,7 +31,8 @@ const StyledTemplate = styled.div`
   &:before {
     content: "";
     display: block;
-    width: 100vw;
+    width: 100vh;
+    min-width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -109,7 +110,7 @@ class Template extends React.Component {
           })}
         </StyledMain>
         <StyledFooter>
-          Copyright (c) {new Date().getFullYear()} Steven Washington
+          Copyright {"\u00a9"} {new Date().getFullYear()} Steven Washington
         </StyledFooter>
       </StyledTemplate>
     );

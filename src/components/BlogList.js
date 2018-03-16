@@ -5,7 +5,7 @@ import get from "lodash/get";
 import Link from "gatsby-link";
 import styled from "styled-components";
 import { MAIN_COLOR, LIGHT_ACCENT, BOX_SHADOW, HEADER_FONT } from "../style";
-import { postTypeFromPath } from "../utils/utils";
+import { postTypeFromPath, postTypeColors } from "../utils/utils";
 import { rhythm } from "../utils/typography";
 
 const StyledCard = styled(Card)`
@@ -15,13 +15,16 @@ const StyledCard = styled(Card)`
 
 const StyledBadge = styled.div`
   background-color: white;
-  padding: 5px 15px;
+  padding: 3px 10px;
   box-shadow: ${BOX_SHADOW};
   position: absolute;
-  top: ${rhythm(1 / 2)};
-  left: ${rhythm(-1)};
+  top: ${props => props.top || rhythm(1 / 2)};
+  right: ${props => props.right || rhythm(-1 / 2)};
   border-radius: 0.3rem;
-  background-color: ${LIGHT_ACCENT};
+  background-color: ${props =>
+    props.postType && postTypeColors[props.postType]
+      ? postTypeColors[props.postType]
+      : LIGHT_ACCENT};
   color: white;
   font-size: 0.75rem;
   font-family: ${HEADER_FONT};
@@ -65,7 +68,9 @@ class BlogList extends React.Component {
             >
               <div>
                 {p.node.excerpt}
-                <StyledBadge>
+                <StyledBadge
+                  postType={postTypeFromPath(p.node.fileAbsolutePath || "")}
+                >
                   {postTypeFromPath(p.node.fileAbsolutePath || "", {
                     plural: true
                   })}

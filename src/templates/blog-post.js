@@ -4,12 +4,7 @@ import Link from "gatsby-link";
 import get from "lodash/get";
 import styled from "styled-components";
 import { LIGHT_SHADE, BOX_SHADOW, LIGHT_ACCENT, DARK_ACCENT } from "../style";
-import { postTypeFromPath } from "../utils/utils";
-
-const postTypeColors = {
-  project: DARK_ACCENT,
-  post: LIGHT_ACCENT
-};
+import { postTypeFromPath, postTypeColors } from "../utils/utils";
 
 const StyledBlogPost = styled.div`
   background-color: white;
