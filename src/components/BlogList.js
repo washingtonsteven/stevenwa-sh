@@ -3,8 +3,30 @@ import Card from "../components/Card";
 import BlogPlaceholder from "./blog_placeholder.svg";
 import get from "lodash/get";
 import Link from "gatsby-link";
-import { MAIN_COLOR, LIGHT_ACCENT } from "../style";
+import styled from "styled-components";
+import { MAIN_COLOR, LIGHT_ACCENT, BOX_SHADOW, HEADER_FONT } from "../style";
 import { postTypeFromPath } from "../utils/utils";
+import { rhythm } from "../utils/typography";
+
+const StyledCard = styled(Card)`
+  position: relative;
+  overflow: inherit;
+`;
+
+const StyledBadge = styled.div`
+  background-color: white;
+  padding: 5px 15px;
+  box-shadow: ${BOX_SHADOW};
+  position: absolute;
+  top: ${rhythm(1 / 2)};
+  left: ${rhythm(-1)};
+  border-radius: 0.3rem;
+  background-color: ${LIGHT_ACCENT};
+  color: white;
+  font-size: 0.75rem;
+  font-family: ${HEADER_FONT};
+  text-transform: uppercase;
+`;
 
 const image = path =>
   path
@@ -25,7 +47,7 @@ class BlogList extends React.Component {
       <div className={this.props.className}>
         {this.props.posts &&
           this.props.posts.map(p => (
-            <Card
+            <StyledCard
               header={
                 <Link
                   to={`/${postTypeFromPath(p.node.fileAbsolutePath || "")}${
@@ -41,8 +63,15 @@ class BlogList extends React.Component {
                 BlogPlaceholder
               }
             >
-              {p.node.excerpt}
-            </Card>
+              <div>
+                {p.node.excerpt}
+                <StyledBadge>
+                  {postTypeFromPath(p.node.fileAbsolutePath || "", {
+                    plural: true
+                  })}
+                </StyledBadge>
+              </div>
+            </StyledCard>
           ))}
       </div>
     );
