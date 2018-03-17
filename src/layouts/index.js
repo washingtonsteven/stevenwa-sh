@@ -124,3 +124,35 @@ Template.propTypes = {
 };
 
 export default Template;
+
+export const siteMetaFragment = graphql`
+  fragment siteMeta on RootQueryType {
+    site {
+      siteMetadata {
+        title
+        author
+        twitter
+        github
+      }
+    }
+  }
+
+  fragment postListData on MarkdownRemarkConnection {
+    edges {
+      node {
+        id
+        excerpt
+        fileAbsolutePath
+        frontmatter {
+          path
+          title
+          date(formatString: "DD MMMM, YYYY")
+          featured_image {
+            publicURL
+          }
+          featured
+        }
+      }
+    }
+  }
+`;

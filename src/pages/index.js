@@ -71,52 +71,16 @@ export default Home;
 
 export const query = graphql`
   query HomeQuery {
-    site {
-      siteMetadata {
-        title
-        twitter
-        github
-      }
-    }
+    ...siteMeta
     featuredPost: allMarkdownRemark(
       limit: 1
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { featured: { eq: true } } }
     ) {
-      edges {
-        node {
-          id
-          excerpt
-          fileAbsolutePath
-          frontmatter {
-            path
-            title
-            date(formatString: "DD MMMM, YYYY")
-            featured_image {
-              publicURL
-            }
-            featured
-          }
-        }
-      }
+      ...postListData
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-      edges {
-        node {
-          id
-          excerpt
-          fileAbsolutePath
-          frontmatter {
-            path
-            title
-            date(formatString: "DD MMMM, YYYY")
-            featured_image {
-              publicURL
-            }
-            featured
-          }
-        }
-      }
+      ...postListData
     }
   }
 `;
