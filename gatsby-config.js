@@ -1,7 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: "stevenwa.sh",
-    author: "Steven Washington"
+    author: "Steven Washington",
+    twitter: "https://twitter.com/esaevian",
+    github: "https://github.com/washingtonsteven"
   },
   plugins: [
     {

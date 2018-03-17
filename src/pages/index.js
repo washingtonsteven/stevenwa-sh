@@ -54,10 +54,13 @@ class Home extends React.Component {
       posts = [...allPosts];
     }
 
+    const twitter = get(this, "props.data.site.siteMetadata.twitter");
+    const github = get(this, "props.data.site.siteMetadata.github");
+
     return (
       <StyledHome>
         <Helmet title={this.props.helmetTitle || siteTitle} />
-        <StyledSidebar className="staticSidebar" />
+        <StyledSidebar className="staticSidebar" social={{ twitter, github }} />
         <StyledBlogList posts={posts} featuredPost={featuredPost} />
       </StyledHome>
     );
@@ -71,6 +74,8 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+        twitter
+        github
       }
     }
     featuredPost: allMarkdownRemark(

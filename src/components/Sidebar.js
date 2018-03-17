@@ -70,6 +70,7 @@ const StyledGithubIcon = styled(GithubIcon)`
 
 class Sidebar extends React.Component {
   render() {
+    console.log(this.props);
     return (
       <div className={this.props.className}>
         <Card header={`stevenwa.sh`}>
@@ -77,12 +78,18 @@ class Sidebar extends React.Component {
           <p>I like making cool games and sites for the internet!</p>
         </Card>
         <StyledMoreLinks>
-          <StyledSocialLink href="http://twitter.com/esaevian">
-            <StyledTwitterIcon />
-          </StyledSocialLink>
-          <StyledSocialLink href="http://github.com/washingtonsteven">
-            <StyledGithubIcon />
-          </StyledSocialLink>
+          {this.props.social &&
+            this.props.social.twitter && (
+              <StyledSocialLink href={this.props.social.twitter}>
+                <StyledTwitterIcon />
+              </StyledSocialLink>
+            )}
+          {this.props.social &&
+            this.props.social.github && (
+              <StyledSocialLink href={this.props.social.github}>
+                <StyledGithubIcon />
+              </StyledSocialLink>
+            )}
         </StyledMoreLinks>
       </div>
     );
