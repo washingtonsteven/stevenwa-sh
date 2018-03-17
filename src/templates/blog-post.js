@@ -43,6 +43,14 @@ const StyledBackLink = styled(Link)`
   margin-left: 20px;
 `;
 
+const StyledTag = styled(Link)`
+  padding: 3px 6px;
+  background-color: ${LIGHT_SHADE};
+  color: ${LIGHT_ACCENT};
+  margin: 0 5px;
+  border-radius: 0.3rem;
+`;
+
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
@@ -55,6 +63,16 @@ class BlogPostTemplate extends React.Component {
           <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
           <h1>{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
+          {post.frontmatter.tags && (
+            <div style={{ marginBottom: "25px" }}>
+              {post.frontmatter.tags.map(t => (
+                <StyledTag to={`/tagged/${t}`} key={btoa(t)}>
+                  #{t}
+                </StyledTag>
+              ))}
+            </div>
+          )}
+
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
         </StyledBlogPost>
       </div>
@@ -79,6 +97,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        tags
       }
     }
   }

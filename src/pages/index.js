@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import BlogList from "../components/BlogList";
 import Sidebar from "../components/Sidebar";
+import Helmet from "react-helmet";
 import { rhythm } from "../utils/typography";
 
 import get from "lodash/get";
@@ -40,6 +41,7 @@ const StyledBlogList = styled(BlogList)`
 
 class Home extends React.Component {
   render() {
+    const siteTitle = get(this.props, "data.site.siteMetadata.title");
     const allPosts = get(this, "props.data.allMarkdownRemark.edges");
     const featuredPostArr = get(this, "props.data.featuredPost.edges");
     let featuredPost = null;
@@ -48,10 +50,13 @@ class Home extends React.Component {
     if (featuredPostArr && featuredPostArr.length) {
       featuredPost = featuredPostArr[0];
       posts = allPosts.filter(p => p.node.id !== featuredPost.node.id);
+    } else {
+      posts = [...allPosts];
     }
 
     return (
       <StyledHome>
+        <Helmet title={this.props.helmetTitle || siteTitle} />
         <StyledSidebar className="staticSidebar" />
         <StyledBlogList posts={posts} featuredPost={featuredPost} />
       </StyledHome>

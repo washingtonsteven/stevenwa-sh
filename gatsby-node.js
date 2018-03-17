@@ -21,6 +21,20 @@ const remarkQuery = type => `
   }
 `;
 
+const tagsQuery = `
+{
+  tags: allMarkdownRemark(filter: { frontmatter: {tags:{ne: null}} }) {
+    edges {
+      node {
+        frontmatter {
+          tags
+        }
+      }
+    }
+  }
+}
+`;
+
 const createTypePages = ({ result, slug, reject, createPage, blogPost }) => {
   if (result.errors) {
     console.log(result.errors);
@@ -44,6 +58,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   return new Promise((resolve, reject) => {
     const pages = [];
     const blogPost = path.resolve("./src/templates/blog-post.js");
+    const tagArchive = path.resolve("./src/templates/tag-archive.js");
 
     resolve(
       graphql(remarkQuery("posts"))
@@ -64,6 +79,20 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             createPage,
             blogPost,
             slug: "project"
+          });
+        })
+        .then(() => graphql(tagsQuery))
+        .then(result => {
+          const allTags = result.data.tags.edges.reduce((acc, v, i) => {
+            return [...acc, ...v.node.frontmatter.tags];
+          }, []);
+
+          _.each(allTags, tag => {
+            createPage({
+              path: `/tagged/${tag}`,
+              component: tagArchive,
+              context: { tag }
+            });
           });
         })
     );
