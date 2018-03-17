@@ -73,7 +73,7 @@ class Sidebar extends React.Component {
     console.log(this.props);
     return (
       <div className={this.props.className}>
-        <Card header={`stevenwa.sh`}>
+        <Card header={<Link to="/">stevenwa.sh</Link>}>
           <p>Hi! I'm Steven Washington.</p>
           <p>I like making cool games and sites for the internet!</p>
         </Card>

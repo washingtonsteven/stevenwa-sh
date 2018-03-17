@@ -38,36 +38,32 @@ const StyledBadge = styled.div`
 `;
 
 const image = path =>
-  path
-    ? ({ className }) => (
-        <div className={className}>
-          <img
-            src={path}
-            style={{ marginBottom: 0, display: "block" }}
-            alt="featured-image"
-          />
-        </div>
-      )
-    : null;
+  path ? (
+    <div>
+      <img
+        src={path}
+        style={{ marginBottom: 0, display: "block" }}
+        alt="featured-image"
+      />
+    </div>
+  ) : null;
 
 class BlogList extends React.Component {
   renderPostCard(p) {
+    const postURL = `/${postTypeFromPath(p.node.fileAbsolutePath || "")}${
+      p.node.frontmatter.path
+    }`;
     return (
       <StyledCard
-        header={
-          <Link
-            to={`/${postTypeFromPath(p.node.fileAbsolutePath || "")}${
-              p.node.frontmatter.path
-            }`}
-          >
-            {p.node.frontmatter.title}
-          </Link>
-        }
+        header={<Link to={postURL}>{p.node.frontmatter.title}</Link>}
         key={btoa(p.node.frontmatter.path)}
-        image={
-          image(get(p.node, "frontmatter.featured_image.publicURL")) ||
-          BlogPlaceholder
-        }
+        image={({ className }) => (
+          <Link to={postURL} className={className}>
+            {image(get(p.node, "frontmatter.featured_image.publicURL")) || (
+              <BlogPlaceholder />
+            )}
+          </Link>
+        )}
       >
         <div>
           {p.node.excerpt}

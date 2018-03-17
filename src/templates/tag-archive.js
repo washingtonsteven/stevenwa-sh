@@ -23,6 +23,8 @@ export const tagQuery = graphql`
       siteMetadata {
         title
         author
+        twitter
+        github
       }
     }
     allMarkdownRemark(filter: { frontmatter: { tags: { eq: $tag } } }) {

@@ -44,8 +44,11 @@ const StyledBox = styled.article`
 `;
 
 const styleImage = Image => styled(Image)`
-  display: block;
-  max-width: 100%;
+  &,
+  & > a {
+    display: block;
+    max-width: 100%;
+  }
 `;
 
 export default ({
