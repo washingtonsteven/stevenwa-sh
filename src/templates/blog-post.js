@@ -49,6 +49,9 @@ const StyledTag = styled(Link)`
   color: ${LIGHT_ACCENT};
   margin: 0 5px;
   border-radius: 0.3rem;
+  &:first-child {
+    margin-left: 0;
+  }
 `;
 
 class BlogPostTemplate extends React.Component {

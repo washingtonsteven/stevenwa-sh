@@ -70,7 +70,6 @@ const StyledGithubIcon = styled(GithubIcon)`
 
 class Sidebar extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <div className={this.props.className}>
         <Card header={<Link to="/">stevenwa.sh</Link>}>

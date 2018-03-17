@@ -84,7 +84,10 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         .then(() => graphql(tagsQuery))
         .then(result => {
           const allTags = result.data.tags.edges.reduce((acc, v, i) => {
-            return [...acc, ...v.node.frontmatter.tags];
+            const newTags = v.node.frontmatter.tags.filter(
+              t => !acc.includes(t)
+            );
+            return [...acc, ...newTags];
           }, []);
 
           _.each(allTags, tag => {

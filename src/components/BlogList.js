@@ -14,11 +14,6 @@ import {
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
 import { rhythm } from "../utils/typography";
 
-const StyledCard = styled(Card)`
-  position: relative;
-  overflow: inherit;
-`;
-
 const StyledBadge = styled.div`
   background-color: white;
   padding: 3px 10px;
@@ -54,7 +49,8 @@ class BlogList extends React.Component {
       p.node.frontmatter.path
     }`;
     return (
-      <StyledCard
+      <Card
+        date={<Link to={postURL}>{p.node.frontmatter.date}</Link>}
         header={<Link to={postURL}>{p.node.frontmatter.title}</Link>}
         key={btoa(p.node.frontmatter.path)}
         image={({ className }) => (
@@ -66,7 +62,7 @@ class BlogList extends React.Component {
         )}
       >
         <div>
-          {p.node.excerpt}
+          <div>{p.node.excerpt}</div>
           <StyledBadge
             postType={postTypeFromPath(p.node.fileAbsolutePath || "")}
           >
@@ -84,7 +80,7 @@ class BlogList extends React.Component {
             </StyledBadge>
           )}
         </div>
-      </StyledCard>
+      </Card>
     );
   }
   render() {

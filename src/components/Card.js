@@ -17,10 +17,11 @@ import {
 } from "../style";
 
 const StyledHeader = styled.h3`
-  position:relative;
-  z-index:1;
-  padding:${rhythm(1 / 2)} ${rhythm(1)}
-  margin-bottom:0;
+  position: relative;
+  z-index: 1;
+  padding: ${props => (props.cardHasDate ? 0 : rhythm(1 / 2))} ${rhythm(1)}
+    ${rhythm(1 / 2)};
+  margin-bottom: 0;
 `;
 
 const StyledContent = styled.div`
@@ -31,21 +32,49 @@ const StyledContent = styled.div`
 const StyledBox = styled.article`
   box-shadow: ${BOX_SHADOW};
   background-color: white;
-  overflow: hidden;
   margin-bottom: ${rhythm(1)};
   border-${props => props.direction || "top"}: solid 8px ${props =>
   props.color || LIGHT_ACCENT};
-  transition:${transition("border")}
   ${props => (props.disableBorder ? "border:none" : "")}
+  border-radius:0.3rem;
+  position:relative;
+  &:before {
+    content:"";
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:8px;
+    background:${border_gradient("right")};
+    opacity:0;
+    transition:opacity 0.2s linear;
+    transform:translateY(-100%);
+    border-top-left-radius:0.3rem;
+    border-top-right-radius:0.3rem;
+  }
   &:hover {
-    border-color: ${props => props.hoverColor || DARK_SHADE};
-    border-image: ${border_gradient("right")} 1;
+    &:before {
+      opacity:1
+    }
+  }
+`;
+
+const StyledDate = styled.div`
+  color: #aaa;
+  font-style: italic;
+  font-size: 0.7rem;
+  padding: ${rhythm(1 / 4)} ${rhythm(1)};
+  a {
+    color: #aaa;
   }
 `;
 
 const styleImage = Image => styled(Image)`
   &,
-  & > a {
+  & > a,
+  & > a svg,
+  & > a img {
     display: block;
     max-width: 100%;
   }
@@ -59,7 +88,8 @@ export default ({
   color,
   hoverColor,
   disableBorder,
-  className
+  className,
+  date
 }) => (
   <StyledBox
     className={className}
@@ -69,7 +99,8 @@ export default ({
     disableBorder={disableBorder}
   >
     {image && React.createElement(styleImage(image))}
-    {header && <StyledHeader>{header}</StyledHeader>}
+    {date && <StyledDate>{date}</StyledDate>}
+    {header && <StyledHeader cardHasDate={date}>{header}</StyledHeader>}
     <StyledContent>{children}</StyledContent>
   </StyledBox>
 );

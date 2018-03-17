@@ -146,7 +146,7 @@ export const siteMetaFragment = graphql`
         frontmatter {
           path
           title
-          date(formatString: "DD MMMM, YYYY")
+          date(formatString: "MMMM DD, YYYY")
           featured_image {
             publicURL
           }
