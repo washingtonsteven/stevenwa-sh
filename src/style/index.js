@@ -8,6 +8,12 @@ export const PROJECT_COLOR = MAIN_COLOR;
 export const DARK_ACCENT = `#a53bcc`;
 export const DARK_SHADE = `#302e4d`;
 
+export const YELLOW = `#ffb700`;
+
+export const SOCIAL_ICON_GRAY = `#98a2ac`;
+export const TWITTER_BLUE = `#1da1f2`;
+export const GITHUB_BLACK = `#191717`;
+
 export const border_gradient = dir =>
   `linear-gradient(to ${dir}, ${LIGHT_ACCENT}, ${DARK_ACCENT})`;
 export const BORDER_GRADIENT = border_gradient("bottom");

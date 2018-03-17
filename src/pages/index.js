@@ -40,12 +40,20 @@ const StyledBlogList = styled(BlogList)`
 
 class Home extends React.Component {
   render() {
-    const posts = get(this, "props.data.allMarkdownRemark.edges");
+    const allPosts = get(this, "props.data.allMarkdownRemark.edges");
+    const featuredPostArr = get(this, "props.data.featuredPost.edges");
+    let featuredPost = null;
+    let posts = null;
+
+    if (featuredPostArr && featuredPostArr.length) {
+      featuredPost = featuredPostArr[0];
+      posts = allPosts.filter(p => p.node.id !== featuredPost.node.id);
+    }
 
     return (
       <StyledHome>
         <StyledSidebar className="staticSidebar" />
-        <StyledBlogList posts={posts} />
+        <StyledBlogList posts={posts} featuredPost={featuredPost} />
       </StyledHome>
     );
   }
@@ -60,9 +68,14 @@ export const query = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    featuredPost: allMarkdownRemark(
+      limit: 1
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { featured: { eq: true } } }
+    ) {
       edges {
         node {
+          id
           excerpt
           fileAbsolutePath
           frontmatter {
@@ -72,6 +85,25 @@ export const query = graphql`
             featured_image {
               publicURL
             }
+            featured
+          }
+        }
+      }
+    }
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+      edges {
+        node {
+          id
+          excerpt
+          fileAbsolutePath
+          frontmatter {
+            path
+            title
+            date(formatString: "DD MMMM, YYYY")
+            featured_image {
+              publicURL
+            }
+            featured
           }
         }
       }
