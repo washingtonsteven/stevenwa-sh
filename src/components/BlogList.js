@@ -52,7 +52,7 @@ class BlogList extends React.Component {
       <Card
         date={<Link to={postURL}>{p.node.frontmatter.date}</Link>}
         header={<Link to={postURL}>{p.node.frontmatter.title}</Link>}
-        key={btoa(p.node.frontmatter.path)}
+        key={p.node.frontmatter.path}
         image={({ className }) => (
           <Link to={postURL} className={className}>
             {image(get(p.node, "frontmatter.featured_image.publicURL")) || (

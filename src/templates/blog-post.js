@@ -69,7 +69,7 @@ class BlogPostTemplate extends React.Component {
           {post.frontmatter.tags && (
             <div style={{ marginBottom: "25px" }}>
               {post.frontmatter.tags.map(t => (
-                <StyledTag to={`/tagged/${t}`} key={btoa(t)}>
+                <StyledTag to={`/tagged/${t}`} key={t}>
                   #{t}
                 </StyledTag>
               ))}
