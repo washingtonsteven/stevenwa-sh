@@ -31,5 +31,5 @@ Coming soon...
 
 ## Links
 
-Source: https://github.com/washingtonsteven/react-vn
+Source: https://github.com/washingtonsteven/react-vn  
 Editor (online): http://react-vn.netlify.com

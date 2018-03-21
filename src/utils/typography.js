@@ -21,7 +21,7 @@ const typography = new Typography({
   overrideStyles: ({ rhythm }, options, styles) => ({
     body: { backgroundColor: LIGHT_SHADE },
     "h1,h2,h3,h4,h5,h6": { letterSpacing: "1px" },
-    a: { textDecoration: "none", color: TEXT_COLOR },
+    a: { color: TEXT_COLOR },
     "a:hover": { textDecoration: "underline" }
   })
 });

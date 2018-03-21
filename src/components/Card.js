@@ -58,6 +58,8 @@ const StyledBox = styled.article`
       opacity:1
     }
   }
+
+  a { text-decoration:none; &:hover{ text-decoration:underline; } }
 `;
 
 const StyledDate = styled.div`
