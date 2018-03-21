@@ -6,7 +6,6 @@ import get from "lodash/get";
 class TypeArchiveTemplate extends React.Component {
   render() {
     const siteTitle = get(this.props, "data.site.siteMetadata.title");
-    console.log(this.props);
     return (
       <Home
         {...this.props}
