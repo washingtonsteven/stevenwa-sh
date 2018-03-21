@@ -37,7 +37,12 @@ const image = path =>
     <div>
       <img
         src={path}
-        style={{ marginBottom: 0, display: "block" }}
+        style={{
+          marginBottom: 0,
+          display: "block",
+          maxHeight: "300px",
+          margin: "0 auto"
+        }}
         alt="featured-image"
       />
     </div>

@@ -21,6 +21,8 @@ import {
 
 import Logo from "./logo.svg";
 
+import prism from "./prism.css";
+
 const StyledTemplate = styled.div`
   width: 100%;
   font-family: ${TEXT_FONT};
@@ -46,6 +48,10 @@ const StyledTemplate = styled.div`
   & > * {
     z-index: 1;
     position: relative;
+  }
+
+  *:not(pre) > code[class*="language-"] {
+    padding: 0.1em 0.5em;
   }
 `;
 
