@@ -30,6 +30,10 @@ const StyledBadge = styled.div`
   font-size: 0.75rem;
   font-family: ${HEADER_FONT};
   text-transform: uppercase;
+
+  a {
+    color: ${props => props.textColor || "white"};
+  }
 `;
 
 const image = path =>
@@ -53,6 +57,10 @@ class BlogList extends React.Component {
     const postURL = `/${postTypeFromPath(p.node.fileAbsolutePath || "")}${
       p.node.frontmatter.path
     }`;
+    const postType = postTypeFromPath(p.node.fileAbsolutePath || "");
+    const postTypePlural = postTypeFromPath(p.node.fileAbsolutePath || "", {
+      plural: true
+    });
     return (
       <Card
         date={<Link to={postURL}>{p.node.frontmatter.date}</Link>}
@@ -68,12 +76,8 @@ class BlogList extends React.Component {
       >
         <div>
           <div>{p.node.excerpt}</div>
-          <StyledBadge
-            postType={postTypeFromPath(p.node.fileAbsolutePath || "")}
-          >
-            {postTypeFromPath(p.node.fileAbsolutePath || "", {
-              plural: true
-            })}
+          <StyledBadge postType={postType}>
+            <Link to={`/${postTypePlural}`}>{postTypePlural}</Link>
           </StyledBadge>
           {p.node.frontmatter.featured && (
             <StyledBadge

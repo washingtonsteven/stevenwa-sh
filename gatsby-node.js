@@ -59,6 +59,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
     const pages = [];
     const blogPost = path.resolve("./src/templates/blog-post.js");
     const tagArchive = path.resolve("./src/templates/tag-archive.js");
+    const typeArchive = path.resolve("./src/templates/type-archive.js");
 
     resolve(
       graphql(remarkQuery("posts"))
@@ -70,6 +71,11 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             blogPost,
             slug: "post"
           });
+          createPage({
+            path: `/posts/`,
+            component: typeArchive,
+            context: { typeRegex: `/posts/.*\\.md$/`, type: "posts" }
+          });
         })
         .then(() => graphql(remarkQuery("projects")))
         .then(result => {
@@ -79,6 +85,14 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             createPage,
             blogPost,
             slug: "project"
+          });
+          createPage({
+            path: `/projects/`,
+            component: typeArchive,
+            context: {
+              typeRegex: `/projects/.*\\.md$/`,
+              type: "projects"
+            }
           });
         })
         .then(() => graphql(tagsQuery))

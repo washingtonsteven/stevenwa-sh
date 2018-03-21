@@ -8,9 +8,9 @@ export const singular = str => {
   return str.substring(0, str.length - 1);
 };
 
-export const postTypeFromPath = (path, opts) => {
+export const postTypeFromPath = (path, opts = {}) => {
   const matches = path.match(/src\/pages\/([^\/]+)/);
-  return singular(matches && matches[1]);
+  return opts.plural ? matches && matches[1] : singular(matches && matches[1]);
 };
 
 export const postTypeColors = {
