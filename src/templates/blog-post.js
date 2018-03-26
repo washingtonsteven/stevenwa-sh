@@ -76,6 +76,11 @@ class BlogPostTemplate extends React.Component {
             </div>
           )}
 
+          {post.frontmatter.featured_image && (
+            <div className="featured-image" style={{ padding: 0 }}>
+              <img src={post.frontmatter.featured_image.publicURL} />
+            </div>
+          )}
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
         </StyledBlogPost>
       </div>
@@ -101,6 +106,9 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         tags
+        featured_image {
+          publicURL
+        }
       }
     }
   }
