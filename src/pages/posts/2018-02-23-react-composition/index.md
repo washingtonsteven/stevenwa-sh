@@ -3,7 +3,7 @@ title: "Stuff made out of things: Composing Components"
 subtitle: "Relentless Progress toward goals isn't always what you need"
 date: 2018-02-23
 path: /react-composition/
-featured_image: ./react-vn-1.png
+featured_image_o: ./react-vn-1.png
 categories:
   - showdev
   - react
@@ -16,7 +16,7 @@ categories:
 [mjrenderprops]: https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce
 [breakingup]: https://medium.com/tandemly/im-breaking-up-with-higher-order-components-44b0df2db052
 
-So. You're sitting there. You have a thing. But now you wish it did a slightly different thing. But you don't want to have to make the thing all over again. 
+So. You're sitting there. You have a thing. But now you wish it did a slightly different thing. But you don't want to have to make the thing all over again.
 
 Still with me?
 
@@ -42,7 +42,8 @@ When you click on a NodeLink, it advances to the next page, like so:
 class NodeLink extends Component {
   nodeLinkClicked() {
     // remember to .bind(this) in the constructor!
-    this.props.nodeLinkClicked && this.props.nodeLinkClicked(this.props.nodeLink)
+    this.props.nodeLinkClicked &&
+      this.props.nodeLinkClicked(this.props.nodeLink);
   }
 
   render() {
@@ -50,7 +51,7 @@ class NodeLink extends Component {
       <button onClick={this.nodeLinkClicked}>
         {this.props.nodeLink.content}
       </button>
-    )
+    );
   }
 }
 ```
@@ -63,8 +64,8 @@ class Story extends Component {
     // again, remembder to .bind(this) as well!
     this.setState({
       ...this.state,
-      currentNode:this.props.storyData.nodes[nodeLink.node]
-    })
+      currentNode: this.props.storyData.nodes[nodeLink.node]
+    });
   }
 
   render() {
@@ -72,10 +73,16 @@ class Story extends Component {
       <div className="node">
         <div className="node-content">{this.state.currentNode.content}</div>
         <div className="node-links">
-          {this.state.currentNode.next.map(n => <NodeLink nodeLinkClicked={this.goToNode} nodeLink={n} key={btoa(`${n.content}-${n.node}`)} />)}
+          {this.state.currentNode.next.map(n => (
+            <NodeLink
+              nodeLinkClicked={this.goToNode}
+              nodeLink={n}
+              key={btoa(`${n.content}-${n.node}`)}
+            />
+          ))}
         </div>
       </div>
-    )
+    );
   }
 }
 ```
@@ -121,14 +128,17 @@ class InputNodeLink extends Component {
   updateInput(e) {
     this.setState({
       ...this.state,
-      inputValue:e.target.value
+      inputValue: e.target.value
     });
   }
   render() {
     return (
       <Fragment>
-        <NodeLink nodeLinkClicked={this.nodeLinkClicked} nodeLink={this.props.nodeLink} />
-        { this.state.showInput && (
+        <NodeLink
+          nodeLinkClicked={this.nodeLinkClicked}
+          nodeLink={this.props.nodeLink}
+        />
+        {this.state.showInput && (
           <div className="input-area">
             <span className="prompt">{this.props.nodeLink.prompt}</span>
             <input type="text" onChange={this.updateInput} />
@@ -136,10 +146,11 @@ class InputNodeLink extends Component {
           </div>
         )}
       </Fragment>
-    )
+    );
   }
 }
 ```
+
 _We also get to use React 16's new `<Fragment>` component to return what is actually two separate elements_
 
 So, when we pass the same props to InputNodeLink, we can build out a NodeLink with extra functionality. We are passing `this.props.nodeLink` on to the internal `NodeLink` component, and we've also taken `InputNodeLink.nodeLinkClicked` and have it acting as a go-between for the `NodeLink` and the `Story`
@@ -174,6 +185,7 @@ Which takes the input value in the state (updated in the input `onChange` event)
 At this point, `Story` can read the input value and save it!
 
 **Story.js**
+
 ```javascript
 goToNode(nodeLink) {
   // nodeLink.inputValue has the new input value from InputNodeLink!
@@ -184,6 +196,7 @@ goToNode(nodeLink) {
   });
 }
 ```
+
 _In real life, `inputNodeData` is an object that can handle an arbitrary amount of data, but for simplicity's sake, it only stores a single variable here_
 
 There we go! We are able to extend our `NodeLink` component with relative ease, and slot our `InputNodeLink` in perfectly and with out (too much) pain.

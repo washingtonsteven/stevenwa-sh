@@ -6,7 +6,7 @@ import Helmet from "react-helmet";
 import { rhythm } from "../utils/typography";
 
 import get from "lodash/get";
-import { LIGHT_ACCENT, DARK_SHADE } from "../style";
+import { LIGHT_ACCENT, DARK_SHADE, MOBILE_WIDTH } from "../style";
 
 const StyledHome = styled.div`
   display: grid;
@@ -15,7 +15,7 @@ const StyledHome = styled.div`
   grid-template-areas: "sidebar main";
   grid-column-gap: ${rhythm(1)};
 
-  @media (max-width: 600px) {
+  @media (max-width: ${MOBILE_WIDTH}) {
     grid-template-columns: 1fr;
     grid-column-gap: 0;
     grid-template-areas:
@@ -28,9 +28,9 @@ const StyledSidebar = styled(Sidebar)`
   grid-area: sidebar;
   align-self: start;
   position: sticky;
-  top: ${rhythm(1)};
+  top: 75px;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${MOBILE_WIDTH}) {
     position: static;
   }
 `;

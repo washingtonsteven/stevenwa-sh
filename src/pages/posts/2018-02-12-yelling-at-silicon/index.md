@@ -3,7 +3,7 @@ title: Yelling at Silicon (Part 1)
 subtitle: "Getting Google Assistant to do what you want"
 date: 2018-02-12
 path: /yelling-at-silicon/
-featured_image: ./thorndike_test.png
+featured_image_o: ./thorndike_test.png
 tags:
   - google assistant
   - javascript
@@ -28,9 +28,9 @@ To start, I built a quick function that interfaces with Nextbus' API. It accepts
 // Nextbus needs a stopId to look up predictions
 // We have an object that maps stopNames to stopIds
 const stops = {
-  'harvard':'55555'
+  harvard: "55555"
   // other stops here...
-}
+};
 
 exports.getPredictions = stopName => {
   const stopId = stops[stopName];
@@ -43,12 +43,12 @@ exports.getPredictions = stopName => {
   // JSON, only returning the results we want
   return request(nextbusURL)
     .then(xml => xml2js(xml))
-    .then(json => parseSchedule(json))
-}
+    .then(json => parseSchedule(json));
+};
 
 const parseSchedule = json => {
   const cleanedUp = [];
-  
+
   // Take `json` and extract only the info we care about
   // In the end, cleanedUp will be a multidimensional array of sentences, like:
   // [
@@ -57,14 +57,14 @@ const parseSchedule = json => {
   // ]
 
   return cleanedUp;
-}
+};
 ```
 
 _If you're following in the [Github repo][gh], you'll notice that I'm only getting the first prediction for each route/direction combo. Shuffling around this function a bit and we can get multiple sets of predictions per route, which we can append to the inner array_
 
 ## Making sentences - `filter` and `join`
 
-Before we can send this data to any voice assistant, we need to make actual, speakable sentences. 
+Before we can send this data to any voice assistant, we need to make actual, speakable sentences.
 
 The `cleanedUp` object from `parseSchedule` is a multi-dimensional array. The first dimension is a set of routes (bus numbers) and the second is the set of predictions for that route. Since these are in an array, we can use some of the new ES6 functions to parse this out into a set of sentences for each route.
 
@@ -75,30 +75,28 @@ In the actual repo, I have this set up as a one-liner, but it's expanded/annotat
 ```javascript
 exports.stringifyPredictions = (results, joiner = ". ") => {
   let resultsMessage = results.map(predictionList => {
-
     // predicitonList is a set of predictions for a route
     // Filter out the empty ones (empty strings), then join them together
-    return predictionList.filter(l => l.length > 0).join(joiner)
-  })
+    return predictionList.filter(l => l.length > 0).join(joiner);
+  });
 
   // Filter and join again on the set of routes
   // Filtering out empty routes (which show up here as empty arrays)
   resultsMessage = resultsMessage.filter(l => l.length > 0).join(joiner);
 
   return resultsMessage;
-}
+};
 ```
 
 ## Make it web-accessible
 
-In order to work, Google Assistant must be able to access our service over the web, where we will return what we want it to say as a JSON response. I use [Express][express] to set up a server to listen to queries from Google, and host on Heroku. 
+In order to work, Google Assistant must be able to access our service over the web, where we will return what we want it to say as a JSON response. I use [Express][express] to set up a server to listen to queries from Google, and host on Heroku.
 
 ```javascript
 const app = express();
-app.post('/thorndike', (req, res) => {
-
+app.post("/thorndike", (req, res) => {
   // See below for the contents of googleAction.js
-  require('./googleAction')(req, res);
+  require("./googleAction")(req, res);
 });
 ```
 
@@ -108,7 +106,7 @@ Now that we have functions for getting prediction sentences, we need to hook up 
 
 Before getting into code, we need to set up our app on the Google Developer Console and Dialogflow. Dialogflow is the glue between Google Assistant and our app, it receives the parsed voice input from Google Assistant, and will call our app via webhook (they call it a "Fulfillment") in response. [I used this bit of documentation to get all of this set up][tut]. It goes over some of the concepts of a Google Assistant "conversation" as well has walking through the Dialogflow web console.
 
-Part of said setup is making an "Action" that the service can respond to. This can be any sort of string that identifies what's happening; we just need to remember is when we get to coding up our response. Another important part is the "argument," which is a piece of the spoken phrase that can be variable. We can extract that text and use that to inform which bus we are looking for. E.g. "Hey Google, What buses are near __Harvard__?" Both of these will get sent to our request handler, which is the next bit of code we will be working on!
+Part of said setup is making an "Action" that the service can respond to. This can be any sort of string that identifies what's happening; we just need to remember is when we get to coding up our response. Another important part is the "argument," which is a piece of the spoken phrase that can be variable. We can extract that text and use that to inform which bus we are looking for. E.g. "Hey Google, What buses are near **Harvard**?" Both of these will get sent to our request handler, which is the next bit of code we will be working on!
 
 ## Responding to requests with `actions-on-google`
 
@@ -117,23 +115,22 @@ The [`actions-on-google` module][aog] works by parsing the request received from
 ```javascript
 // googleAction.js
 
-const App = require('actions-on-google').DialogflowApp;
-const { getPredictions, stringifyPredictions } = require('./getPredictions');
+const App = require("actions-on-google").DialogflowApp;
+const { getPredictions, stringifyPredictions } = require("./getPredictions");
 
 // This is the action we set up in DialogFlow
-const ASK_ACTION = 'ask_stop_by_name';
+const ASK_ACTION = "ask_stop_by_name";
 
 // We set up a parameter called stop_name, that is filled in
 // when the voice input is parsed.
-const STOP_NAME_ARGUMENT = 'stop_name';
+const STOP_NAME_ARGUMENT = "stop_name";
 
 module.exports = (request, response) => {
-  const app = new App({request, response});
+  const app = new App({ request, response });
 
   let actionMap = new Map();
   actionMap.set(ASK_ACTION, app => {
-
-    // getArgument() is a function from 
+    // getArgument() is a function from
     // `actions-on-google` / `DialogflowApp` that can parse
     // out the argument from the voice input.
     let stopName = app.getArgument(STOP_NAME_ARGUMENT);
@@ -141,21 +138,15 @@ module.exports = (request, response) => {
     getPredictions(stopName)
       .then(results => stringifyPredictions(results))
       .then(resultsMessage => {
-
         // stringifyPredictions returns 'false' if a stop exists, but has no buses.
         if (resultsMessage === false) {
-
           // app.tell literally makes Google Assistant speak!
           app.tell(`There don't seem to be any buses at ${stopName}`);
-        }
-
-        // any other falsy value means that the app doesn't know about that stop
-        else if (!resultsMessage) {
+        } else if (!resultsMessage) {
+          // any other falsy value means that the app doesn't know about that stop
           app.tell(`Sorry, I don't have information for ${stopName}`);
-        }
-        
-        // We got some predictions!
-        else {
+        } else {
+          // We got some predictions!
           app.tell(resultsMessage);
         }
       });
@@ -166,7 +157,7 @@ module.exports = (request, response) => {
   // on what Dialogflow sent us, and then call the
   // relevant function.
   app.handleRequest(actionMap);
-}
+};
 ```
 
 ## Talking with Google Assistant
@@ -179,9 +170,9 @@ When setting up Dialogflow, it created an app in the [Actions on Google Console]
 
 This screen is meant for putting in your app metadata for publishing on the Google Actions Marketplace for everyone to use. However I currently don't have plans for a general public release of this; I just want to use it on my account. But since we are effectively preparing a public app (just not releasing it), we have a few limitations.
 
-- There are a number of required fields that don't apply, mostly related to marketing imagery and copy. You can leave these blank, and your info will save, however you'll get warnings everytime you return to make an update
-- Since this is meant for a public release, the name of your app has to be unique (and also not related to an established brand, as Google will prompt you to prove that you are working on behalf of that brand, which you probably aren't). This means that your app's name might have to be an awkward phrase instead of a single word.
-- Since we aren't "releasing" our Google Assistant app, she will constantly tell us that we are using the "test version" of our app. Oh well.
+* There are a number of required fields that don't apply, mostly related to marketing imagery and copy. You can leave these blank, and your info will save, however you'll get warnings everytime you return to make an update
+* Since this is meant for a public release, the name of your app has to be unique (and also not related to an established brand, as Google will prompt you to prove that you are working on behalf of that brand, which you probably aren't). This means that your app's name might have to be an awkward phrase instead of a single word.
+* Since we aren't "releasing" our Google Assistant app, she will constantly tell us that we are using the "test version" of our app. Oh well.
 
 ### Testing in the browser
 
@@ -194,7 +185,7 @@ Once you edit your app information, you can test out the responses in your brows
 
 ### Testing with your voice
 
-Now that everything is deployed, you can actually talk with Google Assistant (as long as you are logged in to the same Google account as you made the app on) and follow a similar conversation as you saw above. Just say "Hey Google, Talk to <YOUR\_APP\_NAME>" and you're ready to go.
+Now that everything is deployed, you can actually talk with Google Assistant (as long as you are logged in to the same Google account as you made the app on) and follow a similar conversation as you saw above. Just say "Hey Google, Talk to <YOUR_APP_NAME>" and you're ready to go.
 
 ### Feels clunky? Yeah, it kind of is.
 
@@ -204,7 +195,7 @@ The was Actions on Google works is through a concept of "conversations." Which i
 
 This way of augmenting Google Assistant is fantastic for setting up conversations with AI to interact with data sources that don't come "standard" with it. Just takes a bit of work to mold the data into a sentence, and then serve a response when Google comes knocking on your server with some voice input. However, sometimes these conversations can be clunky just to get a bit of data. If only there were an alternative way to get the data, with a single sentence or even the press of a button&hellip;
 
-__Oh wait there is!__ In a followup article, I'll be hooking up the same bus tracking app to [IFTTT's Google Assistant integration][ifttt], which will allow us to access our data in a number of different alternative ways to Google's conversations. 
+**Oh wait there is!** In a followup article, I'll be hooking up the same bus tracking app to [IFTTT's Google Assistant integration][ifttt], which will allow us to access our data in a number of different alternative ways to Google's conversations.
 
 [nextbus]: https://nextbus.com
 [express]: https://expressjs.com

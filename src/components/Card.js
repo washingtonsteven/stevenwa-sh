@@ -9,6 +9,7 @@ import {
   BG_COLOR,
   DARK_ACCENT,
   BOX_SHADOW,
+  box_shadow,
   transition,
   LIGHT_ACCENT,
   BORDER_GRADIENT,
@@ -36,8 +37,8 @@ const StyledBox = styled.article`
   border-${props => props.direction || "top"}: solid 8px ${props =>
   props.color || LIGHT_ACCENT};
   ${props => (props.disableBorder ? "border:none" : "")}
-  border-radius:0.3rem;
   position:relative;
+  transition:box-shadow 0.2s linear;
   &:before {
     content:"";
     display:block;
@@ -50,10 +51,9 @@ const StyledBox = styled.article`
     opacity:0;
     transition:opacity 0.2s linear;
     transform:translateY(-100%);
-    border-top-left-radius:0.3rem;
-    border-top-right-radius:0.3rem;
   }
   &:hover {
+    box-shadow:${box_shadow({ y: 5, c: "rgba(0,0,0,0.24)" })};
     &:before {
       opacity:1
     }

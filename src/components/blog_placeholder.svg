@@ -1,1 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525 330"><defs><style>.cls-1{fill:#f5f7f9;}.cls-2{fill:#98a2ac;opacity:0.4;}</style></defs><title>Post</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><rect class="cls-1" width="525" height="330"/></g><g id="Layer_2-2" data-name="Layer 2"><rect class="cls-2" x="28.5" y="21" width="283" height="29"/><rect class="cls-2" x="28.5" y="124" width="445" height="16"/><rect class="cls-2" x="28.5" y="157" width="424" height="16"/><rect class="cls-2" x="28.5" y="190" width="435" height="16"/><rect class="cls-2" x="28.5" y="91" width="298" height="16"/><rect class="cls-2" x="28.5" y="223" width="361" height="16"/><rect class="cls-2" x="30.5" y="256" width="399" height="16"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525 330" class="plc">
+  <defs>
+    <style>
+      .cls-1{fill:#f5f7f9;}
+      .cls-2{fill:#98a2ac;opacity:0.4;}
+    </style>
+  </defs>
+  <title>Post</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1">
+      <rect class="cls-1" width="525" height="330"/>
+    </g>
+    <g id="Layer_2-2" data-name="Layer 2">
+      <rect class="cls-2" x="28.5" y="21" width="385" height="32"/>
+      <rect class="cls-2" x="28.5" y="91" width="445" height="16"/>
+      <rect class="cls-2" x="28.5" y="124" width="405" height="16"/>
+      <rect class="cls-2" x="28.5" y="157" width="283" height="16"/>
+      <rect class="cls-2" x="28.5" y="206" width="435" height="16"/>
+      <rect class="cls-2" x="28.5" y="239" width="361" height="16"/>
+      <rect class="cls-2" x="28.5" y="272" width="399" height="16"/>
+    </g>
+  </g>
+</svg>

@@ -10,22 +10,54 @@ import {
   BOX_SHADOW,
   SOCIAL_ICON_GRAY,
   TWITTER_BLUE,
-  GITHUB_BLACK
+  GITHUB_BLACK,
+  MOBILE_WIDTH
 } from "../style";
 
 import TwitterIcon from "./twitter.svg";
 import GithubIcon from "./github.svg";
+import Face from "./face.jpg";
+
+const StyledCard = styled(Card)`
+  margin-bottom: 0.7rem;
+  display: grid;
+  grid-template-areas: "image content";
+  grid-column-gap: 20px;
+  padding: 0 20px;
+
+  & > * {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media (max-width: ${MOBILE_WIDTH}) {
+    grid-template-areas: "image" "content";
+    grid-column-cap: 0;
+
+    img {
+      width: 100px;
+      margin: 0 auto;
+    }
+  }
+`;
 
 const StyledMoreLinks = styled.div`
   background-color: white;
   box-shadow: ${BOX_SHADOW};
   text-align: center;
-  border-radius: 0.3rem;
   padding: 5px 20px;
   display: inline;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  min-width: 150px;
+
+  @media (max-width: ${MOBILE_WIDTH}) {
+    position: static;
+    transform: none;
+    display: block;
+    margin-bottom: 1.4rem;
+  }
 `;
 
 const StyledSocialLink = styled.a.attrs({
@@ -68,14 +100,44 @@ const StyledGithubIcon = styled(GithubIcon)`
   }
 `;
 
+const StyledImage = styled.img`
+  width: 100px;
+  border-radius: 50%;
+  border: solid 6px ${LIGHT_ACCENT};
+  display: block;
+  margin-bottom: 0;
+`;
+
+const Credit = styled.p`
+  color: ${SOCIAL_ICON_GRAY};
+  font-style: italic;
+  font-size: 0.8rem;
+`;
+
 class Sidebar extends React.Component {
   render() {
     return (
       <div className={this.props.className}>
-        <Card header={<Link to="/">stevenwa.sh</Link>}>
+        <StyledCard
+          header={
+            <Link to="/">
+              <StyledImage src={Face} />
+            </Link>
+          }
+        >
           <p>Hi! I'm Steven Washington.</p>
           <p>I like making cool games and sites for the internet!</p>
-        </Card>
+          <Credit>
+            Icon by{" "}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="http://twitter.com/daisyein"
+            >
+              DaisyEin
+            </a>
+          </Credit>
+        </StyledCard>
         <StyledMoreLinks>
           {this.props.social &&
             this.props.social.twitter && (

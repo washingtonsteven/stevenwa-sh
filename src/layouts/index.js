@@ -1,4 +1,6 @@
 import React from "react";
+import Helmet from "react-helmet";
+import get from "lodash/get";
 import Link from "gatsby-link";
 import PropTypes from "prop-types";
 import styled from "styled-components";
@@ -16,7 +18,8 @@ import {
   MAIN_COLOR,
   DARK_ACCENT,
   BORDER_GRADIENT,
-  LIGHT_ACCENT
+  LIGHT_ACCENT,
+  MOBILE_WIDTH
 } from "../style";
 
 import Logo from "./logo.svg";
@@ -68,16 +71,25 @@ const StyledLogo = styled(Logo)`
     fill: ${props => props.color || MAIN_COLOR};
     transition: ${transition("opacity")};
   }
-  &:hover rect.gradient {
-    opacity: 1;
-  }
 `;
 
 const StyledNav = styled.nav`
   width: 100%;
   box-shadow: ${BOX_SHADOW};
+  background-color: ${props => props.color || MAIN_COLOR}
   margin-bottom: ${rhythm(1)};
-  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+
+  &:hover svg rect.gradient {
+    opacity: 1;
+  }
+
+  @media (max-width: ${MOBILE_WIDTH}) {
+    position: relative;
+  }
 `;
 
 const StyledFooter = styled.footer`
@@ -87,11 +99,34 @@ const StyledFooter = styled.footer`
   text-align: center;
   margin: 0 auto 60px;
   padding: 30px 50px;
-  border-radius: 0.3rem;
   position: absolute;
   left: 50%;
   top: auto;
   transform: translateX(-50%);
+  width: calc(100% - ${rhythm(2)});
+  max-width: calc(${MAX_WIDTH} - ${rhythm(2)});
+`;
+
+const CopyLine = styled.div`
+  color: #aaa;
+  font-size: 0.8rem;
+`;
+
+const LinksLine = styled.ul`
+  color: #aaa;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.8rem;
+
+  & li {
+    display: inline-block;
+    margin-right: 10px;
+    a {
+      color: #aaa;
+      text-decoration: underline;
+    }
+  }
 `;
 
 class Template extends React.Component {
@@ -100,10 +135,17 @@ class Template extends React.Component {
   updateBackgroundColor = backgroundColor =>
     this.setState(state => ({ ...state, backgroundColor }));
   render() {
-    const { location, children } = this.props;
+    const { location, children, data } = this.props;
+    const twitter = get(data, "site.siteMetadata.twitter");
+    const github = get(data, "site.siteMetadata.github");
+    const social = { twitter, github };
+
     return (
       <StyledTemplate color={this.state.backgroundColor || this.state.color}>
-        <StyledNav>
+        <Helmet>
+          <link rel="logo" href="/favicon.png" type="image/x-icon" />
+        </Helmet>
+        <StyledNav color={this.state.color}>
           <Link to="/">
             <StyledLogo color={this.state.color} />
           </Link>
@@ -116,7 +158,18 @@ class Template extends React.Component {
           })}
         </StyledMain>
         <StyledFooter>
-          Copyright {"\u00a9"} {new Date().getFullYear()} Steven Washington
+          <LinksLine>
+            {Object.entries(social).map(([name, url]) => (
+              <li key={name}>
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  {name.charAt(0).toUpperCase() + name.substr(1)}
+                </a>
+              </li>
+            ))}
+          </LinksLine>
+          <CopyLine>
+            Copyright {"\u00a9"} {new Date().getFullYear()} Steven Washington
+          </CopyLine>
         </StyledFooter>
       </StyledTemplate>
     );
@@ -158,6 +211,17 @@ export const siteMetaFragment = graphql`
           }
           featured
         }
+      }
+    }
+  }
+
+  query SiteInfo {
+    site {
+      siteMetadata {
+        twitter
+        github
+        title
+        author
       }
     }
   }
