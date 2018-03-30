@@ -52,10 +52,6 @@ const StyledTemplate = styled.div`
     z-index: 1;
     position: relative;
   }
-
-  *:not(pre) > code[class*="language-"] {
-    padding: 0.1em 0.5em;
-  }
 `;
 
 const StyledMain = styled.main`

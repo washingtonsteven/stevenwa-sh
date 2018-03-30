@@ -1,10 +1,9 @@
 ---
 title: "Stuff made out of things: Composing Components"
-subtitle: "Relentless Progress toward goals isn't always what you need"
 date: 2018-02-23
 path: /react-composition/
 featured_image_o: ./react-vn-1.png
-categories:
+tags:
   - showdev
   - react
   - javascript

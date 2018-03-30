@@ -93,11 +93,15 @@ class BlogList extends React.Component {
     );
   }
   render() {
+    const firstPost = this.props.posts && this.props.posts[0];
+    const restPosts = this.props.posts &&  this.props.posts.slice(1);
+
     return (
       <div className={this.props.className}>
+        {firstPost && this.renderPostCard(firstPost)}
         {this.props.featuredPost &&
           this.renderPostCard(this.props.featuredPost)}
-        {this.props.posts && this.props.posts.map(p => this.renderPostCard(p))}
+        {restPosts && restPosts.map(p => this.renderPostCard(p))}
       </div>
     );
   }
