@@ -166,6 +166,9 @@ class Template extends React.Component {
                 </a>
               </li>
             ))}
+            <li>
+              <Link to="/credits">Credits</Link>
+            </li>
           </LinksLine>
           <CopyLine>
             Copyright {"\u00a9"} {new Date().getFullYear()} Steven Washington

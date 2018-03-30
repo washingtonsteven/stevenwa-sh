@@ -108,12 +108,6 @@ const StyledImage = styled.img`
   margin-bottom: 0;
 `;
 
-const Credit = styled.p`
-  color: ${SOCIAL_ICON_GRAY};
-  font-style: italic;
-  font-size: 0.8rem;
-`;
-
 class Sidebar extends React.Component {
   render() {
     return (
@@ -127,16 +121,6 @@ class Sidebar extends React.Component {
         >
           <p>Hi! I'm Steven Washington.</p>
           <p>I like making cool games and sites for the internet!</p>
-          <Credit>
-            Icon by{" "}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="http://twitter.com/daisyein"
-            >
-              DaisyEin
-            </a>
-          </Credit>
         </StyledCard>
         <StyledMoreLinks>
           {this.props.social &&
