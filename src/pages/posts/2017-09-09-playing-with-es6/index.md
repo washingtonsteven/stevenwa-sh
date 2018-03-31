@@ -4,6 +4,7 @@ subtitle: Getting to know ES6 classes while also making a tiny game!
 date: 2017-09-09
 path: /playing-with-es6/
 featured_image: ./canvas_game.jpg
+published: true
 tags:
   - javascript
   - canvas

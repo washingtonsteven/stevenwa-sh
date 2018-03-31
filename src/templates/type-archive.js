@@ -18,10 +18,13 @@ class TypeArchiveTemplate extends React.Component {
 export default TypeArchiveTemplate;
 
 export const typeQuery = graphql`
-  query TypeArchive($typeRegex: String!) {
+  query TypeArchive($typeRegex: String!, $showDrafts: Boolean) {
     ...siteMeta
     allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: $typeRegex } }
+      filter: {
+        fileAbsolutePath: { regex: $typeRegex }
+        frontmatter: { published: { ne: $showDrafts } }
+      }
       limit: 1000
     ) {
       ...postListData

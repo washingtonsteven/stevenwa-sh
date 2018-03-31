@@ -3,6 +3,7 @@ title: ReactVN
 repo: https://github.com/washingtonsteven/react-vn
 path: /react-vn/
 featured: true
+published: true
 date: 2018-03-12
 featured_image: ./featured_alpha_20180325.gif
 tags:

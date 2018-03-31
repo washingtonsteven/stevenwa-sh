@@ -209,19 +209,13 @@ export const siteMetaFragment = graphql`
             publicURL
           }
           featured
+          published
         }
       }
     }
   }
 
   query SiteInfo {
-    site {
-      siteMetadata {
-        twitter
-        github
-        title
-        author
-      }
-    }
+    ...siteMeta
   }
 `;

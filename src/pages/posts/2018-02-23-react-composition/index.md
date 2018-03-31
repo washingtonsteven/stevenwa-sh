@@ -3,6 +3,7 @@ title: "Stuff made out of things: Composing Components"
 date: 2018-02-23
 path: /react-composition/
 featured_image_o: ./react-vn-1.png
+published: true
 tags:
   - showdev
   - react

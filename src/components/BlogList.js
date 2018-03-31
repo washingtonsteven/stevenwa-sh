@@ -36,6 +36,12 @@ const StyledBadge = styled.div`
   }
 `;
 
+const Warning = styled.h4`
+  color: white;
+  background-color: red;
+  padding: 3px 5px;
+`;
+
 const image = path =>
   path ? (
     <div>
@@ -75,6 +81,9 @@ class BlogList extends React.Component {
         )}
       >
         <div>
+          {!p.node.frontmatter.published && (
+            <Warning>This post is not yet published</Warning>
+          )}
           <div>{p.node.excerpt}</div>
           <StyledBadge postType={postType}>
             <Link to={`/${postTypePlural}`}>{postTypePlural}</Link>
@@ -94,7 +103,7 @@ class BlogList extends React.Component {
   }
   render() {
     const firstPost = this.props.posts && this.props.posts[0];
-    const restPosts = this.props.posts &&  this.props.posts.slice(1);
+    const restPosts = this.props.posts && this.props.posts.slice(1);
 
     return (
       <div className={this.props.className}>

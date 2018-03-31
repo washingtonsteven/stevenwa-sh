@@ -61,6 +61,12 @@ const StyledTag = styled(Link)`
   }
 `;
 
+const Warning = styled.h4`
+  color: white;
+  background-color: red;
+  padding: 3px 5px;
+`;
+
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
@@ -74,6 +80,9 @@ class BlogPostTemplate extends React.Component {
           <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
           <h1>{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
+          {!post.frontmatter.published && (
+            <Warning>This post is not yet published</Warning>
+          )}
           {post.frontmatter.tags && (
             <div style={{ marginBottom: "25px" }}>
               {post.frontmatter.tags.map(t => (
@@ -114,6 +123,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         tags
+        published
         featured_image {
           publicURL
         }

@@ -4,6 +4,8 @@ const path = require("path");
 const select = require(`unist-util-select`);
 const fs = require(`fs-extra`);
 
+const showDrafts = process.env.GATSBY_SHOW_DRAFTS;
+
 const remarkQuery = type => `
   {
     allMarkdownRemark(
@@ -74,7 +76,11 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           createPage({
             path: `/posts/`,
             component: typeArchive,
-            context: { typeRegex: `/posts/.*\\.md$/`, type: "posts" }
+            context: {
+              typeRegex: `/posts/.*\\.md$/`,
+              type: "posts",
+              showDrafts
+            }
           });
         })
         .then(() => graphql(remarkQuery("projects")))
@@ -91,7 +97,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             component: typeArchive,
             context: {
               typeRegex: `/projects/.*\\.md$/`,
-              type: "projects"
+              type: "projects",
+              showDrafts
             }
           });
         })
@@ -108,10 +115,22 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             createPage({
               path: `/tagged/${tag}`,
               component: tagArchive,
-              context: { tag }
+              context: { tag, showDrafts }
             });
           });
         })
     );
+  });
+};
+
+exports.onCreatePage = ({ page, boundActionCreators }) => {
+  const { createPage } = boundActionCreators;
+  return new Promise(resolve => {
+    const updatedContext = Object.assign(page.context, {
+      showDrafts
+    });
+    page.context = updatedContext;
+    createPage(page);
+    resolve();
   });
 };

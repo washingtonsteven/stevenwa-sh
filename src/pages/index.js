@@ -70,16 +70,21 @@ class Home extends React.Component {
 export default Home;
 
 export const query = graphql`
-  query HomeQuery {
+  query HomeQuery($showDrafts: Boolean) {
     ...siteMeta
     featuredPost: allMarkdownRemark(
       limit: 1
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { featured: { eq: true } } }
+      filter: {
+        frontmatter: { featured: { eq: true }, published: { ne: $showDrafts } }
+      }
     ) {
       ...postListData
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { published: { ne: $showDrafts } } }
+    ) {
       ...postListData
     }
   }
