@@ -3,6 +3,9 @@ const Promise = require("bluebird");
 const path = require("path");
 const select = require(`unist-util-select`);
 const fs = require(`fs-extra`);
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`
+});
 
 const showDrafts = process.env.GATSBY_SHOW_DRAFTS;
 
