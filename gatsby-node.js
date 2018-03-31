@@ -7,7 +7,7 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`
 });
 
-const showDrafts = process.env.GATSBY_SHOW_DRAFTS;
+const showDrafts = null;
 
 const remarkQuery = type => `
   {
@@ -133,6 +133,7 @@ exports.onCreatePage = ({ page, boundActionCreators }) => {
       showDrafts
     });
     page.context = updatedContext;
+    console.log(`Setting showDrafts:${showDrafts} on page ${page.path}`);
     createPage(page);
     resolve();
   });
