@@ -142,7 +142,7 @@ class Template extends React.Component {
           <link rel="logo" href="/favicon.png" type="image/x-icon" />
         </Helmet>
         <StyledNav color={this.state.color}>
-          <Link to="/">
+          <Link to="/" style={{ display: "block" }}>
             <StyledLogo color={this.state.color} />
           </Link>
         </StyledNav>

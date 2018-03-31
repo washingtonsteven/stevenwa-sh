@@ -3,7 +3,7 @@ title: "React's new Context API and Actions"
 subtitle: "A more interactive context state with passed functions!"
 date: 2018-03-30
 path: /react-context-actions/
-featured_image: "./crayons.jpg"
+featured_image: ./crayons.jpg
 tags:
   - react
   - javascript
