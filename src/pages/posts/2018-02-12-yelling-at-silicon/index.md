@@ -4,7 +4,7 @@ subtitle: "Getting Google Assistant to do what you want"
 date: 2018-02-12
 path: /yelling-at-silicon/
 featured_image_o: ./thorndike_test.png
-published: true
+published: false
 tags:
   - google assistant
   - javascript

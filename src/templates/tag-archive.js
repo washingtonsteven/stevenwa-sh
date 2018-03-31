@@ -21,6 +21,7 @@ export const tagQuery = graphql`
   query TagArchive($tag: String!, $showDrafts: Boolean) {
     ...siteMeta
     allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
       filter: {
         frontmatter: { tags: { eq: $tag }, published: { ne: $showDrafts } }
       }
