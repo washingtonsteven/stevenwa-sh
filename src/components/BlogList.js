@@ -42,20 +42,17 @@ const Warning = styled.h4`
   padding: 3px 5px;
 `;
 
+const CardImage = styled.div`
+  & img {
+    margin-bottom: 0;
+  }
+`;
+
 const image = path =>
   path ? (
-    <div>
-      <img
-        src={path}
-        style={{
-          marginBottom: 0,
-          display: "block",
-          maxHeight: "300px",
-          margin: "0 auto"
-        }}
-        alt="featured-image"
-      />
-    </div>
+    <CardImage path={path}>
+      <img src={path} alt="presentational" />
+    </CardImage>
   ) : null;
 
 class BlogList extends React.Component {
