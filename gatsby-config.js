@@ -100,12 +100,16 @@ module.exports = {
                     : site.siteMetadata.siteUrl + "/sw_favicon.svg"
                 };
 
+                const imgTag = `<img src="${enclosure.url}" />`;
+
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   url: edgeUrl,
                   guid: edgeUrl,
                   enclosure: enclosure,
-                  custom_elements: [{ "content:encoded": edge.node.html }]
+                  custom_elements: [
+                    { "content:encoded": imgTag + edge.node.html }
+                  ]
                 });
               });
             },
