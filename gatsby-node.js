@@ -9,6 +9,8 @@ require("dotenv").config({
 
 const showDrafts = process.env.GATSBY_SHOW_DRAFTS === "false" ? false : null;
 
+console.log(showDrafts);
+
 const remarkQuery = type => `
   {
     allMarkdownRemark(
