@@ -1,7 +1,7 @@
 ---
 title: "Not ready yet! - Geting Drafts functionality in Gatsby"
 subtitle: "With some fanciness, you can work on and save drafts of posts in Gatsby"
-date: 2018-03-31
+date: 2018-08-04
 path: /gatsby-drafts/
 published: false
 tags:
@@ -27,11 +27,11 @@ GATSBY_SHOW_DRAFTS=true
 ```
 Simple!
 
-However, we will want to use this variable while we are setting up pages, so we won't be reading this environment file in 
-
-However, we will want to use the [`dotenv`][dotenv] package from npm to load out variables
+However, we will want to use the [`dotenv`][dotenv] package from npm to load out variable and inject it into the the node's context.
 
 ## Editing Page Context
+
+in `gatsby-node.js`, we get load the our drafts variable and inject it into page contexts so we are modify our queries.
 
 ## Updating GraphQL queries
 
