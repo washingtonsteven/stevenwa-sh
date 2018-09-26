@@ -47,10 +47,10 @@ const StyledBackLink = styled(Link)`
 
 const StyledTag = styled(Link)`
   padding: 3px 8px;
-  background-color: ${LIGHT_SHADE};
-  color: ${LIGHT_ACCENT};
+  background-color: ${LIGHT_ACCENT};
+  color: white;
   margin: 0 10px 5px 0;
-  border-radius: 0.2rem;
+  border-radius: 0.1rem;
   border:solid 1px ${LIGHT_ACCENT};
   white-space:nowrap;
   display:inline-block;
@@ -75,7 +75,7 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <div>
-        <StyledBackLink to="/">{`\u2190`} Back</StyledBackLink>
+        {/* <StyledBackLink to="/">{`\u2190`} Back</StyledBackLink> */}
         <StyledBlogPost postType={postType}>
           <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
           <h1>{post.frontmatter.title}</h1>

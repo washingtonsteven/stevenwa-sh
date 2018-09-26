@@ -1,4 +1,4 @@
-import { DARK_ACCENT, LIGHT_ACCENT, YELLOW } from "../style";
+import { DARK_ACCENT, LIGHT_ACCENT, YELLOW, PROJECT_COLOR } from "../style";
 
 export const singular = str => {
   if (!str) return str;
@@ -14,7 +14,7 @@ export const postTypeFromPath = (path, opts = {}) => {
 };
 
 export const postTypeColors = {
-  project: DARK_ACCENT,
+  project: PROJECT_COLOR,
   post: LIGHT_ACCENT,
   featured: YELLOW
 };

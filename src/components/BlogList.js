@@ -21,7 +21,7 @@ const StyledBadge = styled.div`
   position: absolute;
   top: ${props => props.top || rhythm(1 / 2)};
   right: ${props => props.right || rhythm(-1 / 2)};
-  border-radius: 0.3rem;
+  border-radius: 0.1rem;
   background-color: ${props =>
     props.postType && postTypeColors[props.postType]
       ? postTypeColors[props.postType]
@@ -87,7 +87,7 @@ class BlogList extends React.Component {
           </StyledBadge>
           {p.node.frontmatter.featured && (
             <StyledBadge
-              top={rhythm(1.75)}
+              top={rhythm(1.5)}
               textColor={TEXT_COLOR}
               postType="featured"
             >

@@ -1,14 +1,12 @@
-// theme: minimal
-
 export const LIGHT_SHADE = `#efeef1`;
-export const BG_COLOR = `white`;
+export const BG_COLOR = LIGHT_SHADE;
 export const TEXT_COLOR = `#333`;
-export const LIGHT_ACCENT = `#1c87db`; //`#6dacdd`;
+export const LIGHT_ACCENT = `#6dacdd`;
 export const BLOG_COLOR = LIGHT_ACCENT;
-export const MAIN_COLOR = `#333`;
+export const MAIN_COLOR = `#4e83b4`;
 export const PROJECT_COLOR = MAIN_COLOR;
-export const DARK_ACCENT = LIGHT_ACCENT; // `#af7dc1`; //`#a53bcc`;
-export const DARK_SHADE = LIGHT_SHADE;
+export const DARK_ACCENT = `#af7dc1`; //`#a53bcc`;
+export const DARK_SHADE = `#302e4d`;
 
 export const YELLOW = `#ffb700`;
 
@@ -20,15 +18,13 @@ export const border_gradient = dir =>
   `linear-gradient(to ${dir}, ${DARK_ACCENT}, ${LIGHT_ACCENT})`;
 export const BORDER_GRADIENT = border_gradient("bottom");
 
-// export const box_shadow = ({
-//   x = 0,
-//   y = 3,
-//   b = 6,
-//   c = "rgba(0,0,0,0.12)"
-// } = {}) => 'none'; // `${x}px ${y}px ${b}px ${c}, ${x}px ${y}px ${b - 2}px ${c}`;
-// export const BOX_SHADOW = box_shadow();
-export const box_shadow = () => 'none';
-export const BOX_SHADOW = 'none';
+export const box_shadow = ({
+  x = 0,
+  y = 3,
+  b = 6,
+  c = "rgba(0,0,0,0.12)"
+} = {}) => `${x}px ${y}px ${b}px ${c}, ${x}px ${y}px ${b - 2}px ${c}`;
+export const BOX_SHADOW = box_shadow();
 
 export const transition = prop => `${prop} 0.2s linear`;
 export const TRANSITION_ALL = transition("all");
