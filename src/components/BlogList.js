@@ -48,10 +48,10 @@ const CardImage = styled.div`
   }
 `;
 
-const image = path =>
+const image = (path, imgProps = {}) =>
   path ? (
     <CardImage path={path}>
-      <img src={path} alt="presentational" />
+      <img src={path} {...imgProps}  alt="presentational" />
     </CardImage>
   ) : null;
 
@@ -64,6 +64,10 @@ class BlogList extends React.Component {
     const postTypePlural = postTypeFromPath(p.node.fileAbsolutePath || "", {
       plural: true
     });
+    const featured_image_props = {
+      srcSet: get(p.node, "frontmatter.featured_image.childImageSharp.sizes.srcSet"),
+      sizes: get(p.node, "frontmatter.featured_iamge.childImageSharp.sizes.sizes")
+    }
     return (
       <Card
         date={<Link to={postURL}>{p.node.frontmatter.date}</Link>}
@@ -71,7 +75,7 @@ class BlogList extends React.Component {
         key={p.node.frontmatter.path}
         image={({ className }) => (
           <Link to={postURL} className={className}>
-            {image(get(p.node, "frontmatter.featured_image.publicURL")) || (
+            {image(get(p.node, "frontmatter.featured_image.publicURL"), featured_image_props) || (
               <BlogPlaceholder />
             )}
           </Link>

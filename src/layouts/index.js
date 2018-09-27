@@ -210,6 +210,12 @@ export const siteMetaFragment = graphql`
           date(formatString: "MMMM DD, YYYY")
           featured_image {
             publicURL
+            childImageSharp {
+              sizes {
+                srcSet
+                sizes
+              }
+            }
           }
           featured
           published

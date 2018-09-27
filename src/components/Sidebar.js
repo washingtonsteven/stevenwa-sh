@@ -123,7 +123,7 @@ class Sidebar extends React.Component {
         <StyledCard
           header={
             <Link to="/">
-              <StyledImage src={Face} alt="stevenwas.sh - Steven Washington" />
+              <StyledImage {...this.props.face} alt="stevenwas.sh - Steven Washington" />
             </Link>
           }
         >
