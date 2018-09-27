@@ -12,6 +12,7 @@ import {
   box_shadow,
   transition,
   LIGHT_ACCENT,
+  MAIN_COLOR,
   BORDER_GRADIENT,
   border_gradient,
   DARK_SHADE
@@ -20,21 +21,21 @@ import {
 const StyledHeader = styled.h3`
   position: relative;
   z-index: 1;
-  padding: ${props => (props.cardHasDate ? 0 : rhythm(1 / 2))} ${rhythm(1)}
+  padding: ${props => (props.cardHasDate ? 0 : rhythm(1))} ${rhythm(2)}
     ${rhythm(1 / 2)};
   margin-bottom: 0;
 `;
 
 const StyledContent = styled.div`
-  padding: ${rhythm(1 / 2)} ${rhythm(1)};
+  padding: ${rhythm(1)} ${rhythm(2)};
   color: ${props => props.color || "inherit"};
 `;
 
 const StyledBox = styled.article`
   box-shadow: ${BOX_SHADOW};
   background-color: white;
-  margin-bottom: ${rhythm(1)};
-  border-${props => props.direction || "top"}: solid 8px ${props =>
+  margin-bottom: ${rhythm(2.5)};
+  border-${props => props.direction || "left"}: solid 3px ${props =>
   props.color || LIGHT_ACCENT};
   ${props => (props.disableBorder ? "border:none" : "")}
   position:relative;
@@ -45,12 +46,12 @@ const StyledBox = styled.article`
     position:absolute;
     top:0;
     left:0;
-    width:100%;
-    height:8px;
-    background:${border_gradient("right")};
+    height:100%;
+    width:3px;
+    background:${border_gradient("bottom")};
     opacity:0;
     transition:opacity 0.2s linear;
-    transform:translateY(-100%);
+    transform:translateX(-100%);
   }
   &:hover {
     box-shadow:${box_shadow({ y: 5, c: "rgba(0,0,0,0.24)" })};
@@ -63,12 +64,12 @@ const StyledBox = styled.article`
 `;
 
 const StyledDate = styled.div`
-  color: #aaa;
+  color: #333;
   font-style: italic;
   font-size: 0.7rem;
-  padding: ${rhythm(1 / 4)} ${rhythm(1)};
+  padding: ${rhythm(1 / 2)} ${rhythm(2)};
   a {
-    color: #aaa;
+    color: #333;
   }
 `;
 
@@ -87,7 +88,7 @@ export default ({
   image,
   children,
   direction,
-  color,
+  color = MAIN_COLOR,
   hoverColor,
   disableBorder,
   className,

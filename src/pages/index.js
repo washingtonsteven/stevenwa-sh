@@ -11,7 +11,7 @@ import { LIGHT_ACCENT, DARK_SHADE, MOBILE_WIDTH } from "../style";
 const StyledHome = styled.div`
   display: grid;
   padding: 0 ${rhythm(1)};
-  grid-template-columns: 40% 1fr;
+  grid-template-columns: 25% 1fr;
   grid-template-areas: "sidebar main";
   grid-column-gap: ${rhythm(1)};
 

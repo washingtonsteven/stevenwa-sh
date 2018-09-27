@@ -29,7 +29,7 @@ import prism from "./prism.css";
 const StyledTemplate = styled.div`
   width: 100%;
   font-family: ${TEXT_FONT};
-  line-height: 1.4;
+  line-height: 1.5;
   color: ${TEXT_COLOR};
   background-color: ${LIGHT_SHADE};
   position: relative;
@@ -104,12 +104,12 @@ const StyledFooter = styled.footer`
 `;
 
 const CopyLine = styled.div`
-  color: #aaa;
+  color: #333;
   font-size: 0.8rem;
 `;
 
 const LinksLine = styled.ul`
-  color: #aaa;
+  color: #333;
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -119,14 +119,14 @@ const LinksLine = styled.ul`
     display: inline-block;
     margin-right: 10px;
     a {
-      color: #aaa;
+      color: #333;
       text-decoration: underline;
     }
   }
 `;
 
 class Template extends React.Component {
-  state = { color: LIGHT_ACCENT, backgroundColor: DARK_SHADE };
+  state = { color: MAIN_COLOR, backgroundColor: DARK_SHADE };
   updatePageColor = color => this.setState(state => ({ ...state, color }));
   updateBackgroundColor = backgroundColor =>
     this.setState(state => ({ ...state, backgroundColor }));
@@ -199,7 +199,7 @@ export const siteMetaFragment = graphql`
     edges {
       node {
         id
-        excerpt
+        excerpt(pruneLength:280)
         fileAbsolutePath
         frontmatter {
           path

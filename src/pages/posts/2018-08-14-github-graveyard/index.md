@@ -9,6 +9,8 @@ tags:
   - graveyard
 ---
 
+_(Image from [Max Pixel](https://www.maxpixel.net/Tombstone-Cemetery-Rip-Grave-Death-D-2036220))_
+
 The concept of a Github Graveyard was started by Isaac Lyman in [this dev.to post](https://dev.to/isaacandsuch/github-graveyards-ill-show-you-mine-49lh). The idea is to go through all your old projects that you never touch anymore and remember where you've come from to help you get to where you're going. I loved the idea immediately, and decided to start my own!
 
 ## [aterriblefate][aterriblefate]

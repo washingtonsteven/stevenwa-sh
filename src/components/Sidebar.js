@@ -21,13 +21,21 @@ import Face from "./face.jpg";
 const StyledCard = styled(Card)`
   margin-bottom: 0.7rem;
   display: grid;
-  grid-template-areas: "image content";
+  grid-template-areas: "image, content";
   grid-column-gap: 20px;
   padding: 0 20px;
 
   & > * {
     padding-left: 0;
     padding-right: 0;
+
+    img {
+      margin: 0 auto;
+    }
+  }
+
+  p {
+    margin-bottom: 1rem;
   }
 
   @media (max-width: ${MOBILE_WIDTH}) {
@@ -103,7 +111,7 @@ const StyledGithubIcon = styled(GithubIcon)`
 const StyledImage = styled.img`
   width: 100px;
   border-radius: 50%;
-  border: solid 6px ${LIGHT_ACCENT};
+  border: solid 3px ${MAIN_COLOR};
   display: block;
   margin-bottom: 0;
 `;
