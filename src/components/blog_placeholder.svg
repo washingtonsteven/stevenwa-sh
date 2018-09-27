@@ -6,11 +6,11 @@
     </style>
   </defs>
   <title>Post</title>
-  <g id="Layer_2" data-name="Layer 2">
-    <g id="Layer_1-2" data-name="Layer 1">
+  <g data-name="plc Layer 2">
+    <g data-name="plc Layer 1">
       <rect class="cls-1" width="525" height="330"/>
     </g>
-    <g id="Layer_2-2" data-name="Layer 2">
+    <g data-name="plc Layer 2-2">
       <rect class="cls-2" x="28.5" y="21" width="385" height="32"/>
       <rect class="cls-2" x="28.5" y="91" width="445" height="16"/>
       <rect class="cls-2" x="28.5" y="124" width="405" height="16"/>

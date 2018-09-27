@@ -38,7 +38,7 @@ const StyledBadge = styled.div`
 
 const Warning = styled.h4`
   color: white;
-  background-color: red;
+  background-color: #a80000;
   padding: 3px 5px;
 `;
 

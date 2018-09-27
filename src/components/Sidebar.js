@@ -123,7 +123,7 @@ class Sidebar extends React.Component {
         <StyledCard
           header={
             <Link to="/">
-              <StyledImage src={Face} />
+              <StyledImage src={Face} alt="stevenwas.sh - Steven Washington" />
             </Link>
           }
         >
@@ -133,13 +133,13 @@ class Sidebar extends React.Component {
         <StyledMoreLinks>
           {this.props.social &&
             this.props.social.twitter && (
-              <StyledSocialLink href={this.props.social.twitter}>
+              <StyledSocialLink href={this.props.social.twitter} name="@esaevian on Twitter">
                 <StyledTwitterIcon />
               </StyledSocialLink>
             )}
           {this.props.social &&
             this.props.social.github && (
-              <StyledSocialLink href={this.props.social.github}>
+              <StyledSocialLink href={this.props.social.github} name="washingtonsteven on Github">
                 <StyledGithubIcon />
               </StyledSocialLink>
             )}

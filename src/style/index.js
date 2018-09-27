@@ -3,7 +3,7 @@
 export const LIGHT_SHADE = `#efeef1`;
 export const BG_COLOR = `white`;
 export const TEXT_COLOR = `#333`;
-export const LIGHT_ACCENT = `#1c87db`; //`#6dacdd`;
+export const LIGHT_ACCENT = `#1976be`; //`#6dacdd`;
 export const BLOG_COLOR = LIGHT_ACCENT;
 export const MAIN_COLOR = `#333`;
 export const PROJECT_COLOR = MAIN_COLOR;
