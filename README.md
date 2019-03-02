@@ -1,4 +1,4 @@
-# `joyous-jackal`: Gatsby Powered Personal Blog site
+# `stevenwa.sh`: Gatsby Powered Personal Blog site
 
 ## Why?
 
