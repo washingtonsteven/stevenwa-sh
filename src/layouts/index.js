@@ -139,6 +139,9 @@ class Template extends React.Component {
     return (
       <StyledTemplate color={this.state.backgroundColor || this.state.color}>
         <Helmet>
+          <html lang="en" />
+          <meta name="description" content="stevenwa.sh - Steven Washington - Full Stack Developer" />
+          <title>stevenwa.sh - Steven Washington</title>
           <link rel="logo" href="/favicon.png" type="image/x-icon" />
         </Helmet>
         <StyledNav color={this.state.color}>
@@ -207,6 +210,12 @@ export const siteMetaFragment = graphql`
           date(formatString: "MMMM DD, YYYY")
           featured_image {
             publicURL
+            childImageSharp {
+              sizes {
+                srcSet
+                sizes
+              }
+            }
           }
           featured
           published

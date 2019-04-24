@@ -57,10 +57,16 @@ class Home extends React.Component {
     const twitter = get(this, "props.data.site.siteMetadata.twitter");
     const github = get(this, "props.data.site.siteMetadata.github");
 
+    const face = {
+      src: get(this, "props.data.allImageSharp.edges[0].node.sizes.src"),
+      srcSet: get(this, "props.data.allImageSharp.edges[0].node.sizes.srcSet"),
+      sizes: get(this, "props.data.allImageSharp.edges[0].node.sizes.sizes")
+    }
+
     return (
       <StyledHome>
         <Helmet title={this.props.helmetTitle || siteTitle} />
-        <StyledSidebar className="staticSidebar" social={{ twitter, github }} />
+        <StyledSidebar className="staticSidebar" social={{ twitter, github }} face={face} />
         <StyledBlogList posts={posts} featuredPost={featuredPost} />
       </StyledHome>
     );
@@ -86,6 +92,17 @@ export const query = graphql`
       filter: { frontmatter: { published: { ne: $showDrafts } } }
     ) {
       ...postListData
+    }
+    allImageSharp(filter: { sizes: { originalName: { eq:"face.jpg" } }}) {
+      edges {
+        node {
+          sizes {
+            src
+            srcSet
+            sizes
+          }
+        }
+      }
     }
   }
 `;

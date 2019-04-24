@@ -1,6 +1,6 @@
 ---
 title: "My Development Graveyard, Part 1"
-subtitle: "With some fanciness, you can work on and save drafts of posts in Gatsby"
+subtitle: "The projects that just didn't quite make it!"
 date: 2018-08-14
 path: /my-development-graveyard-part-1/
 featured_image: ./rip.jpg
