@@ -30,5 +30,16 @@ export const typeQuery = graphql`
     ) {
       ...postListData
     }
+    allImageSharp(filter: { sizes: { originalName: { eq: "face.jpg" } } }) {
+      edges {
+        node {
+          sizes {
+            src
+            srcSet
+            sizes
+          }
+        }
+      }
+    }
   }
 `;
