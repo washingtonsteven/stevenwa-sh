@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Helmet from "react-helmet";
-import Link from "gatsby-link";
 import styled from "styled-components";
 import { BOX_SHADOW, MAX_WIDTH } from "../style";
+import { Link } from "gatsby";
 
 const StyledPage = styled.div`
   background-color: white;
@@ -48,7 +48,10 @@ class Credits extends Component {
                   Patreon
                 </CreditLink>
               </li>
-              <li>All photos used in posts are credited within the post itself<br/>If a photo doesn't have a credit, it was taken/screenshotted by me.</li>
+              <li>
+                All photos used in posts are credited within the post itself<br />If
+                a photo doesn't have a credit, it was taken/screenshotted by me.
+              </li>
             </ul>
           </section>
           <section>

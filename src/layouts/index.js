@@ -1,7 +1,7 @@
 import React from "react";
 import Helmet from "react-helmet";
 import get from "lodash/get";
-import Link from "gatsby-link";
+import { Link, graphql } from "gatsby";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { rhythm } from "../utils/typography";
@@ -72,12 +72,11 @@ const StyledLogo = styled(Logo)`
 const StyledNav = styled.nav`
   width: 100%;
   box-shadow: ${BOX_SHADOW};
-  background-color: ${props => props.color || MAIN_COLOR}
+  background-color: ${props => props.color || MAIN_COLOR};
   margin-bottom: ${rhythm(1)};
   position: sticky;
   top: 0;
   z-index: 10;
-
 
   &:hover svg rect.gradient {
     opacity: 1;
@@ -140,7 +139,10 @@ class Template extends React.Component {
       <StyledTemplate color={this.state.backgroundColor || this.state.color}>
         <Helmet>
           <html lang="en" />
-          <meta name="description" content="stevenwa.sh - Steven Washington - Full Stack Developer" />
+          <meta
+            name="description"
+            content="stevenwa.sh - Steven Washington - Full Stack Developer"
+          />
           <title>stevenwa.sh - Steven Washington</title>
           <link rel="logo" href="/favicon.png" type="image/x-icon" />
         </Helmet>
@@ -150,7 +152,7 @@ class Template extends React.Component {
           </Link>
         </StyledNav>
         <StyledMain>
-          {children({
+          {React.cloneElement(children, {
             ...this.props,
             updatePageColor: this.updatePageColor,
             updateBackgroundColor: this.updateBackgroundColor
@@ -179,7 +181,6 @@ class Template extends React.Component {
 }
 
 Template.propTypes = {
-  children: PropTypes.func,
   location: PropTypes.object,
   route: PropTypes.object
 };
@@ -187,7 +188,7 @@ Template.propTypes = {
 export default Template;
 
 export const siteMetaFragment = graphql`
-  fragment siteMeta on RootQueryType {
+  fragment siteMeta on Query {
     site {
       siteMetadata {
         title
@@ -202,7 +203,7 @@ export const siteMetaFragment = graphql`
     edges {
       node {
         id
-        excerpt(pruneLength:280)
+        excerpt(pruneLength: 280)
         fileAbsolutePath
         frontmatter {
           path
@@ -222,9 +223,5 @@ export const siteMetaFragment = graphql`
         }
       }
     }
-  }
-
-  query SiteInfo {
-    ...siteMeta
   }
 `;

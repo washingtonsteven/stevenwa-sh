@@ -1,6 +1,5 @@
 import React from "react";
 import Helmet from "react-helmet";
-import Link from "gatsby-link";
 import get from "lodash/get";
 import styled from "styled-components";
 import {
@@ -11,6 +10,7 @@ import {
   MAIN_COLOR
 } from "../style";
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
+import { Link, graphql } from "gatsby";
 
 const StyledBlogPost = styled.div`
   background-color: white;
@@ -51,12 +51,12 @@ const StyledTag = styled(Link)`
   color: white;
   margin: 0 10px 5px 0;
   border-radius: 0.1rem;
-  border:solid 1px ${LIGHT_ACCENT};
-  white-space:nowrap;
-  display:inline-block;
+  border: solid 1px ${LIGHT_ACCENT};
+  white-space: nowrap;
+  display: inline-block;
 
   &:hover {
-    background-color: ${LIGHT_ACCENT}
+    background-color: ${LIGHT_ACCENT};
     color: ${LIGHT_SHADE};
   }
 `;

@@ -1,7 +1,7 @@
 import React from "react";
-import Link from "gatsby-link";
 import Home from "../pages";
 import get from "lodash/get";
+import { graphql } from "gatsby";
 
 class TypeArchiveTemplate extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class TypeArchiveTemplate extends React.Component {
     return (
       <Home
         {...this.props}
-        helmetTitle={`type:${this.props.pathContext.type} | ${siteTitle}`}
+        helmetTitle={`type:${this.props.pageContext.type} | ${siteTitle}`}
       />
     );
   }

@@ -59,8 +59,8 @@ const createTypePages = ({ result, slug, reject, createPage, blogPost }) => {
   });
 };
 
-exports.createPages = ({ graphql, boundActionCreators }) => {
-  const { createPage } = boundActionCreators;
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions;
 
   return new Promise((resolve, reject) => {
     const pages = [];
@@ -128,8 +128,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   });
 };
 
-exports.onCreatePage = ({ page, boundActionCreators }) => {
-  const { createPage } = boundActionCreators;
+exports.onCreatePage = ({ page, actions }) => {
+  const { createPage } = actions;
   return new Promise(resolve => {
     const updatedContext = Object.assign(page.context, {
       showDrafts

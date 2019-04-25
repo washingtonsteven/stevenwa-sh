@@ -1,7 +1,7 @@
 import React from "react";
-import Link from "gatsby-link";
 import Home from "../pages";
 import get from "lodash/get";
+import { graphql } from "gatsby";
 
 class TagArchiveTemplate extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class TagArchiveTemplate extends React.Component {
     return (
       <Home
         {...this.props}
-        helmetTitle={`tagged:${this.props.pathContext.tag} | ${siteTitle}`}
+        helmetTitle={`tagged:${this.props.pageContext.tag} | ${siteTitle}`}
       />
     );
   }

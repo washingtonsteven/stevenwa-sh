@@ -20,10 +20,12 @@ const typography = new Typography({
   includeNormalize: true,
   overrideStyles: ({ rhythm }, options, styles) => ({
     body: { backgroundColor: LIGHT_SHADE },
-    "h1,h2,h3,h4,h5,h6": { letterSpacing: "1px", fontWeight: '400' },
+    "h1,h2,h3,h4,h5,h6": { letterSpacing: "1px", fontWeight: "400" },
     a: { color: TEXT_COLOR },
     "a:hover": { textDecoration: "underline" }
   })
 });
 
-export default typography;
+const { rhythm, scale } = typography;
+
+export { rhythm, scale, typography as default };

@@ -74,7 +74,8 @@ module.exports = {
         pathToConfigModule: "src/utils/typography.js"
       }
     },
-    `@jacobmischka/gatsby-plugin-react-svg`,
+    `gatsby-plugin-react-svg`,
+    `gatsby-plugin-layout`,
     {
       resolve: "gatsby-plugin-feed",
       options: {

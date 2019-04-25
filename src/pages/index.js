@@ -4,6 +4,7 @@ import BlogList from "../components/BlogList";
 import Sidebar from "../components/Sidebar";
 import Helmet from "react-helmet";
 import { rhythm } from "../utils/typography";
+import { graphql } from "gatsby";
 
 import get from "lodash/get";
 import { LIGHT_ACCENT, DARK_SHADE, MOBILE_WIDTH } from "../style";
@@ -61,12 +62,16 @@ class Home extends React.Component {
       src: get(this, "props.data.allImageSharp.edges[0].node.sizes.src"),
       srcSet: get(this, "props.data.allImageSharp.edges[0].node.sizes.srcSet"),
       sizes: get(this, "props.data.allImageSharp.edges[0].node.sizes.sizes")
-    }
+    };
 
     return (
       <StyledHome>
         <Helmet title={this.props.helmetTitle || siteTitle} />
-        <StyledSidebar className="staticSidebar" social={{ twitter, github }} face={face} />
+        <StyledSidebar
+          className="staticSidebar"
+          social={{ twitter, github }}
+          face={face}
+        />
         <StyledBlogList posts={posts} featuredPost={featuredPost} />
       </StyledHome>
     );
@@ -93,7 +98,7 @@ export const query = graphql`
     ) {
       ...postListData
     }
-    allImageSharp(filter: { sizes: { originalName: { eq:"face.jpg" } }}) {
+    allImageSharp(filter: { sizes: { originalName: { eq: "face.jpg" } } }) {
       edges {
         node {
           sizes {
