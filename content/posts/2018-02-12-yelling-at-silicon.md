@@ -1,27 +1,26 @@
 ---
-title: Yelling at Silicon (Part 1)
-subtitle: "Getting Google Assistant to do what you want"
-date: 2018-02-12
 path: /yelling-at-silicon/
-featured_image_o: ./thorndike_test.png
+date: 2018-02-12T00:00:00.000Z
+title: Yelling at Silicon (Part 1)
+subtitle: Getting Google Assistant to do what you want
+featured_image: /assets/electronics-laptop-macro-755416.jpg
 published: true
 tags:
   - google assistant
   - javascript
   - ifttt
 ---
-
 The use of various voice-activated home assistants in everyday life has been booming lately. It started off with Siri, and Google followed with their Assistant. Alexa came on the scene and even Cortana has given it a go.
 
 These assistants come with a good set of features and functions that help you automate your life: setting timers, playing music, turning on and off lights, setting thermostats, etc. It's all very helpful! However, regardless of how many functions exist, there's never going to be a one-size-fits-all solution.
 
 So it's time to make one.
 
-_Play along by following what I have so far in [Github][gh]_
+_Play along by following what I have so far in [Github](https://github.com/washingtonsteven/thorndike)_
 
 ## A bus tracking app
 
-My typical morning involves the usual things: waking up, checking Twitter while laying in bed for 20 minutes, rushing through breakfast/shower/dressing myself to get out the door on time. A part of this involves halting the whole process as I fiddle with my phone to bring up predictions from a bus tracking app ([Nextbus][nextbus] in this case). It would be so much easier if I could instead ask my phone (or Google Home) for the latest buses by my house as I'm toasting a bagel or tying my shoes.
+My typical morning involves the usual things: waking up, checking Twitter while laying in bed for 20 minutes, rushing through breakfast/shower/dressing myself to get out the door on time. A part of this involves halting the whole process as I fiddle with my phone to bring up predictions from a bus tracking app ([Nextbus](https://nextbus.com) in this case). It would be so much easier if I could instead ask my phone (or Google Home) for the latest buses by my house as I'm toasting a bagel or tying my shoes.
 
 To start, I built a quick function that interfaces with Nextbus' API. It accepts a stop name, and returns an object that has the prediction data that I need:
 
@@ -61,7 +60,7 @@ const parseSchedule = json => {
 };
 ```
 
-_If you're following in the [Github repo][gh], you'll notice that I'm only getting the first prediction for each route/direction combo. Shuffling around this function a bit and we can get multiple sets of predictions per route, which we can append to the inner array_
+_If you're following in the [Github repo](https://github.com/washingtonsteven/thorndike), you'll notice that I'm only getting the first prediction for each route/direction combo. Shuffling around this function a bit and we can get multiple sets of predictions per route, which we can append to the inner array_
 
 ## Making sentences - `filter` and `join`
 
@@ -91,7 +90,7 @@ exports.stringifyPredictions = (results, joiner = ". ") => {
 
 ## Make it web-accessible
 
-In order to work, Google Assistant must be able to access our service over the web, where we will return what we want it to say as a JSON response. I use [Express][express] to set up a server to listen to queries from Google, and host on Heroku.
+In order to work, Google Assistant must be able to access our service over the web, where we will return what we want it to say as a JSON response. I use [Express](https://expressjs.com) to set up a server to listen to queries from Google, and host on Heroku.
 
 ```javascript
 const app = express();
@@ -103,15 +102,15 @@ app.post("/thorndike", (req, res) => {
 
 ## Conversing with Google Assistant - Actions on Google and DialogFlow
 
-Now that we have functions for getting prediction sentences, we need to hook up Google Assistant to respond to our voice, and reach out to our service to get the set of predictions. For that we use the [`actions-on-google`][aog] module from `npm` as well as [Dialogflow][df].
+Now that we have functions for getting prediction sentences, we need to hook up Google Assistant to respond to our voice, and reach out to our service to get the set of predictions. For that we use the [`actions-on-google`](https://www.npmjs.com/package/actions-on-google) module from `npm` as well as [Dialogflow](https://dialogflow.com).
 
-Before getting into code, we need to set up our app on the Google Developer Console and Dialogflow. Dialogflow is the glue between Google Assistant and our app, it receives the parsed voice input from Google Assistant, and will call our app via webhook (they call it a "Fulfillment") in response. [I used this bit of documentation to get all of this set up][tut]. It goes over some of the concepts of a Google Assistant "conversation" as well has walking through the Dialogflow web console.
+Before getting into code, we need to set up our app on the Google Developer Console and Dialogflow. Dialogflow is the glue between Google Assistant and our app, it receives the parsed voice input from Google Assistant, and will call our app via webhook (they call it a "Fulfillment") in response. [I used this bit of documentation to get all of this set up](https://developers.google.com/actions/dialogflow/first-app). It goes over some of the concepts of a Google Assistant "conversation" as well has walking through the Dialogflow web console.
 
 Part of said setup is making an "Action" that the service can respond to. This can be any sort of string that identifies what's happening; we just need to remember is when we get to coding up our response. Another important part is the "argument," which is a piece of the spoken phrase that can be variable. We can extract that text and use that to inform which bus we are looking for. E.g. "Hey Google, What buses are near **Harvard**?" Both of these will get sent to our request handler, which is the next bit of code we will be working on!
 
 ## Responding to requests with `actions-on-google`
 
-The [`actions-on-google` module][aog] works by parsing the request received from Google Assistant/Dialog flow, and calling a function based on what action was sent. This is done by setting up a Map that connects action strings to functions. From there we just have to call `getPredictions`/`stringifyPredictions` to get our prediction sentences, and then pass that into a `tell` function that `actions-on-google` gives us!
+The [`actions-on-google` module](https://www.npmjs.com/package/actions-on-google) works by parsing the request received from Google Assistant/Dialog flow, and calling a function based on what action was sent. This is done by setting up a Map that connects action strings to functions. From there we just have to call `getPredictions`/`stringifyPredictions` to get our prediction sentences, and then pass that into a `tell` function that `actions-on-google` gives us!
 
 ```javascript
 // googleAction.js
@@ -167,7 +166,7 @@ Now that we have our web app set up (and hosted, and the webhook is put into Dia
 
 ### Rename your app
 
-When setting up Dialogflow, it created an app in the [Actions on Google Console][aogconsole]. We can log in here and update the App information, like the app name and pronunciation, so we can talk to our service by name. I called mine "Thorndike Next Bus" (more on naming in a bit).
+When setting up Dialogflow, it created an app in the [Actions on Google Console](https://console.actions.google.com/). We can log in here and update the App information, like the app name and pronunciation, so we can talk to our service by name. I called mine "Thorndike Next Bus" (more on naming in a bit).
 
 This screen is meant for putting in your app metadata for publishing on the Google Actions Marketplace for everyone to use. However I currently don't have plans for a general public release of this; I just want to use it on my account. But since we are effectively preparing a public app (just not releasing it), we have a few limitations.
 
@@ -179,10 +178,7 @@ This screen is meant for putting in your app metadata for publishing on the Goog
 
 Once you edit your app information, you can test out the responses in your browser by clicking "Test Draft". You'll get a screen that looks like the Google Assisant Android screen on the left, and various data about your tests on the right. Here, you can type in your expected voice input and see how Google Assistant responds.
 
-<p style="text-align:center">
-<img src="./thorndike_test.png" alt="Testing Thorndike Next Bus" height="500" /><br/>
-<em>Success!</em>
-</p>
+![Testing Thorndike Next Bus](/assets/thorndike_test.png "Success!")
 
 ### Testing with your voice
 
@@ -196,13 +192,4 @@ The was Actions on Google works is through a concept of "conversations." Which i
 
 This way of augmenting Google Assistant is fantastic for setting up conversations with AI to interact with data sources that don't come "standard" with it. Just takes a bit of work to mold the data into a sentence, and then serve a response when Google comes knocking on your server with some voice input. However, sometimes these conversations can be clunky just to get a bit of data. If only there were an alternative way to get the data, with a single sentence or even the press of a button&hellip;
 
-**Oh wait there is!** In a followup article, I'll be hooking up the same bus tracking app to [IFTTT's Google Assistant integration][ifttt], which will allow us to access our data in a number of different alternative ways to Google's conversations.
-
-[nextbus]: https://nextbus.com
-[express]: https://expressjs.com
-[aog]: https://www.npmjs.com/package/actions-on-google
-[df]: https://dialogflow.com
-[tut]: https://developers.google.com/actions/dialogflow/first-app
-[aogconsole]: https://console.actions.google.com/
-[ifttt]: https://ifttt.com/google_assistant
-[gh]: https://github.com/washingtonsteven/thorndike
+**Oh wait there is!** In a followup article, I'll be hooking up the same bus tracking app to [IFTTT's Google Assistant integration](https://ifttt.com/google_assistant), which will allow us to access our data in a number of different alternative ways to Google's conversations.
