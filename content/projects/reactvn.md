@@ -12,6 +12,8 @@ tags:
   - text adventure
 repo: 'https://github.com/washingtonsteven/react-vn'
 ---
+
+
 React VN is a Visual Novel Editor and Player for playing and writing text adventures.
 
 ## Technology
@@ -54,3 +56,11 @@ Editor: http://react-vn.netlify.com\
 Player: http://react-vn-player.netlify.com
 
 ## Screenshots
+
+![ReactVN: List of nodes](/assets/screenshot01.png)
+
+![ReactVN: Story Page](/assets/screenshot02.png)
+
+![ReactVN: Page Editor](/assets/screenshot03.png)
+
+![ReactVN: Story Metadata editing](/assets/screenshot04.png)
