@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { LIGHT_SHADE, BOX_SHADOW, LIGHT_ACCENT } from "../style";
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
 import { Link, graphql } from "gatsby";
+import Img from "gatsby-image";
 
 const StyledBlogPost = styled.div`
   background-color: white;
@@ -59,6 +60,12 @@ class BlogPostTemplate extends React.Component {
     const post = this.props.data.markdownRemark;
     const postType = postTypeFromPath(post.fileAbsolutePath);
     const siteTitle = get(this.props, "data.site.siteMetadata.title");
+    let featured_image = get(
+      post,
+      "frontmatter.featured_image.childImageSharp.fluid"
+    );
+    if (!featured_image)
+      featured_image = get(post, "frontmatter.featured_image.publicURL");
 
     return (
       <div>
@@ -81,10 +88,11 @@ class BlogPostTemplate extends React.Component {
 
           {post.frontmatter.featured_image && (
             <div className="featured-image" style={{ padding: 0 }}>
-              <img
-                src={post.frontmatter.featured_image.publicURL}
-                alt={post.frontmatter.title}
-              />
+              {typeof featured_image === "string" ? (
+                <img src={featured_image} alt={post.frontmatter.title} />
+              ) : (
+                <Img fluid={featured_image} alt={post.frontmatter.title} />
+              )}
             </div>
           )}
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
@@ -104,7 +112,10 @@ export const pageQuery = graphql`
         author
       }
     }
-    markdownRemark(frontmatter: { path: { eq: $postpath } }) {
+    markdownRemark(
+      fileAbsolutePath: { regex: "/content//" }
+      frontmatter: { path: { eq: $postpath } }
+    ) {
       id
       html
       fileAbsolutePath
@@ -115,6 +126,11 @@ export const pageQuery = graphql`
         published
         featured_image {
           publicURL
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_tracedSVG
+            }
+          }
         }
       }
     }

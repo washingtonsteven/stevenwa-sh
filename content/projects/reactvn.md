@@ -1,17 +1,18 @@
 ---
-title: ReactVN
-repo: https://github.com/washingtonsteven/react-vn
 path: /react-vn/
-featured: true
+date: 2018-03-12T21:20:21.470Z
+title: ReactVN
+featured_image: /assets/featured_alpha_20180325.gif
 published: true
-date: 2018-03-12
-featured_image: ./featured_alpha_20180325.gif
+featured: true
 tags:
   - javascript
   - react
   - context
   - text adventure
+repo: 'https://github.com/washingtonsteven/react-vn'
 ---
+
 
 React VN is a Visual Novel Editor and Player for playing and writing text adventures.
 
@@ -24,11 +25,12 @@ React VN was written for the web with Javascript, using React as a framework for
 ### create-react-app
 
 The React setup was scaffolded with [Create React App](https://github.com/facebook/create-react-app), and then was ejected for a few reasons:
-    
+\
     - Adding Sass compilation (using `sass-loader`)
     - Faciliating a special build that only builds the Player (default build includes the Editor)
 
 ### React 16.3 Context API
+
 This project also makes used of the new (and unreleased, at the time) React Context API. The Context is set up in `src/data/StoryContext.js`. In that file there is a `StoryProvider` that wraps around the default Context.Provider component that providers the story data to the consumer. However it also exposes several functions that serve as an API for the `storyData`: helper functions (for quick access for nodes) and actions (for modifying nodes).
 
 ## Deployment
@@ -47,16 +49,18 @@ Soon, an officially supported deployment will be to allow editors to download th
 
 Currently, both apps are deployed via Github to Netlify ([Editor](http://react-vn.netlify.com) and [Player](http://react-vn-player.netlify.com)). Each build is also run through TravisCI to run tests, and on tagged releases, will generate a `player.zip` that contains all the files needed to host a Player app which will be attached to the Github release.
 
-
 ## Links
 
-Source: https://github.com/washingtonsteven/react-vn  
-Editor: http://react-vn.netlify.com  
+Source: https://github.com/washingtonsteven/react-vn\
+Editor: http://react-vn.netlify.com\
 Player: http://react-vn-player.netlify.com
 
 ## Screenshots
 
-![screenshot01](screenshots/20180325/screenshot01.png)
-![screenshot02](screenshots/20180325/screenshot02.png)
-![screenshot03](screenshots/20180325/screenshot03.png)
-![screenshot04](screenshots/20180325/screenshot04.png)
+![ReactVN: List of nodes](/assets/screenshot01.png)
+
+![ReactVN: Story Page](/assets/screenshot02.png)
+
+![ReactVN: Page Editor](/assets/screenshot03.png)
+
+![ReactVN: Story Metadata editing](/assets/screenshot04.png)

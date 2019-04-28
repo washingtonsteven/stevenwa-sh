@@ -3,6 +3,7 @@ import Card from "../components/Card";
 import BlogPlaceholder from "./blog_placeholder.svg";
 import get from "lodash/get";
 import { Link } from "gatsby";
+import Img from "gatsby-image";
 import styled from "styled-components";
 import { LIGHT_ACCENT, BOX_SHADOW, HEADER_FONT, TEXT_COLOR } from "../style";
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
@@ -42,12 +43,32 @@ const CardImage = styled.div`
   }
 `;
 
-const image = (path, imgProps = {}) =>
-  path ? (
-    <CardImage path={path}>
-      <img src={path} {...imgProps} alt="presentational" />
-    </CardImage>
-  ) : null;
+// const image = (path, imgProps = {}) =>
+//   path ? (
+//     <CardImage path={path}>
+//       <Img fluid={path} {...imgProps} />
+//     </CardImage>
+//   ) : null;
+
+const image = (path, imageProps = { alt: "presentational" }) => {
+  if (typeof path === "string") {
+    return (
+      <CardImage path={path}>
+        {/* trust us eslint, we're putting in alt tags */}
+        {/* eslint-disable-next-line */}
+        <img src={path} {...imageProps} />
+      </CardImage>
+    );
+  } else if (path) {
+    return (
+      <CardImage>
+        <Img fluid={path} {...imageProps} />
+      </CardImage>
+    );
+  }
+
+  return null;
+};
 
 class BlogList extends React.Component {
   renderPostCard(p) {
@@ -58,16 +79,12 @@ class BlogList extends React.Component {
     const postTypePlural = postTypeFromPath(p.node.fileAbsolutePath || "", {
       plural: true
     });
-    const featured_image_props = {
-      srcSet: get(
-        p.node,
-        "frontmatter.featured_image.childImageSharp.sizes.srcSet"
-      ),
-      sizes: get(
-        p.node,
-        "frontmatter.featured_iamge.childImageSharp.sizes.sizes"
-      )
-    };
+    let featured_image = get(
+      p.node,
+      "frontmatter.featured_image.childImageSharp.fluid"
+    );
+    if (!featured_image)
+      featured_image = get(p.node, "frontmatter.featured_image.publicURL");
     return (
       <Card
         date={<Link to={postURL}>{p.node.frontmatter.date}</Link>}
@@ -75,10 +92,9 @@ class BlogList extends React.Component {
         key={p.node.frontmatter.path}
         image={({ className }) => (
           <Link to={postURL} className={className}>
-            {image(
-              get(p.node, "frontmatter.featured_image.publicURL"),
-              featured_image_props
-            ) || <BlogPlaceholder />}
+            {image(featured_image, { alt: p.node.frontmatter.title }) || (
+              <BlogPlaceholder />
+            )}
           </Link>
         )}
       >

@@ -9,7 +9,7 @@ export const singular = str => {
 };
 
 export const postTypeFromPath = (path, opts = {}) => {
-  const matches = path.match(/src\/pages\/([^/]+)/);
+  const matches = path.match(/content\/([^/]+)/);
   return opts.plural ? matches && matches[1] : singular(matches && matches[1]);
 };
 

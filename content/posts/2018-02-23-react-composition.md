@@ -1,8 +1,9 @@
 ---
-title: "Stuff made out of things: Composing Components"
-date: 2018-02-23
 path: /react-composition/
-featured_image_o: ./react-vn-1.png
+date: 2018-02-23T00:00:00.000Z
+title: 'Stuff made out of things: Composing Components'
+subtitle: It's putting stuff inside other stuff
+featured_image: /assets/berries-cherries-delicious-461338.jpg
 published: true
 tags:
   - showdev
@@ -10,29 +11,17 @@ tags:
   - javascript
   - components
 ---
-
-[reactvn]: https://github.com/washingtonsteven/react-vn
-[reactcomp]: https://reactjs.org/docs/composition-vs-inheritance.html
-[mjrenderprops]: https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce
-[breakingup]: https://medium.com/tandemly/im-breaking-up-with-higher-order-components-44b0df2db052
-
 So. You're sitting there. You have a thing. But now you wish it did a slightly different thing. But you don't want to have to make the thing all over again.
 
 Still with me?
 
-Over the last week or so I've been working on a [visual novel player and editor using React][reactvn].
+Over the last week or so I've been working on a [visual novel player and editor using React](https://github.com/washingtonsteven/react-vn).
 
-<p style="text-align:center">
-<img src='./react-vn-1.png'><br/>
-<em>it's super ugly right now</em>
-</p>
+![Screenshot of an old version of ReactVN](/assets/react-vn-1.png "it's super ugly right now")
 
 This webapp is displaying a visual novel / choose-your-own-adventure story as a series of Nodes, with links to other Nodes (I even called them NodeLinks).
 
-<p style="text-align:center">
-<img src='./react-vn-ll.jpg'><br/>
-<em>kinda like a LinkedList! (pardon the Post-it diagram)</em>
-</p>
+![ReactVN Linked List doodle on a post-it note](/assets/react-vn-ll.jpg "kinda like a LinkedList! (pardon the Post-it diagram)")
 
 When you click on a NodeLink, it advances to the next page, like so:
 
@@ -93,10 +82,7 @@ Seems simple! But what if a `NodeLink` could do&hellip;_more_&hellip;
 
 Commonly in these games, we want a response from the player. Whether it's their name or what they think about a character or their favorite food.
 
-<p style="text-align:center">
-<img src='./pizza.jpg'><br/>
-<em>just wanted to show off my mediocre, though homemade, pizza</em>
-<p>
+![Image of homemade pepperoni pizza](/assets/pizza.jpg "just wanted to show off my mediocre, though homemade, pizza")
 
 I ended up thinking of this as a multistep process. First you click on a button, then you are prompted for input, then when the input is completed, the data is saved and you follow the NodeLink as usual.
 
@@ -119,7 +105,7 @@ class InputNodeLink extends NodeLink {
 }
 ```
 
-[But that isn't the React&trade; way.][reactcomp] It tightly couples your component to another, leaving the "source of truth" for state up in the air. Composition is a clearer way of doing this.
+[But that isn't the React&trade; way.](https://reactjs.org/docs/composition-vs-inheritance.html) It tightly couples your component to another, leaving the "source of truth" for state up in the air. Composition is a clearer way of doing this.
 
 In this case, our InputNodeLink will be composted of a NodeLink, as well as a small prompt dialog (with an `<input type="text">` and a `<button>` to submit).
 
@@ -201,13 +187,13 @@ _In real life, `inputNodeData` is an object that can handle an arbitrary amount 
 
 There we go! We are able to extend our `NodeLink` component with relative ease, and slot our `InputNodeLink` in perfectly and with out (too much) pain.
 
-_Check out the full project at [Github!][reactvn]_
+_Check out the full project at [Github!](https://github.com/washingtonsteven/react-vn)_
 
 ## PS: render props!
 
 Guess what, composition isn't even the only way to get this done! "Render props" (or "Children as a function") are an increasingly popular way of sharing code and functionality between components, where a base component allows for whatever is needed to be rendered inside of it. The child (which is a stateless component function) has access to the state of the base, and can do whatever it needs without the base component making assumptions.
 
-There are a number of people who have waxed poetic on the advantages of render props. [Here's one!][mjrenderprops] And [another!][breakingup]
+There are a number of people who have waxed poetic on the advantages of render props. [Here's one!](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) And [another!](https://medium.com/tandemly/im-breaking-up-with-higher-order-components-44b0df2db052)
 
 I'm still working on getting up to snuff on this new React pattern, so check back soon for an update to this on how to incorporate this into the choose your adventure app.
 

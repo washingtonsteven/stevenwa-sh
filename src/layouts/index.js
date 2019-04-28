@@ -208,9 +208,8 @@ export const siteMetaFragment = graphql`
           featured_image {
             publicURL
             childImageSharp {
-              sizes {
-                srcSet
-                sizes
+              fluid {
+                ...GatsbyImageSharpFluid_tracedSVG
               }
             }
           }

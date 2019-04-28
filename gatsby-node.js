@@ -14,7 +14,7 @@ console.log(showDrafts);
 const remarkQuery = type => `
   {
     allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/${type}/.*\\\\.md$/" } }
+      filter: { fileAbsolutePath: { regex: "/content\/${type}/" } }
       limit: 1000
     ) {
       edges {
@@ -30,7 +30,7 @@ const remarkQuery = type => `
 
 const tagsQuery = `
 {
-  tags: allMarkdownRemark(filter: { frontmatter: {tags:{ne: null}} }) {
+  tags: allMarkdownRemark(filter: { fileAbsolutePath:{ regex: "/content\//" }, frontmatter: {tags:{ne: null}} }) {
     edges {
       node {
         frontmatter {
@@ -82,7 +82,7 @@ exports.createPages = ({ graphql, actions }) => {
             path: `/posts/`,
             component: typeArchive,
             context: {
-              typeRegex: `/posts/.*\\.md$/`,
+              typeRegex: `/content\/posts/`,
               type: "posts",
               showDrafts
             }
@@ -101,7 +101,7 @@ exports.createPages = ({ graphql, actions }) => {
             path: `/projects/`,
             component: typeArchive,
             context: {
-              typeRegex: `/projects/.*\\.md$/`,
+              typeRegex: `/content\/projects/`,
               type: "projects",
               showDrafts
             }

@@ -23,6 +23,7 @@ export const tagQuery = graphql`
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: {
+        fileAbsolutePath: { regex: "/content//" }
         frontmatter: { tags: { eq: $tag }, published: { ne: $showDrafts } }
       }
     ) {
