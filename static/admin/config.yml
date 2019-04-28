@@ -8,7 +8,7 @@ public_folder: assets
 collections:
   - name: posts
     label: Posts
-    folder: src/pages/posts
+    folder: posts
     create: true
     fields:
       - { name: path, label: Path }
@@ -21,7 +21,7 @@ collections:
       - { name: body, label: Body, widget: markdown }
   - name: projects
     label: Projects
-    folder: src/pages/projects
+    folder: projects
     create: true
     fields:
       - { name: path, label: Path }
