@@ -1,9 +1,9 @@
 ---
-title: "My Development Graveyard, Part 1"
-subtitle: "The projects that just didn't quite make it!"
-date: 2018-08-14
 path: /my-development-graveyard-part-1/
-featured_image: ./rip.jpg
+date: 2018-08-14T00:00:00.000Z
+title: 'My Development Graveyard, Part 1'
+subtitle: The projects that just didn't quite make it!
+featured_image: /assets/rip.jpg
 published: true
 tags:
   - graveyard
