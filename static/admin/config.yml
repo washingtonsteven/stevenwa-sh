@@ -4,7 +4,7 @@ backend:
   branch: netlifycms
 
 media_folder: static/assets
-public_folder: assets
+public_folder: /assets
 
 collections:
   - name: posts

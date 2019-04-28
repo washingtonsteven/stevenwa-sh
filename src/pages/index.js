@@ -94,7 +94,10 @@ export const query = graphql`
     }
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { published: { ne: $showDrafts } } }
+      filter: {
+        fileAbsolutePath: { regex: "/content//" }
+        frontmatter: { published: { ne: $showDrafts } }
+      }
     ) {
       ...postListData
     }

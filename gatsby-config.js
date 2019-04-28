@@ -11,6 +11,13 @@ const postTypeFromPath = function(path, opts = {}) {
   return opts.plural ? matches && matches[1] : singular(matches && matches[1]);
 };
 
+var netlifyCmsPaths = {
+  resolve: `gatsby-plugin-netlify-cms-paths`,
+  options: {
+    cmsConfig: `./static/admin/config.yml`
+  }
+};
+
 module.exports = {
   siteMetadata: {
     title: "stevenwa.sh",
@@ -31,10 +38,25 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        path: `${__dirname}/src/components`,
+        name: "components"
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         path: `${__dirname}/content`,
         name: "content"
       }
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/static/assets`,
+        name: "assets"
+      }
+    },
+    netlifyCmsPaths,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
