@@ -1,4 +1,4 @@
-import { DARK_ACCENT, LIGHT_ACCENT, YELLOW, PROJECT_COLOR } from "../style";
+import { LIGHT_ACCENT, YELLOW, PROJECT_COLOR } from "../style";
 
 export const singular = str => {
   if (!str) return str;
@@ -9,7 +9,7 @@ export const singular = str => {
 };
 
 export const postTypeFromPath = (path, opts = {}) => {
-  const matches = path.match(/src\/pages\/([^\/]+)/);
+  const matches = path.match(/src\/pages\/([^/]+)/);
   return opts.plural ? matches && matches[1] : singular(matches && matches[1]);
 };
 

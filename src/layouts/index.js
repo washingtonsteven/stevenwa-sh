@@ -9,22 +9,18 @@ import {
   MAX_WIDTH,
   TEXT_COLOR,
   TEXT_FONT,
-  BG_COLOR,
   DARK_SHADE,
   BOX_SHADOW,
   box_shadow,
   transition,
   LIGHT_SHADE,
   MAIN_COLOR,
-  DARK_ACCENT,
-  BORDER_GRADIENT,
-  LIGHT_ACCENT,
   MOBILE_WIDTH
 } from "../style";
 
 import Logo from "./logo.svg";
 
-import prism from "./prism.css";
+import "./prism.css";
 
 const StyledTemplate = styled.div`
   width: 100%;
@@ -130,7 +126,7 @@ class Template extends React.Component {
   updateBackgroundColor = backgroundColor =>
     this.setState(state => ({ ...state, backgroundColor }));
   render() {
-    const { location, children, data } = this.props;
+    const { children, data } = this.props;
     const twitter = get(data, "site.siteMetadata.twitter");
     const github = get(data, "site.siteMetadata.github");
     const social = { twitter, github };

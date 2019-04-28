@@ -1,11 +1,8 @@
 import React from "react";
-import Link from "gatsby-link";
+import { Link } from "gatsby";
 import Card from "./Card";
 import styled from "styled-components";
 import {
-  DARK_SHADE,
-  LIGHT_ACCENT,
-  LIGHT_SHADE,
   MAIN_COLOR,
   BOX_SHADOW,
   SOCIAL_ICON_GRAY,
@@ -16,7 +13,6 @@ import {
 
 import TwitterIcon from "./twitter.svg";
 import GithubIcon from "./github.svg";
-import Face from "./face.jpg";
 
 const StyledCard = styled(Card)`
   margin-bottom: 0.7rem;
@@ -123,7 +119,10 @@ class Sidebar extends React.Component {
         <StyledCard
           header={
             <Link to="/">
-              <StyledImage {...this.props.face} alt="stevenwas.sh - Steven Washington" />
+              <StyledImage
+                {...this.props.face}
+                alt="stevenwas.sh - Steven Washington"
+              />
             </Link>
           }
         >
@@ -133,13 +132,19 @@ class Sidebar extends React.Component {
         <StyledMoreLinks>
           {this.props.social &&
             this.props.social.twitter && (
-              <StyledSocialLink href={this.props.social.twitter} name="@esaevian on Twitter">
+              <StyledSocialLink
+                href={this.props.social.twitter}
+                name="@esaevian on Twitter"
+              >
                 <StyledTwitterIcon />
               </StyledSocialLink>
             )}
           {this.props.social &&
             this.props.social.github && (
-              <StyledSocialLink href={this.props.social.github} name="washingtonsteven on Github">
+              <StyledSocialLink
+                href={this.props.social.github}
+                name="washingtonsteven on Github"
+              >
                 <StyledGithubIcon />
               </StyledSocialLink>
             )}

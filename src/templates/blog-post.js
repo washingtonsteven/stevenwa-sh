@@ -2,13 +2,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import get from "lodash/get";
 import styled from "styled-components";
-import {
-  LIGHT_SHADE,
-  BOX_SHADOW,
-  LIGHT_ACCENT,
-  DARK_ACCENT,
-  MAIN_COLOR
-} from "../style";
+import { LIGHT_SHADE, BOX_SHADOW, LIGHT_ACCENT } from "../style";
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
 import { Link, graphql } from "gatsby";
 
@@ -36,13 +30,6 @@ const StyledBlogPost = styled.div`
     padding-left: 20px;
     border-left: solid 4px #aaa;
   }
-`;
-
-const StyledBackLink = styled(Link)`
-  padding: 5px 15px;
-  background-color: white;
-  box-shadow: ${BOX_SHADOW};
-  margin-left: 20px;
 `;
 
 const StyledTag = styled(Link)`
@@ -75,7 +62,6 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <div>
-        {/* <StyledBackLink to="/">{`\u2190`} Back</StyledBackLink> */}
         <StyledBlogPost postType={postType}>
           <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
           <h1>{post.frontmatter.title}</h1>
@@ -95,7 +81,10 @@ class BlogPostTemplate extends React.Component {
 
           {post.frontmatter.featured_image && (
             <div className="featured-image" style={{ padding: 0 }}>
-              <img src={post.frontmatter.featured_image.publicURL} />
+              <img
+                src={post.frontmatter.featured_image.publicURL}
+                alt={post.frontmatter.title}
+              />
             </div>
           )}
           <div dangerouslySetInnerHTML={{ __html: post.html }} />

@@ -2,15 +2,9 @@ import React from "react";
 import Card from "../components/Card";
 import BlogPlaceholder from "./blog_placeholder.svg";
 import get from "lodash/get";
-import Link from "gatsby-link";
+import { Link } from "gatsby";
 import styled from "styled-components";
-import {
-  MAIN_COLOR,
-  LIGHT_ACCENT,
-  BOX_SHADOW,
-  HEADER_FONT,
-  TEXT_COLOR
-} from "../style";
+import { LIGHT_ACCENT, BOX_SHADOW, HEADER_FONT, TEXT_COLOR } from "../style";
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
 import { rhythm } from "../utils/typography";
 
@@ -51,7 +45,7 @@ const CardImage = styled.div`
 const image = (path, imgProps = {}) =>
   path ? (
     <CardImage path={path}>
-      <img src={path} {...imgProps}  alt="presentational" />
+      <img src={path} {...imgProps} alt="presentational" />
     </CardImage>
   ) : null;
 
@@ -65,9 +59,15 @@ class BlogList extends React.Component {
       plural: true
     });
     const featured_image_props = {
-      srcSet: get(p.node, "frontmatter.featured_image.childImageSharp.sizes.srcSet"),
-      sizes: get(p.node, "frontmatter.featured_iamge.childImageSharp.sizes.sizes")
-    }
+      srcSet: get(
+        p.node,
+        "frontmatter.featured_image.childImageSharp.sizes.srcSet"
+      ),
+      sizes: get(
+        p.node,
+        "frontmatter.featured_iamge.childImageSharp.sizes.sizes"
+      )
+    };
     return (
       <Card
         date={<Link to={postURL}>{p.node.frontmatter.date}</Link>}
@@ -75,9 +75,10 @@ class BlogList extends React.Component {
         key={p.node.frontmatter.path}
         image={({ className }) => (
           <Link to={postURL} className={className}>
-            {image(get(p.node, "frontmatter.featured_image.publicURL"), featured_image_props) || (
-              <BlogPlaceholder />
-            )}
+            {image(
+              get(p.node, "frontmatter.featured_image.publicURL"),
+              featured_image_props
+            ) || <BlogPlaceholder />}
           </Link>
         )}
       >

@@ -7,7 +7,7 @@ import { rhythm } from "../utils/typography";
 import { graphql } from "gatsby";
 
 import get from "lodash/get";
-import { LIGHT_ACCENT, DARK_SHADE, MOBILE_WIDTH } from "../style";
+import { MOBILE_WIDTH } from "../style";
 
 const StyledHome = styled.div`
   display: grid;
