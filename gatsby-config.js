@@ -76,6 +76,7 @@ module.exports = {
     },
     `gatsby-plugin-react-svg`,
     `gatsby-plugin-layout`,
+    `gatsby-plugin-netlify-cms`,
     {
       resolve: "gatsby-plugin-feed",
       options: {
