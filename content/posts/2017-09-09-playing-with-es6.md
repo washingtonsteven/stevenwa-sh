@@ -1,9 +1,9 @@
 ---
+path: /playing-with-es6/
+date: 2017-09-09T00:00:00.000Z
 title: Playing with Canvas and ES6 Classes
 subtitle: Getting to know ES6 classes while also making a tiny game!
-date: 2017-09-09
-path: /playing-with-es6/
-featured_image: ./canvas_game.jpg
+featured_image: /assets/canvas_game.jpg
 published: true
 tags:
   - javascript
