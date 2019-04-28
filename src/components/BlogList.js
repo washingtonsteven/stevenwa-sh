@@ -50,10 +50,12 @@ const CardImage = styled.div`
 //     </CardImage>
 //   ) : null;
 
-const image = (path, imageProps = {}) => {
+const image = (path, imageProps = { alt: "presentational" }) => {
   if (typeof path === "string") {
     return (
       <CardImage path={path}>
+        {/* trust us eslint, we're putting in alt tags */}
+        {/* eslint-disable-next-line */}
         <img src={path} {...imageProps} />
       </CardImage>
     );
