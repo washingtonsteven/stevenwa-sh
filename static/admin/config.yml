@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: washingtonsteven/stevenwa-sh
-  branch: netlifycms
+  branch: master
 
 media_folder: static/assets
 public_folder: /assets
