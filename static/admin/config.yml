@@ -1,7 +1,9 @@
 backend:
   name: github
   repo: washingtonsteven/stevenwa-sh
-  branch: netlifycms
+  branch: master
+
+publish_mode: editorial_workflow
 
 media_folder: static/assets
 public_folder: /assets
@@ -9,23 +11,26 @@ public_folder: /assets
 collections:
   - name: posts
     label: Posts
+    label_singular: Post
     folder: content/posts
     create: true
+    slug: "{{slug}}"
+    preview_path: "posts/{{slug}}"
     fields:
-      - { name: path, label: Path }
       - { name: date, label: Date, widget: date }
       - { name: title, label: Title }
       - { name: subtitle, label: Subtitle }
       - { name: featured_image, label: Featured Image, widget: image }
-      - { name: published, label: Published, widget: boolean, default: true }
       - { name: tags, label: Tags, widget: list }
       - { name: body, label: Body, widget: markdown }
   - name: projects
     label: Projects
+    label_singular: Project
     folder: content/projects
     create: true
+    slug: "{{slug}}"
+    preview_path: "projects/{{slug}}"
     fields:
-      - { name: path, label: Path }
       - { name: date, label: Date, widget: date }
       - { name: title, label: Title }
       - { name: featured_image, label: Featured Image, widget: image }
