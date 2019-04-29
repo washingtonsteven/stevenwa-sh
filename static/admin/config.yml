@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: washingtonsteven/stevenwa-sh
-  branch: master
+  branch: netlifycms
 
 publish_mode: editorial_workflow
 
