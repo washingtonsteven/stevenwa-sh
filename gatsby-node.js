@@ -3,9 +3,16 @@ const Promise = require("bluebird");
 const path = require("path");
 const select = require(`unist-util-select`);
 const fs = require(`fs-extra`);
+
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`
 });
+
+const filenameFromPath = path => {
+  const matches = path.match(/\/([^\/]+).md$/);
+  if (matches && matches[1]) return matches[1];
+  return null;
+};
 
 const remarkQuery = type => `
   {
@@ -15,6 +22,9 @@ const remarkQuery = type => `
     ) {
       edges {
         node {
+          fields {
+            post_slug
+          }
           frontmatter {
             path
           }
@@ -29,6 +39,9 @@ const tagsQuery = `
   tags: allMarkdownRemark(filter: { fileAbsolutePath:{ regex: "/content\//" }, frontmatter: {tags:{ne: null}} }) {
     edges {
       node {
+        fields {
+          post_slug
+        }
         frontmatter {
           tags
         }
@@ -46,10 +59,10 @@ const createTypePages = ({ result, slug, reject, createPage, blogPost }) => {
 
   _.each(result.data.allMarkdownRemark.edges, edge => {
     createPage({
-      path: `/${slug}${edge.node.frontmatter.path}`,
+      path: `/${slug}/${edge.node.fields.post_slug}`,
       component: blogPost,
       context: {
-        postpath: edge.node.frontmatter.path
+        post_slug: edge.node.fields.post_slug
       }
     });
   });
@@ -130,4 +143,15 @@ exports.onCreatePage = ({ page, actions }) => {
     createPage(page);
     resolve();
   });
+};
+
+exports.onCreateNode = ({ node, actions }) => {
+  const { createNodeField } = actions;
+  if (node.internal.type === "MarkdownRemark" && node.fileAbsolutePath) {
+    createNodeField({
+      node,
+      name: "post_slug",
+      value: filenameFromPath(node.fileAbsolutePath)
+    });
+  }
 };
