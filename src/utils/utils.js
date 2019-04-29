@@ -13,6 +13,12 @@ export const postTypeFromPath = (path, opts = {}) => {
   return opts.plural ? matches && matches[1] : singular(matches && matches[1]);
 };
 
+export const filenameFromPath = path => {
+  const matches = path.match(/\/([^\/]+).md$/);
+  if (matches && matches[1]) return matches[1];
+  return null;
+};
+
 export const postTypeColors = {
   project: PROJECT_COLOR,
   post: LIGHT_ACCENT,

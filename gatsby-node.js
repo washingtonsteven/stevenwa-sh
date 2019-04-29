@@ -3,6 +3,8 @@ const Promise = require("bluebird");
 const path = require("path");
 const select = require(`unist-util-select`);
 const fs = require(`fs-extra`);
+const { filenameFromPath } = require("./utils/utils");
+
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`
 });
@@ -15,6 +17,7 @@ const remarkQuery = type => `
     ) {
       edges {
         node {
+          fileAbsolutePath
           frontmatter {
             path
           }
@@ -29,6 +32,7 @@ const tagsQuery = `
   tags: allMarkdownRemark(filter: { fileAbsolutePath:{ regex: "/content\//" }, frontmatter: {tags:{ne: null}} }) {
     edges {
       node {
+        fileAbsolutePath
         frontmatter {
           tags
         }
@@ -49,7 +53,9 @@ const createTypePages = ({ result, slug, reject, createPage, blogPost }) => {
       path: `/${slug}${edge.node.frontmatter.path}`,
       component: blogPost,
       context: {
-        postpath: edge.node.frontmatter.path
+        postpath:
+          edge.node.frontmatter.path ||
+          filenameFromPath(edge.node.fileAbsolutePath)
       }
     });
   });
