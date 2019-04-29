@@ -59,7 +59,7 @@ const image = (path, imageProps = { alt: "presentational" }) => {
 
 class BlogList extends React.Component {
   renderPostCard(p) {
-    const postURL = `/${postTypeFromPath(p.node.fileAbsolutePath || "")}${
+    const postURL = `/${postTypeFromPath(p.node.fileAbsolutePath || "")}/${
       p.node.fields.post_slug
     }`;
     const postType = postTypeFromPath(p.node.fileAbsolutePath || "");
