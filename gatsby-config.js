@@ -122,7 +122,7 @@ module.exports = {
                   site.siteMetadata.siteUrl +
                   "/" +
                   postTypeFromPath(edge.node.fileAbsolutePath) +
-                  edge.node.frontmatter.path;
+                  edge.node.fields.post_slug;
 
                 const enclosure = {
                   url: edge.node.frontmatter.featured_image
@@ -156,6 +156,9 @@ module.exports = {
                       excerpt
                       html
                       fileAbsolutePath
+                      fields {
+                        post_slug
+                      }
                       frontmatter {
                         path
                         title

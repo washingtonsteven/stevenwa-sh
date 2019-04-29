@@ -201,6 +201,9 @@ export const siteMetaFragment = graphql`
         id
         excerpt(pruneLength: 280)
         fileAbsolutePath
+        fields {
+          post_slug
+        }
         frontmatter {
           path
           title

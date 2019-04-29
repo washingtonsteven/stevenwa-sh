@@ -31,24 +31,11 @@ const StyledBadge = styled.div`
   }
 `;
 
-const Warning = styled.h4`
-  color: white;
-  background-color: #a80000;
-  padding: 3px 5px;
-`;
-
 const CardImage = styled.div`
   & img {
     margin-bottom: 0;
   }
 `;
-
-// const image = (path, imgProps = {}) =>
-//   path ? (
-//     <CardImage path={path}>
-//       <Img fluid={path} {...imgProps} />
-//     </CardImage>
-//   ) : null;
 
 const image = (path, imageProps = { alt: "presentational" }) => {
   if (typeof path === "string") {
@@ -73,7 +60,7 @@ const image = (path, imageProps = { alt: "presentational" }) => {
 class BlogList extends React.Component {
   renderPostCard(p) {
     const postURL = `/${postTypeFromPath(p.node.fileAbsolutePath || "")}${
-      p.node.frontmatter.path
+      p.node.fields.post_slug
     }`;
     const postType = postTypeFromPath(p.node.fileAbsolutePath || "");
     const postTypePlural = postTypeFromPath(p.node.fileAbsolutePath || "", {
@@ -89,7 +76,7 @@ class BlogList extends React.Component {
       <Card
         date={<Link to={postURL}>{p.node.frontmatter.date}</Link>}
         header={<Link to={postURL}>{p.node.frontmatter.title}</Link>}
-        key={p.node.frontmatter.path}
+        key={p.node.fields.post_slug}
         image={({ className }) => (
           <Link to={postURL} className={className}>
             {image(featured_image, { alt: p.node.frontmatter.title }) || (
@@ -99,9 +86,6 @@ class BlogList extends React.Component {
         )}
       >
         <div>
-          {!p.node.frontmatter.published && (
-            <Warning>This post is not yet published</Warning>
-          )}
           <div>{p.node.excerpt}</div>
           <StyledBadge postType={postType}>
             <Link to={`/${postTypePlural}`}>{postTypePlural}</Link>

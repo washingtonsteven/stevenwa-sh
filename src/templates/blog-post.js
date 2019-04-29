@@ -49,12 +49,6 @@ const StyledTag = styled(Link)`
   }
 `;
 
-const Warning = styled.h4`
-  color: white;
-  background-color: red;
-  padding: 3px 5px;
-`;
-
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
@@ -73,9 +67,6 @@ class BlogPostTemplate extends React.Component {
           <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
           <h1>{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
-          {!post.frontmatter.published && (
-            <Warning>This post is not yet published</Warning>
-          )}
           {post.frontmatter.tags && (
             <div style={{ marginBottom: "25px" }}>
               {post.frontmatter.tags.map(t => (
@@ -105,7 +96,7 @@ class BlogPostTemplate extends React.Component {
 export default BlogPostTemplate;
 
 export const pageQuery = graphql`
-  query BlogPostByPath($postpath: String!) {
+  query BlogPostByPath($post_slug: String!) {
     site {
       siteMetadata {
         title
@@ -114,7 +105,7 @@ export const pageQuery = graphql`
     }
     markdownRemark(
       fileAbsolutePath: { regex: "/content//" }
-      frontmatter: { path: { eq: $postpath } }
+      fields: { post_slug: { eq: $post_slug } }
     ) {
       id
       html
