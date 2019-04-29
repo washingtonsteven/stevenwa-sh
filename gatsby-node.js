@@ -7,10 +7,6 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`
 });
 
-const showDrafts = process.env.GATSBY_SHOW_DRAFTS === "false" ? false : null;
-
-console.log(showDrafts);
-
 const remarkQuery = type => `
   {
     allMarkdownRemark(
@@ -83,8 +79,7 @@ exports.createPages = ({ graphql, actions }) => {
             component: typeArchive,
             context: {
               typeRegex: `/content\/posts/`,
-              type: "posts",
-              showDrafts
+              type: "posts"
             }
           });
         })
@@ -102,8 +97,7 @@ exports.createPages = ({ graphql, actions }) => {
             component: typeArchive,
             context: {
               typeRegex: `/content\/projects/`,
-              type: "projects",
-              showDrafts
+              type: "projects"
             }
           });
         })
@@ -120,7 +114,7 @@ exports.createPages = ({ graphql, actions }) => {
             createPage({
               path: `/tagged/${tag}`,
               component: tagArchive,
-              context: { tag, showDrafts }
+              context: { tag }
             });
           });
         })
@@ -131,9 +125,7 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreatePage = ({ page, actions }) => {
   const { createPage } = actions;
   return new Promise(resolve => {
-    const updatedContext = Object.assign(page.context, {
-      showDrafts
-    });
+    const updatedContext = Object.assign(page.context, {});
     page.context = updatedContext;
     createPage(page);
     resolve();

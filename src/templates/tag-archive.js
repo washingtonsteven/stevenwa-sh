@@ -18,13 +18,13 @@ class TagArchiveTemplate extends React.Component {
 export default TagArchiveTemplate;
 
 export const tagQuery = graphql`
-  query TagArchive($tag: String!, $showDrafts: Boolean) {
+  query TagArchive($tag: String!) {
     ...siteMeta
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: {
         fileAbsolutePath: { regex: "/content//" }
-        frontmatter: { tags: { eq: $tag }, published: { ne: $showDrafts } }
+        frontmatter: { tags: { eq: $tag } }
       }
     ) {
       ...postListData
