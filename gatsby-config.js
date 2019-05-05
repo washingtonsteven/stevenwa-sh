@@ -98,7 +98,12 @@ module.exports = {
     },
     `gatsby-plugin-react-svg`,
     `gatsby-plugin-layout`,
-    `gatsby-plugin-netlify-cms`,
+    {
+      resolve: `gatsby-plugin-netlify-cms`,
+      options: {
+        modulePath: `${__dirname}/src/cms/cms.js`
+      }
+    },
     {
       resolve: "gatsby-plugin-feed",
       options: {
