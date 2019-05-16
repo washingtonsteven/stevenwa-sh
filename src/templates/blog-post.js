@@ -147,7 +147,6 @@ class BlogPostTemplate extends React.Component {
             <div className="project-screenshots">
               <h2>Screenshots</h2>
               <div className="screenshot-container">
-              {console.log(post.frontmatter.screenshots)}
               {post.frontmatter.screenshots.map((img, i) => (
                 <Img fluid={img.childImageSharp.fluid} key={i} alt={'screenshot'} />
               ))}</div>
