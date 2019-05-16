@@ -1,5 +1,4 @@
 ---
-path: /react-vn/
 date: 2018-03-12T21:20:21.470Z
 title: ReactVN
 featured_image: /assets/featured_alpha_20180325.gif
@@ -11,9 +10,12 @@ tags:
   - context
   - text adventure
 repo: 'https://github.com/washingtonsteven/react-vn'
+screenshots:
+  - /assets/screenshot01.png
+  - /assets/screenshot02.png
+  - /assets/screenshot03.png
+  - /assets/screenshot04.png
 ---
-
-
 React VN is a Visual Novel Editor and Player for playing and writing text adventures.
 
 ## Technology
@@ -54,13 +56,3 @@ Currently, both apps are deployed via Github to Netlify ([Editor](http://react-v
 Source: https://github.com/washingtonsteven/react-vn\
 Editor: http://react-vn.netlify.com\
 Player: http://react-vn-player.netlify.com
-
-## Screenshots
-
-![ReactVN: List of nodes](/assets/screenshot01.png)
-
-![ReactVN: Story Page](/assets/screenshot02.png)
-
-![ReactVN: Page Editor](/assets/screenshot03.png)
-
-![ReactVN: Story Metadata editing](/assets/screenshot04.png)

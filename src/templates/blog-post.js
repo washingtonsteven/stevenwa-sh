@@ -2,14 +2,14 @@ import React from "react";
 import Helmet from "react-helmet";
 import get from "lodash/get";
 import styled from "styled-components";
-import { LIGHT_SHADE, BOX_SHADOW, LIGHT_ACCENT } from "../style";
+import { LIGHT_SHADE, BOX_SHADOW, LIGHT_ACCENT, MOBILE_WIDTH } from "../style";
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
 import { Link, graphql } from "gatsby";
 import Img from "gatsby-image";
 
 const StyledBlogPost = styled.div`
   background-color: white;
-  margin: 35px 20px;
+  margin: 0 0 35px;
   box-shadow: ${BOX_SHADOW};
   padding-bottom: 20px;
 
@@ -24,12 +24,31 @@ const StyledBlogPost = styled.div`
         : LIGHT_ACCENT};
     color: white;
     padding: 20px;
+    margin-top: 0;
+    position: sticky;
+    top: 50px;
+    z-index: 2;
+
+    @media (max-width: ${MOBILE_WIDTH}) {
+      position: static;
+    }
   }
 
   blockquote {
     font-style: italic;
     padding-left: 20px;
     border-left: solid 4px #aaa;
+  }
+
+  .project-screenshots .screenshot-container {
+    max-width: 80%;
+    margin: 0 auto;
+
+    & > * {
+      margin-bottom: 30px;
+      padding: 5px;
+      border: solid 1px #333;
+    }
   }
 `;
 
@@ -49,21 +68,66 @@ const StyledTag = styled(Link)`
   }
 `;
 
+const StyledBannerImage = styled.div`
+  padding: 0;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  margin-top: -28px;
+  position: relative;
+  pointer-events: none;
+
+  @media(max-width: ${MOBILE_WIDTH}) {
+    height: auto;
+  }
+
+  & > * {
+    margin: 0;
+    display: block;
+    width: 100%;
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @media(max-width: ${MOBILE_WIDTH}) {
+      position: static !important;
+      transform: none;
+    }
+  }
+`;
+
 class BlogPostTemplate extends React.Component {
-  render() {
+  getFeaturedImage() {
     const post = this.props.data.markdownRemark;
-    const postType = postTypeFromPath(post.fileAbsolutePath);
-    const siteTitle = get(this.props, "data.site.siteMetadata.title");
     let featured_image = get(
       post,
       "frontmatter.featured_image.childImageSharp.fluid"
     );
     if (!featured_image)
       featured_image = get(post, "frontmatter.featured_image.publicURL");
-
+    
+    return featured_image;
+  }
+  render() {
+    const post = this.props.data.markdownRemark;
+    const postType = postTypeFromPath(post.fileAbsolutePath);
+    const siteTitle = get(this.props, "data.site.siteMetadata.title");
+    const featured_image = this.getFeaturedImage();
     return (
       <div>
         <StyledBlogPost postType={postType}>
+        {
+          featured_image && (
+            <StyledBannerImage>
+            {typeof featured_image === 'string' ? (
+              <img src={featured_image} alt="banner" />
+            ) : (
+              <Img fluid={featured_image} alt="banner" />
+            )}
+            </StyledBannerImage>
+          )
+        }
           <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
           <h1>{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
@@ -77,16 +141,17 @@ class BlogPostTemplate extends React.Component {
             </div>
           )}
 
-          {post.frontmatter.featured_image && (
-            <div className="featured-image" style={{ padding: 0 }}>
-              {typeof featured_image === "string" ? (
-                <img src={featured_image} alt={post.frontmatter.title} />
-              ) : (
-                <Img fluid={featured_image} alt={post.frontmatter.title} />
-              )}
+          <div dangerouslySetInnerHTML={{ __html: post.html }} />
+
+          {post.frontmatter.screenshots &&(
+            <div className="project-screenshots">
+              <h2>Screenshots</h2>
+              <div className="screenshot-container">
+              {post.frontmatter.screenshots.map((img, i) => (
+                <Img fluid={img.childImageSharp.fluid} key={i} alt={'screenshot'} />
+              ))}</div>
             </div>
           )}
-          <div dangerouslySetInnerHTML={{ __html: post.html }} />
         </StyledBlogPost>
       </div>
     );
@@ -115,6 +180,13 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         tags
         published
+        screenshots {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_tracedSVG
+            }
+          }
+        }
         featured_image {
           publicURL
           childImageSharp {

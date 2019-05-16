@@ -39,3 +39,4 @@ collections:
       - { name: tags, label: Tags, widget: list }
       - { name: repo, label: Repo }
       - { name: body, label: Body, widget: markdown }
+      - { name: screenshots, label: Screenshots, widget: list, field: { name: image, label: Image, widget: image } }
