@@ -98,7 +98,12 @@ module.exports = {
     },
     `gatsby-plugin-react-svg`,
     `gatsby-plugin-layout`,
-    `gatsby-plugin-netlify-cms`,
+    {
+      resolve: `gatsby-plugin-netlify-cms`,
+      options: {
+        modulePath: `${__dirname}/src/cms/cms.js`
+      }
+    },
     {
       resolve: "gatsby-plugin-feed",
       options: {
@@ -122,7 +127,7 @@ module.exports = {
                   site.siteMetadata.siteUrl +
                   "/" +
                   postTypeFromPath(edge.node.fileAbsolutePath) +
-                  edge.node.frontmatter.path;
+                  edge.node.fields.post_slug;
 
                 const enclosure = {
                   url: edge.node.frontmatter.featured_image
@@ -156,6 +161,9 @@ module.exports = {
                       excerpt
                       html
                       fileAbsolutePath
+                      fields {
+                        post_slug
+                      }
                       frontmatter {
                         path
                         title

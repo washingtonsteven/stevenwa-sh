@@ -2,6 +2,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import get from "lodash/get";
 import { Link, graphql } from "gatsby";
+import Img from "gatsby-image";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { rhythm } from "../utils/typography";
@@ -130,7 +131,6 @@ class Template extends React.Component {
     const twitter = get(data, "site.siteMetadata.twitter");
     const github = get(data, "site.siteMetadata.github");
     const social = { twitter, github };
-
     return (
       <StyledTemplate color={this.state.backgroundColor || this.state.color}>
         <Helmet>
@@ -201,6 +201,9 @@ export const siteMetaFragment = graphql`
         id
         excerpt(pruneLength: 280)
         fileAbsolutePath
+        fields {
+          post_slug
+        }
         frontmatter {
           path
           title

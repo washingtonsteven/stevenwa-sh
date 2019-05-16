@@ -1,20 +1,17 @@
 ---
-path: /playing-with-es6/
 date: 2017-09-09T00:00:00.000Z
 title: Playing with Canvas and ES6 Classes
 subtitle: Getting to know ES6 classes while also making a tiny game!
 featured_image: /assets/canvas_game.jpg
-published: true
 tags:
   - javascript
   - canvas
   - es6
   - devlog
 ---
-
 ## A Train Ride
 
-This past Labor Day weekend I took some time to take the train down to New York City with my wife to see the sights, eat some good food, and generally get incredibly overwhelmed by the sheer *denseness* of the city. It's a great city and I know many people love it, but it's more and more becoming not my style. However on the way back I was actually awake enough to run through [a quick tutorial][1] on how to use the HTML5 Canvas API to draw to the screen, take in inputs and output a simple, single-screen platformer game. Nothing to write home about, but it was nice to get away from the libraries like [Pixi][2] and [CreateJS][3] and just get your hands dirty directly.
+This past Labor Day weekend I took some time to take the train down to New York City with my wife to see the sights, eat some good food, and generally get incredibly overwhelmed by the sheer _denseness_ of the city. It's a great city and I know many people love it, but it's more and more becoming not my style. However on the way back I was actually awake enough to run through [a quick tutorial](http://www.somethinghitme.com/2013/01/09/creating-a-canvas-platformer-tutorial-part-one/) on how to use the HTML5 Canvas API to draw to the screen, take in inputs and output a simple, single-screen platformer game. Nothing to write home about, but it was nice to get away from the libraries like [Pixi](http://www.pixijs.com/) and [CreateJS](http://createjs.com/) and just get your hands dirty directly.
 
 ## A New Challenge
 
@@ -26,7 +23,7 @@ The tutorial keeps all of the game state in the global `window` object. Various
 
 #### Code
 
-Follow along with the code [on Github][4]. I don't repeat every line here, so go check the full thing out! (Link goes to the specific commit that this post is referencing, since I will be updating it in the future).
+Follow along with the code [on Github](https://github.com/washingtonsteven/js-canvas-platformer/tree/95927ec3ff837ff3128472370b3b9f7b48464341). I don't repeat every line here, so go check the full thing out! (Link goes to the specific commit that this post is referencing, since I will be updating it in the future).
 
 ### Main class
 
@@ -41,9 +38,9 @@ I started off with a main class, that really just kicked everything off. I've ha
         // actually do stuff here
       }
     };
-```    
+```
 
-It kept things out of the global scope, at least. But not nearly ES6-y enough. Also...still relying on jQuery? [That's so 2010][5]. Now we can shed that pile of bloat<sup><a href="#jquery-disclaimer">1</a></sup> and in a fairly easy-to-read way setup our main starter class: the `public static void main(String [] args)` of Javascript.
+It kept things out of the global scope, at least. But not nearly ES6-y enough. Also...still relying on jQuery? [That's so 2010](https://meta.stackoverflow.com/questions/335328/when-is-use-jquery-not-a-valid-answer-to-a-javascript-question). Now we can shed that pile of bloat<sup><a href="#jquery-disclaimer">1</a></sup> and in a fairly easy-to-read way setup our main starter class: the `public static void main(String [] args)` of Javascript.
 
 ```javascript
     class CVS { //CVS is short for canvas, not a convenience store/pharmacy
@@ -56,7 +53,6 @@ It kept things out of the global scope, at least. But not nearly ES6-y enough. A
       let cvs = new CVS();
     })();
 ```
-    
 
 ### Browserify
 
@@ -64,7 +60,7 @@ Javascript isn't great about sharing resources between files. At least in the br
 
 ### Player class
 
-For example, the `Player` should have its own class where it can keep track of it's own variables (position, velocity, and size, among others). For sanity's sake, we will separate that out into a separate file to keep the code base organized (and prevent collisions in scm). Luckily ES6 gives us a default (*fingerguns*) way to expose a class
+For example, the `Player` should have its own class where it can keep track of it's own variables (position, velocity, and size, among others). For sanity's sake, we will separate that out into a separate file to keep the code base organized (and prevent collisions in scm). Luckily ES6 gives us a default (_fingerguns_) way to expose a class
 
 #### player.js
 
@@ -86,7 +82,6 @@ For example, the `Player` should have its own class where it can keep track of i
     
     export default Player;
 ```
-    
 
 That last line is the magic<sup><a href="#es6imports">2</a></sup>. We now can export the class (which is actually a function, since `class` is just syntactic sugar for JS prototypical "class" definition, and not truly a "new" spec.
 
@@ -109,7 +104,6 @@ Having an input class (which basically is a Singleton, like Player above), is us
       }
     }
 ```
-    
 
 This is the meat of `Input`. An array keeps track of which keys are pressed. And anyone with access to an Input instance can just check `Input.keys` and see what keys are pressed at any given moment. Any other functions on this class (for now) are just fluff to make checking easier.
 
@@ -125,29 +119,23 @@ As I'm writing this, I realize that an update for this is to make Input a true s
 
 The rest of util has some nice helper functions to get us through the hard times (and keeping things DRY)
 
-*   `normalize(num)`: Sometimes, we don't care about the value of a variable, just whether it is less than zero, zero or greater than zero. Here's a quickie to do that. (Don't tell me, there's a `Math` function that already does this in Javascript)
-*   `clamp(num, min, max)`: Instead of having boundary checks everywhere, here we can just pass a number in, and either get that number back, or `min` if it's less than `min` or `max` if it's less than `max`. In addition there's some simple checks so that `min` and `max` can be passed in any order, and if you only pass a single boundary, it will assume that that is `max` and `min` is negative `max`.
-*   `not(o)`: Just a simple way to check for existence without having to weed out 'falsy' values each time.
-*   `objectHasAllProps(o, props)` (and `objectsHaveAllProps`): Just used for `collide`, it's something of a type checker in a language where types don't exist ¯\\\_(ツ)_/¯. Added a plural version because.
+* `normalize(num)`: Sometimes, we don't care about the value of a variable, just whether it is less than zero, zero or greater than zero. Here's a quickie to do that. (Don't tell me, there's a `Math` function that already does this in Javascript)
+* `clamp(num, min, max)`: Instead of having boundary checks everywhere, here we can just pass a number in, and either get that number back, or `min` if it's less than `min` or `max` if it's less than `max`. In addition there's some simple checks so that `min` and `max` can be passed in any order, and if you only pass a single boundary, it will assume that that is `max` and `min` is negative `max`.
+* `not(o)`: Just a simple way to check for existence without having to weed out 'falsy' values each time.
+* `objectHasAllProps(o, props)` (and `objectsHaveAllProps`): Just used for `collide`, it's something of a type checker in a language where types don't exist ¯\\_(ツ)\_/¯. Added a plural version because.
 
 ### Round 2, start!
 
 So that's the first pass at it (at least a brief overview, anyway). It was a lot of fun to go through and make this work with this new tool I'm learning about! The next step is implementing more complex levels, possibly getting out of the drawing API and working with actual images, and throwing it all away and just using a canvas library like Pixi.js because I ain't got time to write my own.
 
-Once again, follow the code (at the time of this post) [on Github][4]
+Once again, follow the code (at the time of this post) [on Github](https://github.com/washingtonsteven/js-canvas-platformer/tree/95927ec3ff837ff3128472370b3b9f7b48464341)
 
-* * *
+- - -
 
 <a name="jquery-disclaimer">1.</a> jQuery has it's uses, of course. But I always try to see how long I can go before having to use it.
 
-<a name="es6imports">2.</a> Tools like [Babel][6] have made exporting/importing variables weird, since Babel < 6.0 suppressed errors for some technically invalid code. [Read more here.][7]
+<a name="es6imports">2.</a> Tools like [Babel](https://babeljs.io/) have made exporting/importing variables weird, since Babel < 6.0 suppressed errors for some technically invalid code. [Read more here.](https://medium.com/@kentcdodds/misunderstanding-es6-modules-upgrading-babel-tears-and-a-solution-ad2d5ab93ce0)
 
 <a name="mind-control">3.</a> Mind Control API coming ~2020?
 
- [1]: http://www.somethinghitme.com/2013/01/09/creating-a-canvas-platformer-tutorial-part-one/
- [2]: http://www.pixijs.com/
- [3]: http://createjs.com/
- [4]: https://github.com/washingtonsteven/js-canvas-platformer/tree/95927ec3ff837ff3128472370b3b9f7b48464341
- [5]: https://meta.stackoverflow.com/questions/335328/when-is-use-jquery-not-a-valid-answer-to-a-javascript-question
- [6]: https://babeljs.io/
- [7]: https://medium.com/@kentcdodds/misunderstanding-es6-modules-upgrading-babel-tears-and-a-solution-ad2d5ab93ce0
+<small>v2</small>
