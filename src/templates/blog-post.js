@@ -85,6 +85,7 @@ const StyledBannerImage = styled.div`
     margin: 0;
     display: block;
     width: 100%;
+    min-height: 350px;
     position: absolute !important;
     top: 50%;
     left: 50%;
@@ -93,6 +94,7 @@ const StyledBannerImage = styled.div`
     @media(max-width: ${MOBILE_WIDTH}) {
       position: static !important;
       transform: none;
+      min-height: 0;
     }
   }
 `;
