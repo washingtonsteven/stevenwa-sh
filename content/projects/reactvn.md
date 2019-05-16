@@ -1,5 +1,4 @@
 ---
-path: /react-vn/
 date: 2018-03-12T21:20:21.470Z
 title: ReactVN
 featured_image: /assets/featured_alpha_20180325.gif
@@ -11,9 +10,12 @@ tags:
   - context
   - text adventure
 repo: 'https://github.com/washingtonsteven/react-vn'
+screenshots:
+  - /assets/screenshot01.png
+  - /assets/screenshot02.png
+  - /assets/screenshot03.png
+  - /assets/screenshot04.png
 ---
-
-
 React VN is a Visual Novel Editor and Player for playing and writing text adventures.
 
 ## Technology
