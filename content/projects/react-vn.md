@@ -56,13 +56,3 @@ Currently, both apps are deployed via Github to Netlify ([Editor](http://react-v
 Source: https://github.com/washingtonsteven/react-vn\
 Editor: http://react-vn.netlify.com\
 Player: http://react-vn-player.netlify.com
-
-## Screenshots
-
-![ReactVN: List of nodes](/assets/screenshot01.png)
-
-![ReactVN: Story Page](/assets/screenshot02.png)
-
-![ReactVN: Page Editor](/assets/screenshot03.png)
-
-![ReactVN: Story Metadata editing](/assets/screenshot04.png)
