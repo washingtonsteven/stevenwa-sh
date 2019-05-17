@@ -2,10 +2,18 @@ import React from "react";
 import Helmet from "react-helmet";
 import get from "lodash/get";
 import styled from "styled-components";
-import { LIGHT_SHADE, BOX_SHADOW, LIGHT_ACCENT, MOBILE_WIDTH } from "../style";
+import {
+  LIGHT_SHADE,
+  BOX_SHADOW,
+  LIGHT_ACCENT,
+  DARKER_ACCENT,
+  MOBILE_WIDTH
+} from "../style";
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
 import { Link, graphql } from "gatsby";
 import Img from "gatsby-image";
+
+import GithubIcon from "../components/github.svg";
 
 const StyledBlogPost = styled.div`
   background-color: white;
@@ -40,6 +48,14 @@ const StyledBlogPost = styled.div`
     border-left: solid 4px #aaa;
   }
 
+  a {
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: ${DARKER_ACCENT};
+    }
+  }
+
   .project-screenshots .screenshot-container {
     max-width: 80%;
     margin: 0 auto;
@@ -61,10 +77,11 @@ const StyledTag = styled(Link)`
   border: solid 1px ${LIGHT_ACCENT};
   white-space: nowrap;
   display: inline-block;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out !important;
 
   &:hover {
-    background-color: ${LIGHT_ACCENT};
-    color: ${LIGHT_SHADE};
+    background-color: ${DARKER_ACCENT};
+    color: ${LIGHT_SHADE} !important;
   }
 `;
 
@@ -77,7 +94,7 @@ const StyledBannerImage = styled.div`
   position: relative;
   pointer-events: none;
 
-  @media(max-width: ${MOBILE_WIDTH}) {
+  @media (max-width: ${MOBILE_WIDTH}) {
     height: auto;
   }
 
@@ -91,7 +108,7 @@ const StyledBannerImage = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 
-    @media(max-width: ${MOBILE_WIDTH}) {
+    @media (max-width: ${MOBILE_WIDTH}) {
       position: static !important;
       transform: none;
       min-height: 0;
@@ -99,15 +116,30 @@ const StyledBannerImage = styled.div`
   }
 `;
 
-const StyledRepoLink = styled.a.attrs(({href}) => ({
-  children: href.toLowerCase().indexOf('github') >= 0 ? "Github" : "Repo Link",
-  target: "_blank",
-  rel: "noopener noreferrer"
-}))`
-  padding: 5px;
-  background-color: #333;
-  color: #fff; 
-`
+const StyledRepoLink = styled.div`
+  margin-bottom: 25px;
+
+  a {
+    padding: 5px;
+    background-color: #333;
+    color: ${LIGHT_SHADE};
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s ease-in-out !important;
+
+    &:hover {
+      background-color: #555 !important;
+      color: ${LIGHT_SHADE} !important;
+    }
+  }
+
+  svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+`;
 
 class BlogPostTemplate extends React.Component {
   getFeaturedImage() {
@@ -118,7 +150,7 @@ class BlogPostTemplate extends React.Component {
     );
     if (!featured_image)
       featured_image = get(post, "frontmatter.featured_image.publicURL");
-    
+
     return featured_image;
   }
   render() {
@@ -129,17 +161,15 @@ class BlogPostTemplate extends React.Component {
     return (
       <div>
         <StyledBlogPost postType={postType}>
-        {
-          featured_image && (
+          {featured_image && (
             <StyledBannerImage>
-            {typeof featured_image === 'string' ? (
-              <img src={featured_image} alt="banner" />
-            ) : (
-              <Img fluid={featured_image} alt="banner" />
-            )}
+              {typeof featured_image === "string" ? (
+                <img src={featured_image} alt="banner" />
+              ) : (
+                <Img fluid={featured_image} alt="banner" />
+              )}
             </StyledBannerImage>
-          )
-        }
+          )}
           <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
           <h1>{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
@@ -153,21 +183,41 @@ class BlogPostTemplate extends React.Component {
             </div>
           )}
 
-          {
-            post.frontmatter.repo && (
-              <div><StyledRepoLink href={post.frontmatter.repo} /></div>
-            )
-          }
+          {post.frontmatter.repo && (
+            <div>
+              <StyledRepoLink>
+                <a
+                  href={post.frontmatter.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {post.frontmatter.repo.toLowerCase().indexOf("github") >=
+                  0 ? (
+                    <>
+                      <GithubIcon /> <span>Github</span>
+                    </>
+                  ) : (
+                    "Repo Link »"
+                  )}
+                </a>
+              </StyledRepoLink>
+            </div>
+          )}
 
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
 
-          {post.frontmatter.screenshots &&(
+          {post.frontmatter.screenshots && (
             <div className="project-screenshots">
               <h2>Screenshots</h2>
               <div className="screenshot-container">
-              {post.frontmatter.screenshots.map((img, i) => (
-                <Img fluid={img.childImageSharp.fluid} key={i} alt={'screenshot'} />
-              ))}</div>
+                {post.frontmatter.screenshots.map((img, i) => (
+                  <Img
+                    fluid={img.childImageSharp.fluid}
+                    key={i}
+                    alt={"screenshot"}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </StyledBlogPost>
