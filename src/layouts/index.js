@@ -140,19 +140,21 @@ class Template extends React.Component {
           />
           <title>stevenwa.sh - Steven Washington</title>
           <link rel="logo" href="/favicon.png" type="image/x-icon" />
+          <style type="text/css">{`
+            #gatsby-noscript {
+              text-align: center;
+              display: block;
+              margin: 0;
+              display: none;
+            }
+          `}</style>
         </Helmet>
         <StyledNav color={this.state.color}>
           <Link to="/" style={{ display: "block" }}>
             <StyledLogo color={this.state.color} />
           </Link>
         </StyledNav>
-        <StyledMain>
-          {React.cloneElement(children, {
-            ...this.props,
-            updatePageColor: this.updatePageColor,
-            updateBackgroundColor: this.updateBackgroundColor
-          })}
-        </StyledMain>
+        <StyledMain>{children}</StyledMain>
         <StyledFooter>
           <LinksLine>
             {Object.entries(social).map(([name, url]) => (
