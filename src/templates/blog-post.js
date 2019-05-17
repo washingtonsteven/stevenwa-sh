@@ -99,6 +99,16 @@ const StyledBannerImage = styled.div`
   }
 `;
 
+const StyledRepoLink = styled.a.attrs(({href}) => ({
+  children: href.toLowerCase().indexOf('github') >= 0 ? "Github" : "Repo Link",
+  target: "_blank",
+  rel: "noopener noreferrer"
+}))`
+  padding: 5px;
+  background-color: #333;
+  color: #fff; 
+`
+
 class BlogPostTemplate extends React.Component {
   getFeaturedImage() {
     const post = this.props.data.markdownRemark;
@@ -143,6 +153,12 @@ class BlogPostTemplate extends React.Component {
             </div>
           )}
 
+          {
+            post.frontmatter.repo && (
+              <div><StyledRepoLink href={post.frontmatter.repo} /></div>
+            )
+          }
+
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
 
           {post.frontmatter.screenshots &&(
@@ -182,6 +198,7 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         tags
         published
+        repo
         screenshots {
           childImageSharp {
             fluid {

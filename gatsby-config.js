@@ -56,7 +56,7 @@ module.exports = {
         name: "assets"
       }
     },
-    netlifyCmsPaths,
+    //netlifyCmsPaths,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
