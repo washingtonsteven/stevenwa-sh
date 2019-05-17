@@ -2,7 +2,6 @@ import React from "react";
 import Helmet from "react-helmet";
 import get from "lodash/get";
 import { Link, graphql } from "gatsby";
-import Img from "gatsby-image";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { rhythm } from "../utils/typography";

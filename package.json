@@ -1,10 +1,10 @@
 {
-  "name": "gatsby-starter-blog-no-styles",
-  "description": "Starter Gatsby Blog No Styles",
+  "name": "stevenwa-sh",
+  "description": "stevenwa.sh - personal site",
   "version": "1.0.0",
-  "author": "Noah Glusenkamp <noah.glusenkamp@gmail.com>",
+  "author": "Steven Washington <washington.steven@gmail.com>",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby-starter-blog/issues"
+    "url": "https://github.com/washingtonsteven/stevenwa-sh/issues"
   },
   "dependencies": {
     "dotenv": "^7.0.0",
@@ -49,7 +49,7 @@
     "gh-pages": "^2.0.1",
     "prettier": "^1.17.0"
   },
-  "homepage": "https://github.com/noahg/gatsby-starter-blog-no-styles#readme",
+  "homepage": "https://stevenwa.sh",
   "keywords": [
     "gatsby"
   ],
@@ -57,7 +57,7 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/noahg/gatsby-starter-blog-no-styles.git"
+    "url": "git+https://github.com/washingtonsteven/stevenwa-sh.git"
   },
   "scripts": {
     "dev": "gatsby develop",
