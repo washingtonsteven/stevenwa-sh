@@ -21,4 +21,6 @@ tags:
 
 Keep it short and sweet.
 
-Photo by Gary Bendig on Unsplash
+~~Photo by Gary Bendig on Unsplash~~
+
+Need a less vertical image because the birds are getting cut off :/
