@@ -275,8 +275,6 @@ class BlogPostTemplate extends React.Component {
 
     const postIndex = allPosts.findIndex(({ node }) => node.id === post.id);
 
-    console.log(postIndex, allPosts);
-
     const prevPost = postIndex === 0 ? null : allPosts[postIndex - 1].node;
     const nextPost =
       postIndex === allPosts.length - 1 ? null : allPosts[postIndex + 1].node;

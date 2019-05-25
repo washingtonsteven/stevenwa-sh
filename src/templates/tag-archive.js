@@ -1,5 +1,5 @@
 import React from "react";
-import Home from "../pages";
+import Home from "../pages/everything";
 import get from "lodash/get";
 import { graphql } from "gatsby";
 
