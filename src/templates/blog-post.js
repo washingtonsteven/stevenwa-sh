@@ -7,7 +7,8 @@ import {
   BOX_SHADOW,
   LIGHT_ACCENT,
   DARKER_ACCENT,
-  MOBILE_WIDTH
+  MOBILE_WIDTH,
+  BOX_SHADOW_HOVER
 } from "../style";
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
 import { Link, graphql } from "gatsby";
@@ -141,6 +142,90 @@ const StyledRepoLink = styled.div`
   }
 `;
 
+const StyledPostLinks = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  @media (max-width: ${MOBILE_WIDTH}) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const PostLink = styled(Link)`
+  position: relative;
+  display: grid;
+  align-items: center;
+  padding: 0 25px;
+  min-height: 150px;
+  text-decoration: none;
+  box-shadow: ${BOX_SHADOW};
+  transition: box-shadow 0.2s ease-in-out;
+
+  & > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  span {
+    text-decoration: none;
+    position: relative;
+    display: block;
+    font-size: 1.6rem;
+
+    &.eyebrow {
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+  }
+
+  &.align-right {
+    grid-column: 2;
+    span {
+      text-align: right;
+    }
+
+    @media (max-width: ${MOBILE_WIDTH}) {
+      grid-column: 1;
+    }
+  }
+
+  &:hover {
+    text-decoration: none;
+    box-shadow: ${BOX_SHADOW_HOVER};
+    span {
+      color: white;
+    }
+
+    .background-image:before {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+`;
+
+const BackgroundImage = styled.div.attrs({ className: "background-image" })`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: background-color 0.2s ease-in-out;
+    z-index: 1;
+  }
+`;
+
 class BlogPostTemplate extends React.Component {
   getFeaturedImage() {
     const post = this.props.data.markdownRemark;
@@ -153,11 +238,49 @@ class BlogPostTemplate extends React.Component {
 
     return featured_image;
   }
+  renderPostLink(post, options = {}) {
+    let post_image = get(
+      post,
+      "frontmatter.featured_image.childImageSharp.fluid"
+    );
+    if (!post_image) {
+      post_image = get(post, "frontmatter.featured_image.publicURL");
+    }
+    return (
+      <PostLink
+        to={post.fields.post_type + "/" + post.fields.post_slug}
+        className={options.align ? options.align : "align-left"}
+      >
+        {post_image && (
+          <BackgroundImage>
+            {typeof post_image === "object" ? (
+              <Img fluid={post_image} alt={post.frontmatter.title} />
+            ) : (
+              <img src={post_image} alt={post.frontmatter.title} />
+            )}
+          </BackgroundImage>
+        )}
+        {options.eyebrow && <span className="eyebrow">{options.eyebrow}</span>}
+        <span>{post.frontmatter.title}</span>
+      </PostLink>
+    );
+  }
   render() {
     const post = this.props.data.markdownRemark;
     const postType = postTypeFromPath(post.fileAbsolutePath);
     const siteTitle = get(this.props, "data.site.siteMetadata.title");
     const featured_image = this.getFeaturedImage();
+
+    const allPosts = get(this.props, "data.allMarkdownRemark.edges");
+
+    const postIndex = allPosts.findIndex(({ node }) => node.id === post.id);
+
+    console.log(postIndex, allPosts);
+
+    const prevPost = postIndex === 0 ? null : allPosts[postIndex - 1].node;
+    const nextPost =
+      postIndex === allPosts.length - 1 ? null : allPosts[postIndex + 1].node;
+
     return (
       <div>
         <StyledBlogPost postType={postType}>
@@ -221,6 +344,17 @@ class BlogPostTemplate extends React.Component {
             </div>
           )}
         </StyledBlogPost>
+        {(prevPost || nextPost) && (
+          <StyledPostLinks>
+            {nextPost &&
+              this.renderPostLink(nextPost, { eyebrow: "Next Post" })}
+            {prevPost &&
+              this.renderPostLink(prevPost, {
+                eyebrow: "Previous Post",
+                align: "align-right"
+              })}
+          </StyledPostLinks>
+        )}
       </div>
     );
   }
@@ -261,6 +395,28 @@ export const pageQuery = graphql`
           childImageSharp {
             fluid {
               ...GatsbyImageSharpFluid_tracedSVG
+            }
+          }
+        }
+      }
+    }
+    allMarkdownRemark(sort: { fields: frontmatter___date, order: ASC }) {
+      edges {
+        node {
+          id
+          fields {
+            post_type
+            post_slug
+          }
+          frontmatter {
+            title
+            featured_image {
+              publicURL
+              childImageSharp {
+                fluid(maxHeight: 150) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
             }
           }
         }

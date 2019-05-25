@@ -14,6 +14,19 @@ const filenameFromPath = path => {
   return null;
 };
 
+const singular = str => {
+  if (!str) return str;
+  if (str.charAt(str.length - 1) !== "s") return str;
+  if (str.charAt(str.length - 2) === "e")
+    return str.substring(0, str.length - 2);
+  return str.substring(0, str.length - 1);
+};
+
+const postTypeFromPath = (path, opts = {}) => {
+  const matches = path.match(/content\/([^/]+)/);
+  return opts.plural ? matches && matches[1] : singular(matches && matches[1]);
+};
+
 const remarkQuery = type => `
   {
     allMarkdownRemark(
@@ -152,6 +165,11 @@ exports.onCreateNode = ({ node, actions }) => {
       node,
       name: "post_slug",
       value: filenameFromPath(node.fileAbsolutePath)
+    });
+    createNodeField({
+      node,
+      name: "post_type",
+      value: postTypeFromPath(node.fileAbsolutePath)
     });
   }
 };

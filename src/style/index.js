@@ -1,7 +1,7 @@
 // theme: minimal
 
 export const LIGHT_SHADE = `#efeef1`;
-export const BG_COLOR = `white`;
+export const BG_COLOR = `#6dacdd`; //`white`;
 export const TEXT_COLOR = `#333`;
 export const LIGHT_ACCENT = `#1976be`; //`#6dacdd`;
 export const LIGHTER_ACCENT = `#2f89ce`;
@@ -30,7 +30,10 @@ export const BORDER_GRADIENT = border_gradient("bottom");
 // } = {}) => 'none'; // `${x}px ${y}px ${b}px ${c}, ${x}px ${y}px ${b - 2}px ${c}`;
 // export const BOX_SHADOW = box_shadow();
 export const box_shadow = () => "none";
-export const BOX_SHADOW = "none";
+export const BOX_SHADOW =
+  "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)";
+export const BOX_SHADOW_HOVER =
+  "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)";
 
 export const transition = prop => `${prop} 0.2s linear`;
 export const TRANSITION_ALL = transition("all");

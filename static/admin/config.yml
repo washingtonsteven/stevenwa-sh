@@ -19,8 +19,9 @@ collections:
     fields:
       - { name: date, label: Date, widget: date }
       - { name: title, label: Title }
-      - { name: subtitle, label: Subtitle }
+      - { name: subtitle, label: Subtitle, required: false }
       - { name: featured_image, label: Featured Image, widget: image }
+      - { name: featured, label: Featured, widget: boolean, default: false }
       - { name: tags, label: Tags, widget: list }
       - { name: body, label: Body, widget: markdown }
   - name: projects
@@ -34,9 +35,13 @@ collections:
       - { name: date, label: Date, widget: date }
       - { name: title, label: Title }
       - { name: featured_image, label: Featured Image, widget: image }
-      - { name: published, label: Published, widget: boolean, default: true }
       - { name: featured, label: Featured, widget: boolean, default: true }
       - { name: tags, label: Tags, widget: list }
       - { name: repo, label: Repo }
       - { name: body, label: Body, widget: markdown }
-      - { name: screenshots, label: Screenshots, widget: list, field: { name: image, label: Image, widget: image } }
+      - {
+          name: screenshots,
+          label: Screenshots,
+          widget: list,
+          field: { name: image, label: Image, widget: image },
+        }

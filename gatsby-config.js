@@ -22,7 +22,7 @@ module.exports = {
   siteMetadata: {
     title: "stevenwa.sh",
     author: "Steven Washington",
-    description: "Stuff that Steve's talkin' about.",
+    description: "Web. Games. Nerdery.",
     siteUrl: "https://stevenwa.sh",
     twitter: "https://twitter.com/esaevian",
     github: "https://github.com/washingtonsteven"

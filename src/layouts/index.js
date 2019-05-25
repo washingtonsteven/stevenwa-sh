@@ -9,13 +9,13 @@ import {
   MAX_WIDTH,
   TEXT_COLOR,
   TEXT_FONT,
-  DARK_SHADE,
   BOX_SHADOW,
   box_shadow,
   transition,
-  LIGHT_SHADE,
   MAIN_COLOR,
-  MOBILE_WIDTH
+  MOBILE_WIDTH,
+  DARKER_ACCENT,
+  LIGHT_ACCENT
 } from "../style";
 
 import Logo from "./logo.svg";
@@ -27,7 +27,7 @@ const StyledTemplate = styled.div`
   font-family: ${TEXT_FONT};
   line-height: 1.5;
   color: ${TEXT_COLOR};
-  background-color: ${LIGHT_SHADE};
+  background-color: ${DARKER_ACCENT};
   position: relative;
   &:before {
     content: "";
@@ -88,7 +88,7 @@ const StyledFooter = styled.footer`
   box-shadow: ${box_shadow()};
   display: inline-block;
   text-align: center;
-  margin: 0 auto 60px;
+  margin: 30px auto 60px;
   padding: 30px 50px;
   position: absolute;
   left: 50%;
@@ -121,7 +121,7 @@ const LinksLine = styled.ul`
 `;
 
 class Template extends React.Component {
-  state = { color: MAIN_COLOR, backgroundColor: DARK_SHADE };
+  state = { color: MAIN_COLOR, backgroundColor: LIGHT_ACCENT };
   updatePageColor = color => this.setState(state => ({ ...state, color }));
   updateBackgroundColor = backgroundColor =>
     this.setState(state => ({ ...state, backgroundColor }));
@@ -192,6 +192,7 @@ export const siteMetaFragment = graphql`
         author
         twitter
         github
+        description
       }
     }
   }
@@ -200,10 +201,11 @@ export const siteMetaFragment = graphql`
     edges {
       node {
         id
-        excerpt(pruneLength: 280)
+        excerpt(pruneLength: 140)
         fileAbsolutePath
         fields {
           post_slug
+          post_type
         }
         frontmatter {
           path
@@ -212,7 +214,7 @@ export const siteMetaFragment = graphql`
           featured_image {
             publicURL
             childImageSharp {
-              fluid {
+              fluid(maxWidth: 470, maxHeight: 313) {
                 ...GatsbyImageSharpFluid_tracedSVG
               }
             }

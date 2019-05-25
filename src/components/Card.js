@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { rhythm } from "../utils/typography";
 import {
   BOX_SHADOW,
-  box_shadow,
+  BOX_SHADOW_HOVER,
   LIGHT_ACCENT,
   MAIN_COLOR,
   border_gradient
@@ -46,9 +46,9 @@ const StyledBox = styled.article`
     transform: translateX(-100%);
   }
   &:hover {
-    box-shadow: ${box_shadow({ y: 5, c: "rgba(0,0,0,0.24)" })};
+    box-shadow: ${BOX_SHADOW_HOVER};
     &:before {
-      opacity: 1;
+      opacity: ${props => (props.disableBorder ? 0 : 1)};
     }
   }
 
@@ -96,11 +96,11 @@ export default ({
     direction={direction}
     color={color}
     hoverColor={hoverColor}
-    disableBorder={disableBorder}
+    disableBorder={true}
   >
     {image && React.createElement(styleImage(image))}
     {date && <StyledDate>{date}</StyledDate>}
     {header && <StyledHeader cardHasDate={date}>{header}</StyledHeader>}
-    <StyledContent>{children}</StyledContent>
+    {children && <StyledContent>{children}</StyledContent>}
   </StyledBox>
 );

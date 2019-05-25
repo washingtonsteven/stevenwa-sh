@@ -39,6 +39,9 @@ const CardImage = styled.div`
 
 const image = (path, imageProps = { alt: "presentational" }) => {
   if (typeof path === "string") {
+    if (imageProps.className && typeof imageProps.className === "string")
+      imageProps.className += " native-img";
+    else imageProps.className = "native-img";
     return (
       <CardImage path={path}>
         {/* trust us eslint, we're putting in alt tags */}
