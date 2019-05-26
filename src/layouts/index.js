@@ -76,9 +76,17 @@ const StyledMain = styled.main`
 const StyledLogo = styled(Logo)`
   max-width: 150px;
   vertical-align: top;
-  & rect {
+  & rect:not(#letters) {
     fill: ${props => props.color || MAIN_COLOR};
     transition: ${transition("opacity")};
+  }
+
+  & #letters {
+    transition: fill 0.3s ease-in-out;
+  }
+
+  &:hover #letters {
+    fill: url(#rainbow);
   }
 `;
 
