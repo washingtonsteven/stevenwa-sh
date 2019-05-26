@@ -24,6 +24,17 @@ import Logo from "./logo.svg";
 
 import "./prism.css";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faEnvelope,
+  faFish,
+  faArrowRight
+} from "@fortawesome/free-solid-svg-icons";
+
+import { fab } from "@fortawesome/free-brands-svg-icons";
+
+library.add(faEnvelope, fab, faFish, faArrowRight);
+
 const StyledTemplate = styled.div`
   width: 100%;
   font-family: ${TEXT_FONT};

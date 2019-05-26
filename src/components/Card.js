@@ -99,7 +99,7 @@ export default class extends React.Component {
   }
   componentDidMount() {
     if (this.innerRef && this.innerRef.current) {
-      let options = { threshold: 1 };
+      let options = { threshold: 0.3 };
       this.observer = new IntersectionObserver(observed => {
         observed.forEach(el => {
           if (el.isIntersecting && !this.state.onScreen) {
@@ -143,7 +143,7 @@ export default class extends React.Component {
         color={color}
         hoverColor={hoverColor}
         disableBorder={true}
-        disableHover={disableAnimation}
+        disableHover={disableHover}
         disableAnimation={disableAnimation}
         ref={this.innerRef}
       >

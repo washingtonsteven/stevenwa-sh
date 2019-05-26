@@ -8,10 +8,10 @@ import {
   MOBILE_WIDTH,
   BOX_SHADOW,
   BOX_SHADOW_HOVER,
-  SOCIAL_ICON_GRAY,
   TWITTER_BLUE,
   GITHUB_BLACK,
   LIGHTER_ACCENT,
+  MAIN_COLOR,
   animateIn
 } from "../style";
 import { rhythm } from "../utils/typography";
@@ -19,6 +19,7 @@ import Card from "../components/Card";
 
 import TwitterIcon from "../components/twitter.svg";
 import GithubIcon from "../components/github.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const StyledHeader = styled.header`
   align-self: start;
@@ -51,13 +52,13 @@ const StyledTwitterIcon = styled(TwitterIcon).attrs({ className: "twitter" })`
     opacity: 0;
   }
   path {
-    fill: ${SOCIAL_ICON_GRAY};
+    fill: ${LIGHT_SHADE};
   }
 `;
 
 const StyledGithubIcon = styled(GithubIcon).attrs({ className: "github" })`
   path {
-    fill: ${SOCIAL_ICON_GRAY};
+    fill: ${LIGHT_SHADE};
   }
 `;
 
@@ -76,10 +77,12 @@ const StyledSocialLink = styled.a.attrs({
   width: 100%;
   max-width: 215px;
   svg {
-    max-width: 25px;
+    width: 25px !important;
+    height: 25px !important;
     vertical-align: middle;
 
     path {
+      fill: ${LIGHT_SHADE};
       transition: fill 0.2s ease-in-out;
     }
   }
@@ -98,6 +101,12 @@ const StyledSocialLink = styled.a.attrs({
     span {
       text-decoration: none;
       color: ${LIGHTER_ACCENT};
+    }
+
+    svg {
+      path {
+        fill: ${props => props.hoverColor || MAIN_COLOR};
+      }
     }
 
     svg.twitter {
@@ -204,7 +213,11 @@ const HighlightGrid = styled.section`
 `;
 
 const ContentCard = styled(Card)`
-  margin-bottom: ${rhythm(1)};
+  margin-bottom: ${rhythm(0)};
+
+  &:first-of-type {
+    margin-bottom: ${rhythm(1)};
+  }
 `;
 
 const HeaderCard = styled(Card)`
@@ -224,6 +237,65 @@ const HeaderCard = styled(Card)`
   }
 `;
 
+const StyledLinkSection = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @media (max-width: ${MOBILE_WIDTH}) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const LinkSection = ({ links }) => (
+  <StyledLinkSection>
+    {links &&
+      links.map(link => (
+        <StyledSocialLink
+          href={link.url}
+          hoverColor={link.hoverColor}
+          key={link.url}
+        >
+          {link.icon} <span>{link.title}</span>
+        </StyledSocialLink>
+      ))}
+  </StyledLinkSection>
+);
+
+const EverythingCard = styled(ContentCard)`
+  background-color: ${LIGHTER_ACCENT};
+  color: white;
+  padding: 0;
+  user-select: none;
+
+  & > div {
+    padding: 0;
+  }
+
+  a {
+    display: block;
+    color: white;
+    padding: ${rhythm(1)} ${rhythm(2)};
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  h2 {
+    margin-bottom: 0;
+
+    span {
+      display: inline-block;
+      margin-right: 20px;
+    }
+  }
+
+  &:hover {
+    position: relative;
+    z-index: 4;
+  }
+`;
+
 export default ({ data }) => {
   const posts = get(data, "allMarkdownRemark.edges");
   const headerImage = get(data, "file.childImageSharp.fluid");
@@ -239,7 +311,7 @@ export default ({ data }) => {
           github={get(data, "site.siteMetadata.github")}
         />
         <ArticleSection>
-          <HeaderCard disableAnimation>
+          <HeaderCard disableAnimation disableHover>
             <h2 style={{ margin: 0, textAlign: "center" }}>
               Featured Projects
             </h2>
@@ -249,28 +321,91 @@ export default ({ data }) => {
           ))}
         </ArticleSection>
       </HighlightGrid>
-      <ContentCard style={{ padding: "60px 0" }} disableAnimation>
+      <ContentCard disableAnimation disableHover>
+        <h2>About Steve</h2>
+        <p>
+          Ugh I have to write a paragraph or something about myself i hate it.
+        </p>
+      </ContentCard>
+      <ContentCard disableAnimation disableHover>
         <h2>Around the Web</h2>
-        <ul>
-          <li>Email</li>
-          <li>LinkedIn</li>
-          <li>Dev.to</li>
-          <li>Glitch.me</li>
-        </ul>
-        <br />
+        <LinkSection
+          links={[
+            {
+              url: "mailto:washington.steven@gmail.com",
+              title: "Email",
+              icon: <FontAwesomeIcon icon="envelope" />
+            },
+            {
+              url: "https://www.linkedin.com/in/svwashington/",
+              title: "LinkedIn",
+              hoverColor: "#0077B5",
+              icon: <FontAwesomeIcon icon={["fab", "linkedin"]} />
+            },
+            {
+              url: "https://dev.to/washingtonsteven",
+              title: "Dev.to",
+              icon: <FontAwesomeIcon icon={["fab", "dev"]} />
+            },
+            {
+              url: "https://glitch.com/@washingtonsteven",
+              title: "Glitch.me",
+              hoverColor: "rgb(195, 75, 255)",
+              icon: <FontAwesomeIcon icon="fish" />
+            }
+          ]}
+        />
       </ContentCard>
-      <ContentCard style={{ padding: "60px 0" }} disableAnimation>
-        <h2>Everything else</h2>
-        link to /everything
-      </ContentCard>
-      <ContentCard style={{ padding: "60px 0" }} disableAnimation>
-        <h2>For Fun</h2>
-        For fun: Tumblr, Discord,
-        Spotify(https://open.spotify.com/user/esaevian? ye) Youtube Destiny 2
-        twitch
-      </ContentCard>
-      <ContentCard style={{ padding: "60px 0" }} disableAnimation>
-        This is another section down below
+      <EverythingCard disableAnimation>
+        <Link to="/everything">
+          <h2>
+            <span>All Projects, Blog Posts, etc.</span>
+            <FontAwesomeIcon icon="arrow-right" />
+          </h2>
+        </Link>
+      </EverythingCard>
+      <ContentCard disableAnimation disableHover>
+        <h2>More stuff</h2>
+        <LinkSection
+          links={[
+            {
+              url: "https://esaevian.tumblr.com/",
+              title: "Tumblr",
+              hoverColor: "rgb(0, 24, 46)",
+              icon: <FontAwesomeIcon icon={["fab", "tumblr"]} />
+            },
+            {
+              url: "https://www.last.fm/user/esaevian",
+              title: "Last.fm",
+              hoverColor: "rgb(178, 0, 1)",
+              icon: <FontAwesomeIcon icon={["fab", "lastfm"]} />
+            },
+            {
+              url: "https://open.spotify.com/user/esaevian",
+              title: "Spotify",
+              hoverColor: "rgb(29, 205, 85)",
+              icon: <FontAwesomeIcon icon={["fab", "spotify"]} />
+            },
+            {
+              url: "https://www.youtube.com/user/esaevian",
+              title: "Youtube",
+              hoverColor: "rgb(252, 13, 27)",
+              icon: <FontAwesomeIcon icon={["fab", "youtube"]} />
+            },
+            {
+              url: "https://www.twitch.tv/esaevian",
+              title: "Twitch",
+              hoverColor: "rgb(66, 47, 113)",
+              icon: <FontAwesomeIcon icon={["fab", "twitch"]} />
+            },
+            {
+              url: "https://steamcommunity.com/id/esaevian/",
+              title: "Steam",
+              hoverColor: "rgb(22, 24, 30)",
+              icon: <FontAwesomeIcon icon={["fab", "steam"]} />
+            }
+          ]}
+        />
       </ContentCard>
     </StyledHome>
   );
