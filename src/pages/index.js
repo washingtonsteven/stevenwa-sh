@@ -11,7 +11,8 @@ import {
   SOCIAL_ICON_GRAY,
   TWITTER_BLUE,
   GITHUB_BLACK,
-  LIGHTER_ACCENT
+  LIGHTER_ACCENT,
+  animateIn
 } from "../style";
 import { rhythm } from "../utils/typography";
 import Card from "../components/Card";
@@ -29,6 +30,8 @@ const StyledHeader = styled.header`
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
+  opacity: 0;
+  animation: ${animateIn} 0.3s ease-in-out forwards;
 
   @media (max-width: ${MOBILE_WIDTH}) {
     position: relative;
@@ -136,18 +139,19 @@ const StyledCard = styled(Card)`
   }
 `;
 
-const ArticleCard = ({ article }) => {
-  const post_url = `${article.fields.post_type}/${article.fields.post_slug}`;
+const ArticleCard = ({ article, index }) => {
+  const post_url = `/${article.fields.post_type}/${article.fields.post_slug}`;
   const post_image =
     get(article, "frontmatter.featured_image.childImageSharp.fluid") ||
     get(article, "frontmatter.featured_image.publicURL");
   const post_title = get(article, "frontmatter.title");
 
   const cardProperties = {
+    index,
     date: <Link to={post_url}>{get(article, "frontmatter.date")}</Link>,
     header: <Link to={post_url}>{post_title}</Link>,
-    image: () => (
-      <Link to={post_url}>
+    image: ({ className }) => (
+      <Link to={post_url} className={className}>
         {typeof post_image === "object" ? (
           <Img fluid={post_image} alt={post_title} className="card-img" />
         ) : (
@@ -206,8 +210,8 @@ export default ({ data }) => {
           github={get(data, "site.siteMetadata.github")}
         />
         <ArticleSection>
-          {posts.map(({ node: post }) => (
-            <ArticleCard article={post} key={post.fields.post_slug} />
+          {posts.map(({ node: post }, i) => (
+            <ArticleCard article={post} key={post.fields.post_slug} index={i} />
           ))}
         </ArticleSection>
       </HighlightGrid>

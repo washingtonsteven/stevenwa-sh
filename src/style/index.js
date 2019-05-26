@@ -1,4 +1,5 @@
 // theme: minimal
+import { keyframes } from "styled-components";
 
 export const LIGHT_SHADE = `#efeef1`;
 export const BG_COLOR = `#6dacdd`; //`white`;
@@ -31,9 +32,9 @@ export const BORDER_GRADIENT = border_gradient("bottom");
 // export const BOX_SHADOW = box_shadow();
 export const box_shadow = () => "none";
 export const BOX_SHADOW =
-  "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)";
+  "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.48)";
 export const BOX_SHADOW_HOVER =
-  "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)";
+  "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.44)";
 
 export const transition = prop => `${prop} 0.2s linear`;
 export const TRANSITION_ALL = transition("all");
@@ -44,3 +45,15 @@ export const STYLE_FONT = ``;
 
 export const MAX_WIDTH = `1024px`;
 export const MOBILE_WIDTH = `768px`;
+
+export const animateIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translate3d(0, 25px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+`;

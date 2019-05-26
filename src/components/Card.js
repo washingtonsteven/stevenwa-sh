@@ -6,7 +6,8 @@ import {
   BOX_SHADOW_HOVER,
   LIGHT_ACCENT,
   MAIN_COLOR,
-  border_gradient
+  border_gradient,
+  animateIn
 } from "../style";
 
 const StyledHeader = styled.h3`
@@ -58,6 +59,12 @@ const StyledBox = styled.article`
       text-decoration: underline;
     }
   }
+
+  opacity: 0;
+
+  &.on-screen {
+    animation: ${animateIn} 0.3s ease-in-out forwards;
+  }
 `;
 
 const StyledDate = styled.div`
@@ -80,27 +87,66 @@ const styleImage = Image => styled(Image)`
   }
 `;
 
-export default ({
-  header,
-  image,
-  children,
-  direction,
-  color = MAIN_COLOR,
-  hoverColor,
-  disableBorder,
-  className,
-  date
-}) => (
-  <StyledBox
-    className={className}
-    direction={direction}
-    color={color}
-    hoverColor={hoverColor}
-    disableBorder={true}
-  >
-    {image && React.createElement(styleImage(image))}
-    {date && <StyledDate>{date}</StyledDate>}
-    {header && <StyledHeader cardHasDate={date}>{header}</StyledHeader>}
-    {children && <StyledContent>{children}</StyledContent>}
-  </StyledBox>
-);
+export default class extends React.Component {
+  constructor(props) {
+    super(props);
+    this.innerRef = React.createRef();
+    this.state = {
+      onScreen: false
+    };
+  }
+  componentDidMount() {
+    if (this.innerRef && this.innerRef.current) {
+      let options = { threshold: 1 };
+      this.observer = new IntersectionObserver(observed => {
+        observed.forEach(el => {
+          if (el.isIntersecting && !this.state.onScreen) {
+            this.setState(state => ({ ...state, onScreen: true }));
+          }
+        });
+      }, options);
+      this.observer.observe(this.innerRef.current);
+    }
+  }
+  componentWillUnmount() {
+    if (
+      this.observer &&
+      typeof this.observer.unobserver === "function" &&
+      this.innerRef &&
+      this.innerRef.current
+    ) {
+      this.observer.unobserve(this.innerRef.current);
+    }
+  }
+  render() {
+    const {
+      header,
+      image,
+      children,
+      direction,
+      color = MAIN_COLOR,
+      hoverColor,
+      disableBorder,
+      className,
+      date
+    } = this.props;
+
+    return (
+      <StyledBox
+        className={`${className} ${
+          this.state.onScreen ? "on-screen" : "off-screen"
+        }`}
+        direction={direction}
+        color={color}
+        hoverColor={hoverColor}
+        disableBorder={true}
+        ref={this.innerRef}
+      >
+        {image && React.createElement(styleImage(image))}
+        {date && <StyledDate>{date}</StyledDate>}
+        {header && <StyledHeader cardHasDate={date}>{header}</StyledHeader>}
+        {children && <StyledContent>{children}</StyledContent>}
+      </StyledBox>
+    );
+  }
+}
