@@ -207,6 +207,23 @@ const ContentCard = styled(Card)`
   margin-bottom: ${rhythm(1)};
 `;
 
+const HeaderCard = styled(Card)`
+  background-color: ${LIGHTER_ACCENT};
+  color: white;
+  margin-bottom: ${rhythm(1)};
+  position: sticky;
+  top: 50px;
+  z-index: 3;
+
+  h2 {
+    margin: 0;
+  }
+
+  @media (max-width: ${MOBILE_WIDTH}) {
+    position: static;
+  }
+`;
+
 export default ({ data }) => {
   const posts = get(data, "allMarkdownRemark.edges");
   const headerImage = get(data, "file.childImageSharp.fluid");
@@ -222,6 +239,11 @@ export default ({ data }) => {
           github={get(data, "site.siteMetadata.github")}
         />
         <ArticleSection>
+          <HeaderCard disableAnimation>
+            <h2 style={{ margin: 0, textAlign: "center" }}>
+              Featured Projects
+            </h2>
+          </HeaderCard>
           {posts.map(({ node: post }, i) => (
             <ArticleCard article={post} key={post.fields.post_slug} index={i} />
           ))}
