@@ -41,7 +41,7 @@ class Credits extends Component {
             <ul>
               <li>
                 Illustration of my face commissioned from DaisyEin:{" "}
-                <CreditLink href="https://twitter.com/daisyein" target>
+                <CreditLink href="https://twitter.com/daisyein">
                   Twitter
                 </CreditLink>{" "}
                 <CreditLink href="https://patreon.com/daisyein">
@@ -49,8 +49,10 @@ class Credits extends Component {
                 </CreditLink>
               </li>
               <li>
-                All photos used in posts are credited within the post itself<br />If
-                a photo doesn't have a credit, it was taken/screenshotted by me.
+                All photos used in posts are credited within the post itself
+                <br />
+                If a photo doesn't have a credit, it was taken/screenshotted by
+                me.
               </li>
             </ul>
           </section>
