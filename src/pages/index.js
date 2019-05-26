@@ -71,7 +71,7 @@ const StyledSocialLink = styled.a.attrs({
   padding: 10px 20px;
   background-color: ${LIGHTER_ACCENT};
   box-shadow: ${BOX_SHADOW};
-  transition: box-shadow 0.2s linear;
+  transition: box-shadow 0.2s linear, background 0.2s linear;
   color: ${LIGHT_SHADE};
   width: 100%;
   max-width: 215px;
@@ -87,14 +87,17 @@ const StyledSocialLink = styled.a.attrs({
   span {
     display: inline-block;
     margin-left: 15px;
+    transition: color 0.2s linear;
   }
 
   &:hover {
     text-decoration: none;
+    background-color: white;
     box-shadow: ${BOX_SHADOW_HOVER};
 
     span {
-      text-decoration: underline;
+      text-decoration: none;
+      color: ${LIGHTER_ACCENT};
     }
 
     svg.twitter {
@@ -129,10 +132,14 @@ const Header = ({ image, title, description, twitter, github }) => {
 
 const StyledCard = styled(Card)`
   margin-bottom: ${rhythm(1)};
+  padding-bottom: ${rhythm(1 / 1.5)};
+
+  .card-img {
+    max-height: 150px;
+  }
 
   @media (max-width: ${MOBILE_WIDTH}) {
     .card-img {
-      max-height: 150px;
       display: block;
       margin: 0 auto;
     }
@@ -166,8 +173,10 @@ const ArticleCard = ({ article, index }) => {
 const ArticleSection = styled.section`
   grid-column: 2;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: ${props =>
+    props.children.length >= 3 ? "1fr 1fr" : "1fr"};
   grid-column-gap: ${rhythm(1 / 2)};
+  margin-bottom: ${rhythm(1.5)};
 
   article:last-child {
     margin-bottom: 0;
@@ -195,6 +204,10 @@ const HighlightGrid = styled.section`
   }
 `;
 
+const ContentCard = styled(Card)`
+  margin-bottom: ${rhythm(1)};
+`;
+
 export default ({ data }) => {
   const posts = get(data, "allMarkdownRemark.edges");
   const headerImage = get(data, "file.childImageSharp.fluid");
@@ -215,18 +228,29 @@ export default ({ data }) => {
           ))}
         </ArticleSection>
       </HighlightGrid>
-      <section style={{ padding: "60px 0" }}>
+      <ContentCard style={{ padding: "60px 0" }} disableAnimation>
+        <h2>Around the Web</h2>
+        <ul>
+          <li>Email</li>
+          <li>LinkedIn</li>
+          <li>Dev.to</li>
+          <li>Glitch.me</li>
+        </ul>
+        <br />
+      </ContentCard>
+      <ContentCard style={{ padding: "60px 0" }} disableAnimation>
+        <h2>Everything else</h2>
+        link to /everything
+      </ContentCard>
+      <ContentCard style={{ padding: "60px 0" }} disableAnimation>
+        <h2>For Fun</h2>
+        For fun: Tumblr, Discord,
+        Spotify(https://open.spotify.com/user/esaevian? ye) Youtube Destiny 2
+        twitch
+      </ContentCard>
+      <ContentCard style={{ padding: "60px 0" }} disableAnimation>
         This is another section down below
-      </section>
-      <section style={{ padding: "60px 0" }}>
-        This is another section down below
-      </section>
-      <section style={{ padding: "60px 0" }}>
-        This is another section down below
-      </section>
-      <section style={{ padding: "60px 0" }}>
-        This is another section down below
-      </section>
+      </ContentCard>
     </StyledHome>
   );
 };
@@ -241,7 +265,10 @@ export const query = graphql`
         }
       }
     }
-    allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
+    allMarkdownRemark(
+      filter: { fields: { post_type: { eq: "project" } } }
+      sort: { fields: frontmatter___date, order: DESC }
+    ) {
       ...postListData
     }
   }

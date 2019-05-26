@@ -15,7 +15,9 @@ import {
   MAIN_COLOR,
   MOBILE_WIDTH,
   DARKER_ACCENT,
-  LIGHT_ACCENT
+  LIGHT_ACCENT,
+  growWide,
+  slideOff
 } from "../style";
 
 import Logo from "./logo.svg";
@@ -38,10 +40,25 @@ const StyledTemplate = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    transform: skew(45deg) translateX(-100%);
+    transform: skew(45deg) translate3d(-100%, 100%, 0);
     transform-origin: top left;
     background: ${props => props.color || MAIN_COLOR};
     z-index: 0;
+    animation: ${growWide} 0.5s 1s ease-in-out forwards;
+  }
+  &:after {
+    content: "";
+    display: block;
+    width: 200vw;
+    height: 200vh;
+    position: fixed;
+    top: 0;
+    left: left;
+    background: ${props => props.color || MAIN_COLOR};
+    z-index: 10;
+    transform-origin: top left;
+    transform: skew(45deg) translate3d(-50%, -50%, 0);
+    animation: ${slideOff} 1s ease-in-out forwards;
   }
 
   & > * {

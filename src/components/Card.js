@@ -47,7 +47,8 @@ const StyledBox = styled.article`
     transform: translateX(-100%);
   }
   &:hover {
-    box-shadow: ${BOX_SHADOW_HOVER};
+    box-shadow: ${props =>
+      props.disableHover ? BOX_SHADOW : BOX_SHADOW_HOVER};
     &:before {
       opacity: ${props => (props.disableBorder ? 0 : 1)};
     }
@@ -60,10 +61,11 @@ const StyledBox = styled.article`
     }
   }
 
-  opacity: 0;
+  opacity: ${props => (props.disableAnimation ? 1 : 0)};
 
   &.on-screen {
     animation: ${animateIn} 0.3s ease-in-out forwards;
+    ${props => props.disableAnimation && "animation:none;"}
   }
 `;
 
@@ -126,20 +128,23 @@ export default class extends React.Component {
       direction,
       color = MAIN_COLOR,
       hoverColor,
-      disableBorder,
+      disableAnimation,
+      disableHover,
       className,
       date
     } = this.props;
 
     return (
       <StyledBox
-        className={`${className} ${
+        className={`${className || ""} ${
           this.state.onScreen ? "on-screen" : "off-screen"
         }`}
         direction={direction}
         color={color}
         hoverColor={hoverColor}
         disableBorder={true}
+        disableHover={disableAnimation}
+        disableAnimation={disableAnimation}
         ref={this.innerRef}
       >
         {image && React.createElement(styleImage(image))}

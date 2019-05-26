@@ -32,9 +32,9 @@ export const BORDER_GRADIENT = border_gradient("bottom");
 // export const BOX_SHADOW = box_shadow();
 export const box_shadow = () => "none";
 export const BOX_SHADOW =
-  "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.48)";
+  "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)";
 export const BOX_SHADOW_HOVER =
-  "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.44)";
+  "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)";
 
 export const transition = prop => `${prop} 0.2s linear`;
 export const TRANSITION_ALL = transition("all");
@@ -55,5 +55,24 @@ export const animateIn = keyframes`
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+`;
+
+export const growWide = keyframes`
+  from {
+    transform: skew(45deg) translate3d(-200%, 100%, 0);
+  }
+  to {
+    transform: skew(45deg) translate3d(-100%, 0, 0);
+  }
+`;
+
+export const slideOff = keyframes`
+  from {
+    transform: skew(45deg) translate3d(-50%, -50%, 0);
+  }
+
+  to {
+    transform: skew(45deg) translate3d(-150%, 50%, 0);
   }
 `;
