@@ -174,9 +174,8 @@ const ArticleSection = styled.section`
   grid-column: 2;
   display: grid;
   grid-template-columns: ${props =>
-    props.children.length >= 3 ? "1fr 1fr" : "1fr"};
+    props.children.length > 3 ? "1fr 1fr" : "1fr"};
   grid-column-gap: ${rhythm(1 / 2)};
-  margin-bottom: ${rhythm(1.5)};
 
   article:last-child {
     margin-bottom: 0;
@@ -196,7 +195,7 @@ const StyledHome = styled.div`
 const HighlightGrid = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-bottom: 30px;
+  margin-bottom: ${rhythm(2)};
   grid-gap: ${rhythm(1)};
 
   @media (max-width: ${MOBILE_WIDTH}) {
