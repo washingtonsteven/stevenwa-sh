@@ -94,7 +94,7 @@ export default class extends React.Component {
     super(props);
     this.innerRef = React.createRef();
     this.state = {
-      onScreen: false
+      onScreen: props.disableAnimation
     };
   }
   componentDidMount() {

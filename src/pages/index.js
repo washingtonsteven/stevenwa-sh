@@ -76,6 +76,7 @@ const StyledSocialLink = styled.a.attrs({
   color: ${LIGHT_SHADE};
   width: 100%;
   max-width: 215px;
+  font-weight: normal;
   svg {
     width: 25px !important;
     height: 25px !important;
@@ -266,6 +267,7 @@ const EverythingCard = styled(ContentCard)`
   color: white;
   padding: 0;
   user-select: none;
+  text-align: center;
 
   & > div {
     padding: 0;
@@ -312,7 +314,7 @@ export default ({ data }) => {
         />
         <ArticleSection>
           <HeaderCard disableAnimation disableHover>
-            <h2 style={{ margin: 0, textAlign: "center" }}>
+            <h2 style={{ margin: 0, textAlign: "center" }} className="slab">
               Featured Projects
             </h2>
           </HeaderCard>
@@ -358,7 +360,7 @@ export default ({ data }) => {
       </ContentCard>
       <EverythingCard disableAnimation>
         <Link to="/everything">
-          <h2>
+          <h2 className="slab">
             <span>All Projects, Blog Posts, etc.</span>
             <FontAwesomeIcon icon="arrow-right" />
           </h2>
@@ -369,22 +371,16 @@ export default ({ data }) => {
         <LinkSection
           links={[
             {
-              url: "https://esaevian.tumblr.com/",
-              title: "Tumblr",
-              hoverColor: "rgb(0, 24, 46)",
-              icon: <FontAwesomeIcon icon={["fab", "tumblr"]} />
+              url: "https://open.spotify.com/user/esaevian",
+              title: "Spotify",
+              hoverColor: "rgb(29, 205, 85)",
+              icon: <FontAwesomeIcon icon={["fab", "spotify"]} />
             },
             {
               url: "https://www.last.fm/user/esaevian",
               title: "Last.fm",
               hoverColor: "rgb(178, 0, 1)",
               icon: <FontAwesomeIcon icon={["fab", "lastfm"]} />
-            },
-            {
-              url: "https://open.spotify.com/user/esaevian",
-              title: "Spotify",
-              hoverColor: "rgb(29, 205, 85)",
-              icon: <FontAwesomeIcon icon={["fab", "spotify"]} />
             },
             {
               url: "https://www.youtube.com/user/esaevian",

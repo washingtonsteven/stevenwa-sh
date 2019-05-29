@@ -6,12 +6,12 @@ const typography = new Typography({
   baseLineHeight: 1.75,
   googleFonts: [
     {
-      name: "Open Sans",
+      name: "Roboto Slab",
       styles: ["regular", "bold"]
     },
     {
       name: "Lato",
-      styles: ["regular", "bold", "900"]
+      styles: ["light", "regular", "bold"]
     }
   ],
   headerFontFamily: ["Lato", "sans-serif"],
@@ -19,8 +19,21 @@ const typography = new Typography({
   bodyFontFamily: ["Open Sans", "sans-serif"],
   includeNormalize: true,
   overrideStyles: ({ rhythm }, options, styles) => ({
-    body: { backgroundColor: LIGHT_ACCENT, boxSizing: "border-box" },
-    "h1,h2,h3,h4,h5,h6": { letterSpacing: "1px", fontWeight: "400" },
+    body: {
+      backgroundColor: LIGHT_ACCENT,
+      boxSizing: "border-box",
+      fontFamily: "Lato, sans-serif",
+      fontWeight: "300"
+    },
+    ".slab": {
+      fontWeight: "700",
+      fontFamily: "'Roboto Slab', serif",
+      letterSpacing: "3px"
+    },
+    "h1,h2,h3,h4,h5,h6": {
+      letterSpacing: "1px",
+      fontFamily: "'Lato', sans-serif"
+    },
     a: { color: TEXT_COLOR },
     "a:hover": { textDecoration: "underline" },
     "body *": { boxSizing: "inherit" }

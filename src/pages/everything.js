@@ -7,12 +7,12 @@ import { graphql } from "gatsby";
 
 import get from "lodash/get";
 import { MOBILE_WIDTH } from "../style";
+import BlogListHeader from "../components/BlogListHeader";
 
 const StyledHome = styled.div`
   display: grid;
   padding: 0 ${rhythm(1)};
   grid-template-columns: 1fr;
-  grid-template-areas: "main";
   grid-column-gap: ${rhythm(1)};
 
   @media (max-width: ${MOBILE_WIDTH}) {
@@ -23,7 +23,6 @@ const StyledHome = styled.div`
 `;
 
 const StyledBlogList = styled(BlogList)`
-  grid-area: main;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: ${rhythm(1)};
@@ -37,11 +36,12 @@ const StyledBlogList = styled(BlogList)`
 class AllPosts extends React.Component {
   render() {
     const siteTitle = get(this.props, "data.site.siteMetadata.title");
-    const allPosts = get(this, "props.data.allMarkdownRemark.edges");
+    const allPosts = get(this, "props.data.allMarkdownRemark.edges"); console.log(this.props);
 
     return (
       <StyledHome>
         <Helmet title={this.props.helmetTitle || siteTitle} />
+        <BlogListHeader title={this.props.title || "All Blog Posts"} disableEverything={this.props["*"] === 'everything'} />
         <StyledBlogList posts={allPosts} featuredPost={null} />
       </StyledHome>
     );

@@ -160,6 +160,7 @@ const PostLink = styled(Link)`
   text-decoration: none;
   box-shadow: ${BOX_SHADOW};
   transition: box-shadow 0.2s ease-in-out;
+  font-weight: normal;
 
   & > * {
     position: relative;
@@ -197,7 +198,7 @@ const PostLink = styled(Link)`
     }
 
     .background-image:before {
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.6);
     }
   }
 `;
@@ -220,7 +221,7 @@ const BackgroundImage = styled.div.attrs({ className: "background-image" })`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
     transition: background-color 0.2s ease-in-out;
     z-index: 1;
   }
