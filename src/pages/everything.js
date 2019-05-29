@@ -36,7 +36,7 @@ const StyledBlogList = styled(BlogList)`
 class AllPosts extends React.Component {
   render() {
     const siteTitle = get(this.props, "data.site.siteMetadata.title");
-    const allPosts = get(this, "props.data.allMarkdownRemark.edges"); console.log(this.props);
+    const allPosts = get(this, "props.data.allMarkdownRemark.edges");
 
     return (
       <StyledHome>
