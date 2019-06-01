@@ -308,8 +308,6 @@ export default ({ data }) => {
   const headerImage = get(data, "file.childImageSharp.fluid");
   const pageContent = get(data, "pagesYaml");
 
-  console.log(pageContent);
-
   return (
     <StyledHome>
       <HighlightGrid>
