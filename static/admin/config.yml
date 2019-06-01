@@ -56,7 +56,7 @@ collections:
               label: "Template Key",
               name: "template_key",
               widget: "hidden",
-              default:"home-page",
+              default: "home-page",
             }
           - { label: "About Title", name: about_title, widget: string }
           - { label: "About Text", name: about_content, widget: markdown }
