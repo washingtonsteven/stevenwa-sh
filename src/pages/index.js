@@ -231,10 +231,15 @@ const HeaderCard = styled(Card)`
 
   h2 {
     margin: 0;
+    text-align: center;
   }
 
   @media (max-width: ${MOBILE_WIDTH}) {
     position: static;
+  }
+
+  a {
+    color: ${LIGHT_SHADE};
   }
 `;
 
@@ -314,9 +319,11 @@ export default ({ data }) => {
         />
         <ArticleSection>
           <HeaderCard disableAnimation disableHover>
-            <h2 style={{ margin: 0, textAlign: "center" }} className="slab">
-              Featured Projects
-            </h2>
+            <Link to="/projects">
+              <h2>
+                <span>Featured Projects</span>
+              </h2>
+            </Link>
           </HeaderCard>
           {posts.map(({ node: post }, i) => (
             <ArticleCard article={post} key={post.fields.post_slug} index={i} />
@@ -376,7 +383,7 @@ export default ({ data }) => {
       </ContentCard>
       <EverythingCard disableAnimation>
         <Link to="/everything">
-          <h2 className="slab">
+          <h2>
             <span>All Projects, Blog Posts, etc.</span>
             <FontAwesomeIcon icon="arrow-right" />
           </h2>

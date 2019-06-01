@@ -8,10 +8,10 @@ class TypeArchiveTemplate extends React.Component {
     const siteTitle = get(this.props, "data.site.siteMetadata.title");
     const type = get(this.props, "pageContext.type");
     const title = (() => {
-      if (type === 'posts') return "Blog Posts";
-      if (type === 'projects') return "Projects";
+      if (type === "posts") return "Blog Posts";
+      if (type === "projects") return "All Projects";
       return null;
-    })()
+    })();
     return (
       <Home
         {...this.props}

@@ -6,12 +6,8 @@ const typography = new Typography({
   baseLineHeight: 1.75,
   googleFonts: [
     {
-      name: "Roboto Slab",
-      styles: ["regular", "bold"]
-    },
-    {
       name: "Lato",
-      styles: ["light", "regular", "bold"]
+      styles: ["light", "light italic", "regular", "bold"]
     }
   ],
   headerFontFamily: ["Lato", "sans-serif"],
@@ -25,18 +21,15 @@ const typography = new Typography({
       fontFamily: "Lato, sans-serif",
       fontWeight: "300"
     },
-    ".slab": {
-      fontWeight: "700",
-      fontFamily: "'Roboto Slab', serif",
-      letterSpacing: "3px"
-    },
     "h1,h2,h3,h4,h5,h6": {
       letterSpacing: "1px",
-      fontFamily: "'Lato', sans-serif"
+      fontFamily: "'Lato', sans-serif",
+      fontWeight: "normal"
     },
     a: { color: TEXT_COLOR },
     "a:hover": { textDecoration: "underline" },
-    "body *": { boxSizing: "inherit" }
+    "body *": { boxSizing: "inherit" },
+    "strong, b": { fontFamily: "'Lato', sans-serif", fontWeight: "700" }
   })
 });
 

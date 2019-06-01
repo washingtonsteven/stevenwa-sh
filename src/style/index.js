@@ -42,6 +42,8 @@ export const TRANSITION_ALL = transition("all");
 export const TEXT_FONT = `Lato, sans-serif`;
 export const HEADER_FONT = `'PT Sans', sans-serif`;
 export const STYLE_FONT = ``;
+export const TEXT_MAX_WIDTH = `800px`;
+export const PARAGRAPH_MARGIN = `0 auto 11px`;
 
 export const MAX_WIDTH = `1024px`;
 export const MOBILE_WIDTH = `768px`;

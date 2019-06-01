@@ -41,7 +41,7 @@ class AllPosts extends React.Component {
     return (
       <StyledHome>
         <Helmet title={this.props.helmetTitle || siteTitle} />
-        <BlogListHeader title={this.props.title || "All Blog Posts"} disableEverything={this.props["*"] === 'everything'} />
+        <BlogListHeader title={this.props.title || "Blog Posts & Projects"} disableEverything={this.props["*"] === 'everything'} />
         <StyledBlogList posts={allPosts} featuredPost={null} />
       </StyledHome>
     );

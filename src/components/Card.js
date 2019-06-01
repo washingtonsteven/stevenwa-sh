@@ -8,7 +8,9 @@ import {
   LIGHTER_ACCENT,
   MAIN_COLOR,
   border_gradient,
-  animateIn
+  animateIn,
+  TEXT_MAX_WIDTH,
+  PARAGRAPH_MARGIN
 } from "../style";
 
 const StyledHeader = styled.h3`
@@ -63,6 +65,9 @@ const StyledBox = styled.article`
   }
 
   p {
+    max-width: ${TEXT_MAX_WIDTH};
+    margin: ${PARAGRAPH_MARGIN};
+
     a {
       text-decoration: underline;
 

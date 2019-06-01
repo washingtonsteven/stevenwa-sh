@@ -30,7 +30,8 @@ const StyledHeader = styled.header`
 
 const SubLinkContainer = styled.div`
   display: grid;
-  grid-template-columns: ${props => props.disableEverything ? "1fr" : "1fr 1fr"};
+  grid-template-columns: ${props =>
+    props.disableEverything ? "1fr" : "1fr 1fr"};
   align-items: center;
   justify-items: center;
   width: 50%;
@@ -63,7 +64,7 @@ class BlogListHeader extends Component {
     return (
       <StyledHeader>
         <HeaderCard disableAnimation disableHover>
-          <h1 className="slab">{this.props.title}</h1>
+          <h1>{this.props.title}</h1>
         </HeaderCard>
         <SubLinkContainer disableEverything={this.props.disableEverything}>
           <Link to="/">Home</Link>

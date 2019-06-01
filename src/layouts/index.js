@@ -38,7 +38,7 @@ library.add(faEnvelope, fab, faFish, faArrowRight);
 const StyledTemplate = styled.div`
   width: 100%;
   font-family: ${TEXT_FONT};
-  line-height: 1.5;
+  line-height: 1.8;
   color: ${TEXT_COLOR};
   background-color: ${DARKER_ACCENT};
   position: relative;

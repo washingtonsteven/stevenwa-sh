@@ -8,7 +8,9 @@ import {
   LIGHT_ACCENT,
   DARKER_ACCENT,
   MOBILE_WIDTH,
-  BOX_SHADOW_HOVER
+  BOX_SHADOW_HOVER,
+  TEXT_MAX_WIDTH,
+  PARAGRAPH_MARGIN
 } from "../style";
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
 import { Link, graphql } from "gatsby";
@@ -18,7 +20,7 @@ import GithubIcon from "../components/github.svg";
 
 const StyledBlogPost = styled.div`
   background-color: white;
-  margin: 0 0 35px;
+  margin: 0 20px 35px;
   box-shadow: ${BOX_SHADOW};
   padding-bottom: 20px;
 
@@ -55,6 +57,15 @@ const StyledBlogPost = styled.div`
     &:hover {
       color: ${DARKER_ACCENT};
     }
+  }
+
+  & > div {
+    max-width: ${TEXT_MAX_WIDTH};
+    margin: 0 auto;
+  }
+
+  p {
+    margin: ${PARAGRAPH_MARGIN};
   }
 
   .project-screenshots .screenshot-container {
@@ -296,7 +307,7 @@ class BlogPostTemplate extends React.Component {
           <h1>{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
           {post.frontmatter.tags && (
-            <div style={{ marginBottom: "25px" }}>
+            <div style={{ marginBottom: "25px", maxWidth: "none" }}>
               {post.frontmatter.tags.map(t => (
                 <StyledTag to={`/tagged/${t}`} key={t}>
                   #{t}
@@ -306,7 +317,7 @@ class BlogPostTemplate extends React.Component {
           )}
 
           {post.frontmatter.repo && (
-            <div>
+            <div style={{ maxWidth: "none" }}>
               <StyledRepoLink>
                 <a
                   href={post.frontmatter.repo}
@@ -326,7 +337,10 @@ class BlogPostTemplate extends React.Component {
             </div>
           )}
 
-          <div dangerouslySetInnerHTML={{ __html: post.html }} />
+          <div
+            dangerouslySetInnerHTML={{ __html: post.html }}
+            style={{ marginTop: "50px" }}
+          />
 
           {post.frontmatter.screenshots && (
             <div className="project-screenshots">
