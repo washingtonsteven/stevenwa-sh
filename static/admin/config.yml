@@ -52,6 +52,12 @@ collections:
         name: home
         file: content/pages/index.yml
         fields:
+          - {
+              label: "Template Key",
+              name: "template_key",
+              widget: "hidden",
+              default:"home-page",
+            }
           - { label: "About Title", name: about_title, widget: string }
           - { label: "About Text", name: about_content, widget: markdown }
           - label: "Web Links"
