@@ -9,6 +9,7 @@ class TagArchiveTemplate extends React.Component {
     return (
       <Home
         {...this.props}
+        title={`tagged: #${this.props.pageContext.tag}`}
         helmetTitle={`tagged:${this.props.pageContext.tag} | ${siteTitle}`}
       />
     );

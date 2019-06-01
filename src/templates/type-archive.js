@@ -6,9 +6,16 @@ import { graphql } from "gatsby";
 class TypeArchiveTemplate extends React.Component {
   render() {
     const siteTitle = get(this.props, "data.site.siteMetadata.title");
+    const type = get(this.props, "pageContext.type");
+    const title = (() => {
+      if (type === 'posts') return "Blog Posts";
+      if (type === 'projects') return "Projects";
+      return null;
+    })()
     return (
       <Home
         {...this.props}
+        title={title}
         helmetTitle={`type:${this.props.pageContext.type} | ${siteTitle}`}
       />
     );
