@@ -1,7 +1,7 @@
 template_key: home-page
 about_title: Hello! I make kick-butt websites.
 about_content: >-
-  My goal is to make the web better and better neat interactive thingies, games,
+  My goal is to make the web better with neat interactive things, games,
   stories, etc. I work on this on my own as well as a part of the <a
   href="https://www.connellypartners.com" target="_blank" rel="noopener
   noreferrer">Connelly Partners</a> digital team.
@@ -12,40 +12,40 @@ about_content: >-
   modern Javascript. I'm also playing around with game development using Unity,
   Game Maker, and Twine.
 web_links:
-  - color: "#000"
+  - color: '#000'
     icon: envelope
     title: Email
-    url: "mailto:washington.steven@gmail.com"
-  - color: "#0077B5"
+    url: 'mailto:washington.steven@gmail.com'
+  - color: '#0077B5'
     icon: fab linkedin
     title: LinkedIn
-    url: "https://www.linkedin.com/in/svwashington/"
-  - color: "#000"
+    url: 'https://www.linkedin.com/in/svwashington/'
+  - color: '#000'
     icon: fab dev
     title: Dev.to
-    url: "https://dev.to/washingtonsteven"
-  - color: "rgb(195, 75, 255)"
+    url: 'https://dev.to/washingtonsteven'
+  - color: 'rgb(195, 75, 255)'
     icon: fish
     title: Glitch.me
-    url: "https://glitch.com/@washingtonsteven"
+    url: 'https://glitch.com/@washingtonsteven'
 social_links:
-  - color: "rgb(29, 205, 85)"
+  - color: 'rgb(29, 205, 85)'
     icon: fab spotify
     title: Spotify
-    url: "https://open.spotify.com/user/esaevian"
-  - color: "rgb(178, 0, 1)"
+    url: 'https://open.spotify.com/user/esaevian'
+  - color: 'rgb(178, 0, 1)'
     icon: fab lastfm
     title: Last.fm
-    url: "https://www.last.fm/user/esaevian"
-  - color: "rgb(252, 13, 27)"
+    url: 'https://www.last.fm/user/esaevian'
+  - color: 'rgb(252, 13, 27)'
     icon: fab youtube
     title: Youtube
-    url: "https://www.youtube.com/user/esaevian"
-  - color: "rgb(66, 47, 113)"
+    url: 'https://www.youtube.com/user/esaevian'
+  - color: 'rgb(66, 47, 113)'
     icon: fab twitch
     title: Twitch
-    url: "https://www.twitch.tv/esaevian"
-  - color: "rgb(22, 24, 30)"
+    url: 'https://www.twitch.tv/esaevian'
+  - color: 'rgb(22, 24, 30)'
     icon: fab steam
     title: Steam
-    url: "https://steamcommunity.com/id/esaevian"
+    url: 'https://steamcommunity.com/id/esaevian'
