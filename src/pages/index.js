@@ -306,6 +306,9 @@ const EverythingCard = styled(ContentCard)`
 export default ({ data }) => {
   const posts = get(data, "allMarkdownRemark.edges");
   const headerImage = get(data, "file.childImageSharp.fluid");
+  const pageContent = get(data, "pagesYaml");
+
+  console.log(pageContent);
 
   return (
     <StyledHome>
@@ -331,54 +334,23 @@ export default ({ data }) => {
         </ArticleSection>
       </HighlightGrid>
       <ContentCard disableAnimation disableHover>
-        <h2>Hello! I make kick-butt websites.</h2>
-        <p>
-          My goal is to make the web better and better neat interactive
-          thingies, games, stories, etc. I work on this on my own as well as a
-          part of the{" "}
-          <a
-            href="https://www.connellypartners.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Connelly Partners
-          </a>{" "}
-          digital team.
-        </p>
-        <p>
-          On the web side, I'm currently diving deep into React, plumbing the
-          depths of what can be done with the library! Also React is a gateway
-          drug to sweet modern Javascript. I'm also playing around with game
-          development using Unity, Game Maker, and Twine.
-        </p>
+        <h2>{pageContent.about_title}</h2>
+        {pageContent.about_content.split("\n").map((para, i) => (
+          <p key={i} dangerouslySetInnerHTML={{ __html: para }} />
+        ))}
       </ContentCard>
       <ContentCard disableAnimation disableHover>
         <h2>Around the Web</h2>
         <LinkSection
-          links={[
-            {
-              url: "mailto:washington.steven@gmail.com",
-              title: "Email",
-              icon: <FontAwesomeIcon icon="envelope" />
-            },
-            {
-              url: "https://www.linkedin.com/in/svwashington/",
-              title: "LinkedIn",
-              hoverColor: "#0077B5",
-              icon: <FontAwesomeIcon icon={["fab", "linkedin"]} />
-            },
-            {
-              url: "https://dev.to/washingtonsteven",
-              title: "Dev.to",
-              icon: <FontAwesomeIcon icon={["fab", "dev"]} />
-            },
-            {
-              url: "https://glitch.com/@washingtonsteven",
-              title: "Glitch.me",
-              hoverColor: "rgb(195, 75, 255)",
-              icon: <FontAwesomeIcon icon="fish" />
-            }
-          ]}
+          links={pageContent.web_links.map(link => {
+            let icon = link.icon.split(" ");
+            if (icon.length === 1) icon = icon[0];
+            return {
+              ...link,
+              icon: <FontAwesomeIcon icon={icon} />,
+              hoverColor: link.color
+            };
+          })}
         />
       </ContentCard>
       <EverythingCard disableAnimation>
@@ -392,38 +364,15 @@ export default ({ data }) => {
       <ContentCard disableAnimation disableHover>
         <h2>More stuff</h2>
         <LinkSection
-          links={[
-            {
-              url: "https://open.spotify.com/user/esaevian",
-              title: "Spotify",
-              hoverColor: "rgb(29, 205, 85)",
-              icon: <FontAwesomeIcon icon={["fab", "spotify"]} />
-            },
-            {
-              url: "https://www.last.fm/user/esaevian",
-              title: "Last.fm",
-              hoverColor: "rgb(178, 0, 1)",
-              icon: <FontAwesomeIcon icon={["fab", "lastfm"]} />
-            },
-            {
-              url: "https://www.youtube.com/user/esaevian",
-              title: "Youtube",
-              hoverColor: "rgb(252, 13, 27)",
-              icon: <FontAwesomeIcon icon={["fab", "youtube"]} />
-            },
-            {
-              url: "https://www.twitch.tv/esaevian",
-              title: "Twitch",
-              hoverColor: "rgb(66, 47, 113)",
-              icon: <FontAwesomeIcon icon={["fab", "twitch"]} />
-            },
-            {
-              url: "https://steamcommunity.com/id/esaevian/",
-              title: "Steam",
-              hoverColor: "rgb(22, 24, 30)",
-              icon: <FontAwesomeIcon icon={["fab", "steam"]} />
-            }
-          ]}
+          links={pageContent.social_links.map(link => {
+            let icon = link.icon.split(" ");
+            if (icon.length === 1) icon = icon[0];
+            return {
+              ...link,
+              icon: <FontAwesomeIcon icon={icon} />,
+              hoverColor: link.color
+            };
+          })}
         />
       </ContentCard>
     </StyledHome>
@@ -438,6 +387,22 @@ export const query = graphql`
         fluid(maxWidth: 250) {
           ...GatsbyImageSharpFluid
         }
+      }
+    }
+    pagesYaml(template_key: { eq: "home-page" }) {
+      about_title
+      about_content
+      web_links {
+        color
+        icon
+        title
+        url
+      }
+      social_links {
+        color
+        icon
+        title
+        url
       }
     }
     allMarkdownRemark(
