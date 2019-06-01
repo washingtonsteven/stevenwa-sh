@@ -5,6 +5,7 @@ import {
   BOX_SHADOW,
   BOX_SHADOW_HOVER,
   LIGHT_ACCENT,
+  LIGHTER_ACCENT,
   MAIN_COLOR,
   border_gradient,
   animateIn
@@ -58,6 +59,16 @@ const StyledBox = styled.article`
     text-decoration: none;
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  p {
+    a {
+      text-decoration: underline;
+
+      &:hover {
+        color: ${LIGHTER_ACCENT};
+      }
     }
   }
 

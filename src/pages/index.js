@@ -322,9 +322,25 @@ export default ({ data }) => {
         </ArticleSection>
       </HighlightGrid>
       <ContentCard disableAnimation disableHover>
-        <h2>About Steve</h2>
+        <h2>Hello! I make kick-butt websites.</h2>
         <p>
-          Ugh I have to write a paragraph or something about myself i hate it.
+          My goal is to make the web better and better neat interactive
+          thingies, games, stories, etc. I work on this on my own as well as a
+          part of the{" "}
+          <a
+            href="https://www.connellypartners.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Connelly Partners
+          </a>{" "}
+          digital team.
+        </p>
+        <p>
+          On the web side, I'm currently diving deep into React, plumbing the
+          depths of what can be done with the library! Also React is a gateway
+          drug to sweet modern Javascript. I'm also playing around with game
+          development using Unity, Game Maker, and Twine.
         </p>
       </ContentCard>
       <ContentCard disableAnimation disableHover>
