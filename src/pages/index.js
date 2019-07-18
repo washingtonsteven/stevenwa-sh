@@ -304,6 +304,14 @@ const EverythingCard = styled(ContentCard)`
 `;
 
 export default ({ data }) => {
+  const [showIcon, setShowIcon] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!showIcon) {
+      setShowIcon(true);
+    }
+  });
+
   const posts = get(data, "allMarkdownRemark.edges");
   const headerImage = get(data, "file.childImageSharp.fluid");
   const pageContent = get(data, "pagesYaml");
@@ -355,7 +363,7 @@ export default ({ data }) => {
         <Link to="/everything">
           <h2>
             <span>All Projects, Blog Posts, etc.</span>
-            <FontAwesomeIcon icon="arrow-right" />
+            {showIcon && <FontAwesomeIcon icon="arrow-right" />}
           </h2>
         </Link>
       </EverythingCard>

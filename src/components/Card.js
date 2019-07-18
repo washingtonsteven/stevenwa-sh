@@ -110,21 +110,29 @@ export default class extends React.Component {
     super(props);
     this.innerRef = React.createRef();
     this.state = {
-      onScreen: props.disableAnimation
+      onScreen: true // default on screen, in case JS can't run for some reason
     };
   }
   componentDidMount() {
-    if (this.innerRef && this.innerRef.current) {
-      let options = { threshold: 0.3 };
-      this.observer = new IntersectionObserver(observed => {
-        observed.forEach(el => {
-          if (el.isIntersecting && !this.state.onScreen) {
-            this.setState(state => ({ ...state, onScreen: true }));
-          }
-        });
-      }, options);
-      this.observer.observe(this.innerRef.current);
-    }
+    this.setState(
+      state => ({
+        ...state,
+        onScreen: this.props.disableAnimation
+      }),
+      () => {
+        if (this.innerRef && this.innerRef.current) {
+          let options = { threshold: 0.3 };
+          this.observer = new IntersectionObserver(observed => {
+            observed.forEach(el => {
+              if (el.isIntersecting && !this.state.onScreen) {
+                this.setState(state => ({ ...state, onScreen: true }));
+              }
+            });
+          }, options);
+          this.observer.observe(this.innerRef.current);
+        }
+      }
+    );
   }
   componentWillUnmount() {
     if (
