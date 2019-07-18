@@ -69,8 +69,8 @@ So now we just need to convert each digit from octal to a set of 3 letters: `rwx
 |       | Octal/Decimal | Binary |
 | ----- | ------------- | ------ |
 | User  | 7             | 111    |
-| Group | 5             | 110    |
-| Other | 5             | 110    |
+| Group | 5             | 101    |
+| Other | 5             | 101    |
 
 Here we have the conversions for each digit in `755` to binary (as in "seven, five, five", not "seven hundred fifty five")
 
