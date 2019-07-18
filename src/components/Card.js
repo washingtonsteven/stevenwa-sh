@@ -137,7 +137,7 @@ export default class extends React.Component {
   componentWillUnmount() {
     if (
       this.observer &&
-      typeof this.observer.unobserver === "function" &&
+      typeof this.observer.unobserve === "function" &&
       this.innerRef &&
       this.innerRef.current
     ) {
