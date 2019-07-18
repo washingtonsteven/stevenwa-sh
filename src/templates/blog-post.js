@@ -12,6 +12,7 @@ import {
   TEXT_MAX_WIDTH,
   PARAGRAPH_MARGIN
 } from "../style";
+import { rhythm } from "../utils/typography";
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
 import { Link, graphql } from "gatsby";
 import Img from "gatsby-image";
@@ -20,12 +21,12 @@ import GithubIcon from "../components/github.svg";
 
 const StyledBlogPost = styled.div`
   background-color: white;
-  margin: 0 20px 35px;
+  margin: 0 ${rhythm(1)} 35px;
   box-shadow: ${BOX_SHADOW};
   padding-bottom: 20px;
 
   & > * {
-    padding: 0 20px;
+    padding: 0 ${rhythm(1)};
   }
 
   & > h1 {
@@ -155,6 +156,7 @@ const StyledRepoLink = styled.div`
 
 const StyledPostLinks = styled.div`
   display: grid;
+  padding: 0 ${rhythm(1)};
   width: 100%;
   grid-template-columns: 1fr 1fr;
   @media (max-width: ${MOBILE_WIDTH}) {

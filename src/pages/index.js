@@ -199,7 +199,7 @@ const ArticleSection = styled.section`
 
 const StyledHome = styled.div`
   width: 100%;
-  padding: 0 20px;
+  padding: 0 ${rhythm(1)};
 `;
 
 const HighlightGrid = styled.section`

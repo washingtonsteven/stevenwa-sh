@@ -42,6 +42,8 @@ const StyledTemplate = styled.div`
   color: ${TEXT_COLOR};
   background-color: ${DARKER_ACCENT};
   position: relative;
+  overflow: hidden;
+
   &:before {
     content: "";
     display: block;
@@ -59,7 +61,7 @@ const StyledTemplate = styled.div`
   }
   &:after {
     content: "";
-    display: block;
+    display: none;
     width: 200vw;
     height: 200vh;
     position: fixed;
@@ -120,18 +122,17 @@ const StyledNav = styled.nav`
 `;
 
 const StyledFooter = styled.footer`
-  background-color: white;
-  box-shadow: ${box_shadow()};
-  display: inline-block;
-  text-align: center;
   margin: 30px auto 60px;
-  padding: 30px 50px;
-  position: absolute;
-  left: 50%;
-  top: auto;
-  transform: translateX(-50%);
-  width: calc(100% - ${rhythm(2)});
-  max-width: calc(${MAX_WIDTH} - ${rhythm(2)});
+  width: 100%;
+  max-width: ${MAX_WIDTH};
+  padding: 0 ${rhythm(1)};
+  & > div {
+    background-color: white;
+    box-shadow: ${box_shadow()};
+    display: block;
+    text-align: center;
+    padding: 30px 50px;
+  }
 `;
 
 const CopyLine = styled.div`
@@ -192,21 +193,23 @@ class Template extends React.Component {
         </StyledNav>
         <StyledMain>{children}</StyledMain>
         <StyledFooter>
-          <LinksLine>
-            {Object.entries(social).map(([name, url]) => (
-              <li key={name}>
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  {name.charAt(0).toUpperCase() + name.substr(1)}
-                </a>
+          <div>
+            <LinksLine>
+              {Object.entries(social).map(([name, url]) => (
+                <li key={name}>
+                  <a href={url} target="_blank" rel="noopener noreferrer">
+                    {name.charAt(0).toUpperCase() + name.substr(1)}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <Link to="/credits">Credits</Link>
               </li>
-            ))}
-            <li>
-              <Link to="/credits">Credits</Link>
-            </li>
-          </LinksLine>
-          <CopyLine>
-            Copyright {"\u00a9"} {new Date().getFullYear()} Steven Washington
-          </CopyLine>
+            </LinksLine>
+            <CopyLine>
+              Copyright {"\u00a9"} {new Date().getFullYear()} Steven Washington
+            </CopyLine>
+          </div>
         </StyledFooter>
       </StyledTemplate>
     );
