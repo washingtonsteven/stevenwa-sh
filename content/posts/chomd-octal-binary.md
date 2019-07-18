@@ -6,9 +6,7 @@ featured: false
 ---
 Every so often I'll be setting up a project and run into file permission issues. Most times, I'll Google the error and come across a forum post that's something like
 
->
 > Just type `chmod 755 ./file.txt` in Terminal and you'll be fine.
->
 
 So while this works, it would be much better if I actually knew that this line was doing. 
 
@@ -22,8 +20,8 @@ But that's that `755` about? How does that relate to file permissions?
 
 _Very_ basically, file permission roles are broken up into 3 types of people: User, Group and World.
 
-**User** is the owner of the file.  
-**Group** is a special set of users can have special privileges on the file.  
+**User** is the owner of the file.\
+**Group** is a special set of users can have special privileges on the file.\
 **Others** is everyone else.
 
 In addition, there are four types of permissions: Read, Write, Execute, and None. Read, Write and None are self explanatory. Having the "execute" permission means that you can run the file, as opposed to simply opening it or editing it. This is usually for files that are executable by the system like shell scripts or similar.
@@ -34,13 +32,14 @@ For example: If you have Read and Write permissions for `./file.sh`, you can ope
 
 Try something out for me: Open up a terminal, go to a directory with a bunch of files, and type `ls -l`. This will list all the files in the directory (`ls`) in a long format (`-l`). You'll get something like this:
 
-[Screenshot here]
+![](/assets/screen-shot-2019-07-18-at-1.50.05-pm.png)
 
 Look on the very left column, and you'll see a combination of 10 `r`'s, `w`'s, `x`'s, and `-`'s. This is not a random jumble of letters, but actually a lineup of permissions:
-- The first digit is the directory flag. If the row describes a directory, it'll be `d`, otherwise it will be `-`
-- The next three digits are the User permissions. This is set up in order `rwx` or "Read, Write, E**x**ecute.
-- The next three are the Group permissions, set up the same as the User
-- The next three are Other permissions
+
+* The first digit is the directory flag. If the row describes a directory, it'll be `d`, otherwise it will be `-`
+* The next three digits are the User permissions. This is set up in order `rwx` or "Read, Write, E**x**ecute.
+* The next three are the Group permissions, set up the same as the User
+* The next three are Other permissions
 
 Let's take this line for example
 
@@ -50,9 +49,9 @@ Let's take this line for example
 
 We can take that first column, and break it up into 4 sections:
 
-`-` >> This is the directory flag. package.json is not a directory, so this is '-'  
-`rw-` >> these next three digits are the "User" section. So the Owner ("stevewashington") can Read the file, Write to the file, but not Execute it.  
-`r--` >> These are the "Group" permissions. Anyone in the defined Group ("staff") can read the file, but not write to it or execute it.  
+`-` >> This is the directory flag. package.json is not a directory, so this is '-'\
+`rw-` >> these next three digits are the "User" section. So the Owner ("stevewashington") can Read the file, Write to the file, but not Execute it.\
+`r--` >> These are the "Group" permissions. Anyone in the defined Group ("staff") can read the file, but not write to it or execute it.\
 `r--` >> These are "Other" permissions, which are the same as "Group," can read, but not write or execute.
 
 ## Okay but what about the numbers?
@@ -82,9 +81,10 @@ Here's another "coincidence", the binary numbers also have 3 digits! So we can t
 If we mash them together, we see that `chmod 755 ./file.txt` means:
 
 > Change `./file.txt` so that: 
->   - the owner can read, write, and execute it
->   - the defined group can read it and execute it
->   - everyone else can also read and execute it
+>
+> * the owner can read, write, and execute it
+> * the defined group can read it and execute it
+> * everyone else can also read and execute it
 
 Knowing this, this is actually fairly open permissions for a file. Are you use you want absolutely everyone to be able to execute a program on your server? 🤔
 
@@ -98,16 +98,13 @@ Using the `package.json` example from above, we can work it out backwards:
 
 So copying the permissions of `package.json` we'd use something like `chmod 644 ./file.txt`. This means for package.json:
 
->   - the owner can read, write, but not execute it
->   - the defined group can only read it
->   - everyone else can only read it as well
+> * the owner can read, write, but not execute it
+> * the defined group can only read it
+> * everyone else can only read it as well
 
 Which makes sense! You can't really "execute" .json files, so there's no reason to give that permission to anyone.
 
-
 Like how octal rwx is like bindary
-
-
 
 rwx r-x r-x
 
@@ -115,10 +112,6 @@ rwx r-x r-x
 
 7 5 5
 
-
-
 etc.
-
-
 
 Photo by Alex Martinez on Unsplash
