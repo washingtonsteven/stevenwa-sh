@@ -1,8 +1,12 @@
 ---
 date: 2019-06-03T10:39:38.631Z
-title: chomd + octal + binary
+title: Understanding Permissions
 featured_image: /assets/alex-martinez-62348-unsplash.jpg
 featured: false
+tags:
+  - unix
+  - permissions
+  - server admin
 ---
 Every so often I'll be setting up a project and run into file permission issues. Most times, I'll Google the error and come across a forum post that's something like
 
@@ -12,7 +16,7 @@ So while this works, it would be much better if I actually knew that this line w
 
 The first part is easy: `chmod` is the name of the process that actually changes the permissions on the file I want.
 
-The last part is even easier: It's just the path to the file I want to change the permissions on.
+The last part is even easier: It's the path to the file I want to change the permissions on.
 
 But that's that `755` about? How does that relate to file permissions?
 
@@ -24,7 +28,7 @@ _Very_ basically, file permission roles are broken up into 3 types of people: Us
 **Group** is a special set of users can have special privileges on the file.\
 **Others** is everyone else.
 
-In addition, there are four types of permissions: Read, Write, Execute, and None. Read, Write and None are self explanatory. Having the "execute" permission means that you can run the file, as opposed to simply opening it or editing it. This is usually for files that are executable by the system like shell scripts or similar.
+Additionally, there are four types of permissions: Read, Write, Execute, and None. Read, Write and None are self explanatory. Having the "execute" permission means that you can run the file, as opposed to simply opening it or editing it. This is usually for files that are executable by the system like shell scripts or similar.
 
 For example: If you have Read and Write permissions for `./file.sh`, you can open it, and you can edit it. But without the "Execute" permission, you can't run the script.
 
@@ -58,7 +62,7 @@ We can take that first column, and break it up into 4 sections:
 
 The number in the `chmod` command (`755` in the example above) are in "octal", or base-8. Each digit can hold a number from 0-7, and the number 8 is "10" in octal.
 
-You may notice that the number has 3 digits, and these digits correspond perfectly to the User, Group, Other permissions. User is 7, Group is 5, and Other is also 5.
+You may notice that the number has 3 digits. You may also see that there are three permissions roles, User, Group, and Other. Put these together, and you can read these as separate permission sets: User is 7, Group is 5, and Other is also 5.
 
 So now we just need to convert each digit from octal to a set of 3 letters: `rwx`. And we will be using binary as an intermediary:
 
@@ -81,12 +85,11 @@ Here's another "coincidence", the binary numbers also have 3 digits! So we can t
 If we mash them together, we see that `chmod 755 ./file.txt` means:
 
 > Change `./file.txt` so that: 
->
 > * the owner can read, write, and execute it
 > * the defined group can read it and execute it
 > * everyone else can also read and execute it
 
-Knowing this, this is actually fairly open permissions for a file. Are you use you want absolutely everyone to be able to execute a program on your server? 🤔
+Knowing this, this is actually fairly open permissions for a file. Are you use you want absolutely everyone to be able to execute a program on your server? 🤔 
 
 Using the `package.json` example from above, we can work it out backwards:
 
@@ -104,14 +107,10 @@ So copying the permissions of `package.json` we'd use something like `chmod 644 
 
 Which makes sense! You can't really "execute" .json files, so there's no reason to give that permission to anyone.
 
-Like how octal rwx is like bindary
+## Conclusion
 
-rwx r-x r-x
+This was a basic overview of Unix(-like) permissions and how to understand them.  Now you know what `chmod 755 ./file.sh` means, and can make smart decisions to fix your issue. This is a crucial part (and only a part!) in keeping your files and server safe.
 
-111 101 101
+---
 
-7 5 5
-
-etc.
-
-Photo by Alex Martinez on Unsplash
+_Photo by Alex Martinez on Unsplash_
