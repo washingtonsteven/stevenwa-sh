@@ -6,8 +6,8 @@ const singular = function(str) {
   return str.substring(0, str.length - 1);
 };
 
-const postTypeFromPath = function(path, opts = {}) {
-  const matches = path.match(/src\/pages\/([^\/]+)/);
+const postTypeFromPath = (path, opts = {}) => {
+  const matches = path.match(/content\/([^/]+)/);
   return opts.plural ? matches && matches[1] : singular(matches && matches[1]);
 };
 
@@ -128,6 +128,7 @@ module.exports = {
                   site.siteMetadata.siteUrl +
                   "/" +
                   postTypeFromPath(edge.node.fileAbsolutePath) +
+                  "/" +
                   edge.node.fields.post_slug;
 
                 const enclosure = {
@@ -154,8 +155,7 @@ module.exports = {
               {
                 allMarkdownRemark(
                   limit:1000, 
-                  sort: { fields: [frontmatter___date], order: DESC },
-                  filter: { frontmatter: { published: { eq: true } } }
+                  sort: { fields: [frontmatter___date], order: DESC }
                 ) {
                   edges {
                     node {
