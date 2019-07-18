@@ -1,5 +1,5 @@
 ---
-date: 2019-06-03T10:39:38.631Z
+date: 2019-07-18T10:39:38.631Z
 title: Understanding Permissions
 featured_image: /assets/alex-martinez-62348-unsplash.jpg
 featured: false
