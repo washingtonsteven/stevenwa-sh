@@ -40,13 +40,6 @@ const StyledHeader = styled.header`
   }
 `;
 
-const StyledFace = styled(Img)`
-  max-width: 250px;
-  border-radius: 50%;
-  justify-self: center;
-  width: 100%;
-`;
-
 const StyledTwitterIcon = styled(TwitterIcon).attrs({ className: "twitter" })`
   rect {
     opacity: 0;
@@ -124,12 +117,10 @@ const StyledSocialLink = styled.a.attrs({
   }
 `;
 
-const Header = ({ image, title, description, twitter, github }) => {
+const Header = ({ title, description, twitter, github }) => {
   return (
     <StyledHeader>
       <h1>{title}</h1>
-      <p>{description}</p>
-      <StyledFace fluid={image} />
       <StyledSocialLink href={twitter}>
         <StyledTwitterIcon /> <span>@esaevian</span>
       </StyledSocialLink>
@@ -181,10 +172,8 @@ const ArticleCard = ({ article, index }) => {
 };
 
 const ArticleSection = styled.section`
-  grid-column: 2;
   display: grid;
-  grid-template-columns: ${props =>
-    props.children.length > 3 ? "1fr 1fr" : "1fr"};
+  grid-template-columns: 1fr 1fr;
   grid-column-gap: ${rhythm(1 / 2)};
 
   article:last-child {
@@ -192,7 +181,6 @@ const ArticleSection = styled.section`
   }
 
   @media (max-width: ${MOBILE_WIDTH}) {
-    grid-column: 1;
     grid-template-columns: 1fr;
   }
 `;
@@ -204,7 +192,7 @@ const StyledHome = styled.div`
 
 const HighlightGrid = styled.section`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   margin-bottom: ${rhythm(2)};
   grid-gap: ${rhythm(1)};
 
@@ -228,6 +216,7 @@ const HeaderCard = styled(Card)`
   position: sticky;
   top: 50px;
   z-index: 3;
+  grid-column: 1 / 3;
 
   h2 {
     margin: 0;
@@ -236,6 +225,7 @@ const HeaderCard = styled(Card)`
 
   @media (max-width: ${MOBILE_WIDTH}) {
     position: static;
+    grid-column: 1;
   }
 
   a {
@@ -310,7 +300,7 @@ export default ({ data }) => {
     if (!showIcon) {
       setShowIcon(true);
     }
-  });
+  }, [setShowIcon, showIcon]);
 
   const posts = get(data, "allMarkdownRemark.edges");
   const headerImage = get(data, "file.childImageSharp.fluid");
@@ -330,7 +320,7 @@ export default ({ data }) => {
           <HeaderCard disableAnimation disableHover>
             <Link to="/projects">
               <h2>
-                <span>Featured Projects</span>
+                <span>Projects</span>
               </h2>
             </Link>
           </HeaderCard>
@@ -346,9 +336,20 @@ export default ({ data }) => {
         ))}
       </ContentCard>
       <ContentCard disableAnimation disableHover>
-        <h2>Around the Web</h2>
+        <h2>me, but elsewhere</h2>
         <LinkSection
           links={pageContent.web_links.map(link => {
+            let icon = link.icon.split(" ");
+            if (icon.length === 1) icon = icon[0];
+            return {
+              ...link,
+              icon: <FontAwesomeIcon icon={icon} />,
+              hoverColor: link.color
+            };
+          })}
+        />
+        <LinkSection
+          links={pageContent.social_links.map(link => {
             let icon = link.icon.split(" ");
             if (icon.length === 1) icon = icon[0];
             return {
@@ -367,20 +368,6 @@ export default ({ data }) => {
           </h2>
         </Link>
       </EverythingCard>
-      <ContentCard disableAnimation disableHover>
-        <h2>More stuff</h2>
-        <LinkSection
-          links={pageContent.social_links.map(link => {
-            let icon = link.icon.split(" ");
-            if (icon.length === 1) icon = icon[0];
-            return {
-              ...link,
-              icon: <FontAwesomeIcon icon={icon} />,
-              hoverColor: link.color
-            };
-          })}
-        />
-      </ContentCard>
     </StyledHome>
   );
 };

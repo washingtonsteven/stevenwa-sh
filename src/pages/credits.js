@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { BOX_SHADOW, MAX_WIDTH } from "../style";
 import { Link } from "gatsby";
 
-const StyledPage = styled.div`
+export const StyledPage = styled.div`
   background-color: white;
   margin: 35px 20px;
   box-shadow: ${BOX_SHADOW};
@@ -17,7 +17,7 @@ const CreditLink = styled.a.attrs({
   rel: "noopener noreferrer"
 })``;
 
-const StyledBackLink = styled(Link)`
+export const StyledBackLink = styled(Link)`
   padding: 5px 15px;
   background-color: white;
   box-shadow: ${BOX_SHADOW};

@@ -5,7 +5,7 @@ import get from "lodash/get";
 import { Link } from "gatsby";
 import Img from "gatsby-image";
 import styled from "styled-components";
-import { LIGHT_ACCENT, BOX_SHADOW, HEADER_FONT, TEXT_COLOR } from "../style";
+import { LIGHT_ACCENT, BOX_SHADOW, HEADER_FONT } from "../style";
 import { postTypeFromPath, postTypeColors } from "../utils/utils";
 import { rhythm } from "../utils/typography";
 
@@ -93,15 +93,6 @@ class BlogList extends React.Component {
           <StyledBadge postType={postType}>
             <Link to={`/${postTypePlural}`}>{postTypePlural}</Link>
           </StyledBadge>
-          {p.node.frontmatter.featured && (
-            <StyledBadge
-              top={rhythm(1.5)}
-              textColor={TEXT_COLOR}
-              postType="featured"
-            >
-              Featured
-            </StyledBadge>
-          )}
         </div>
       </Card>
     );
