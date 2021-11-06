@@ -46,7 +46,7 @@ const StyledTemplate = styled.div`
 
   &:before {
     content: "";
-    display: block;
+    display: none; // Set this to 'block' to enable background triangle
     width: 100vh;
     min-width: 100vw;
     height: 100vh;
