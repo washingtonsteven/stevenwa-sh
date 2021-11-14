@@ -70,7 +70,7 @@ const createTypePages = ({ result, slug, reject, createPage, blogPost }) => {
     reject(result.errors);
   }
 
-  _.each(result.data.allMarkdownRemark.edges, edge => {
+  result.data.allMarkdownRemark.edges.forEach(edge => {
     createPage({
       path: `/${slug}/${edge.node.fields.post_slug}`,
       component: blogPost,
@@ -136,7 +136,7 @@ exports.createPages = ({ graphql, actions }) => {
             return [...acc, ...newTags];
           }, []);
 
-          _.each(allTags, tag => {
+          allTags.forEach(tag => {
             createPage({
               path: `/tagged/${tag}`,
               component: tagArchive,
