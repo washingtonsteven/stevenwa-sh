@@ -1,3 +1,14 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`
+});
+
+const { GH_REPO, GH_USER, GH_TOKEN, GH_BRANCH, GH_FILE_PATTERNS } = process.env;
+
+const GH_REPO_URL =
+    GH_USER && GH_TOKEN
+        ? `https://${GH_USER}:${GH_TOKEN}@github.com/${GH_REPO}`
+        : `https://github.com/${GH_REPO}`;
+
 const singular = function(str) {
   if (!str) return str;
   if (str.charAt(str.length - 1) !== "s") return str;
@@ -98,6 +109,22 @@ module.exports = {
       options: {
         modulePath: `${__dirname}/src/cms/cms.js`
       }
+    },
+    {
+      resolve: "gatsby-source-git",
+      options: {
+          name: GH_REPO,
+          remote: GH_REPO_URL,
+          branch: GH_BRANCH || "main",
+          patterns: ((patterns) => {
+              try {
+                  return JSON.parse(patterns);
+              } catch (e) {
+                  console.warn("Bad input to GH_FILE_PATTERNS", patterns);
+                  return null;
+              }
+          })(GH_FILE_PATTERNS),
+      },
     },
     {
       resolve: "gatsby-plugin-feed",
